@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Buscador";
+}
+
+<style>
+    .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        list-style: none;
+        font-size: 14px;
+        text-align: left;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        background-clip: padding-box;
+    }
+
+        .ui-autocomplete > li > div {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.42857143;
+            color: #333333;
+            white-space: nowrap;
+        }
+
+    .ui-state-hover,
+    .ui-state-active,
+    .ui-state-focus {
+        text-decoration: none;
+        color: #262626;
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+
+    .ui-helper-hidden-accessible {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+</style>
+
+
+<h2>Buscador</h2>
+
+
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="tags">Escriba el nombre del juego:</label>
+            <input type="text" class="form-control" id="tags">
+        </div>
+           
+        @*dropdown list*@
+        @*<select id="test">
+            <option value="-1">Seleccionar</option>
+            @for (int i = 0; i < @ViewBag.Lista.Count; i++)
+            {
+                <option value="@i">@ViewBag.Lista[i]</option>
+            }
+        </select>*@
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<!--autocomplete-->
+<script>
+
+
+    $(function () {
+
+        var availableTags = [
+           @foreach (var item in @ViewBag.Lista)
+           {
+               <text > { label: "@item.Item2", value: "@item.Item1" },</text>
+
+        }
+        ];
+
+        $("#tags").autocomplete({
+            source: availableTags,
+            select: function (event, ui) {
+                var id = ui.item.value;
+                var name = ui.item.label;
+                $("#tags").val(name);
+                $("#tags").attr["selec"] = id;
+                return false;
+            },
+
+            focus: function (event, ui) {
+                event.preventDefault();
+                $("#tags").val(ui.item.label);
+            }
+
+        });
+    });
+</script>
+
+
+
+
+
+<input type="button" value="SIGUIENTE!" onclick="location.href='@Url.Action("ResultadoBusqueda", "ResultadoBusqueda")?id=' + $('#tags').attr['selec']" />

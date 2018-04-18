@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Resultado";
+}
+
+<h2>Resultado de la busqueda:</h2>
+
+
+<!--funcion que saca de la url el parametro que le indiques-->
+<script>
+    function getParam(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var params = url[i].split("=");
+            if (params[0] == param)
+                return params[1];
+        }
+        return false;
+    }
+
+    if (getParam("id") != false) {       
+        document.write(decodeURI(getParam("id")));
+        //llamo a funcion que busca en la BD todas las propiedades
+    } else {
+        alert("Sin resultados");
+    }
+</script>
