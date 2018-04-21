@@ -29,7 +29,8 @@ namespace ProyectoT4.RelgasNegocio
                 //si son nulos que tire una expepcion con detalles
                 Usuario user = buscarUsuario(idUsuario, db);
                 Juego juego = BuscarJuego(idJuego, db);
-
+                
+                //si no existe en la lista
                 if (!user.buscarEnLista(idJuego, tipoLista))
                 {
                     //actualiza esto la bd? o no es necesaria ahora la lista??
@@ -43,10 +44,7 @@ namespace ProyectoT4.RelgasNegocio
             catch (Exception e)
             {       //mostrar en algun lado el error
                     Console.WriteLine( e.Message);
-            }
-            
-            
-
+            }         
         }
 
         private static Juego BuscarJuego(int idJuego, sistemaContext db)
