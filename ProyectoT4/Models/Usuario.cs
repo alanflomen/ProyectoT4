@@ -13,5 +13,28 @@ namespace ProyectoT4.Models
         public List<int> Wishlist { get; set; }
         public List<int> Libreria { get; set; }
         // public List<Operacion> operaciones { get; set; }
+
+
+        public bool buscarEnLista(int idJuego, char tipoLista)
+        {    bool esta = false;
+            switch (tipoLista)
+            {   //busca en cada lista y si lo encuentra pone esta=true
+                case 'w':
+
+                    break;
+
+                case 'j':
+                    break;
+
+                case 'l':
+                    break;
+
+                default:
+                    break;
+            }
+
+            return esta;
+        }
+        
     }
 }
