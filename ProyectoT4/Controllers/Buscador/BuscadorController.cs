@@ -22,6 +22,7 @@ namespace ProyectoT4.Controllers.Buscador
             //sc.SaveChanges();
             
             ViewBag.Lista = CrearList();
+            @ViewBag.Title = "Buscador";
             return View();
         }
 

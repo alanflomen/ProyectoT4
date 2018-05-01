@@ -66,14 +66,14 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
 -->
 
 <div class="container">
-    <h1>Escriba el nombre del juego:</h1>
+    <h2>Escriba el nombre del juego:</h2>
     <form action="../ResultadoBusqueda/ResultadoBusqueda" method="get">
         <div class="form-group">
-            <input type="text" name="id" class="form-control" id="tags">
+            <input type="text" name="id" autofocus class="form-control" id="tags">
         </div>
     </form>
 </div>
-
+ 
 
 
 <!-- mi buscador
@@ -125,4 +125,4 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
 
 
 <!--Manda el id al final de la url con:   ?id=....-->
-<input type="button" value="Buscar!" onclick="location.href='@Url.Action("ResultadoBusqueda", "ResultadoBusqueda")?id=' + $('#tags').attr['selec']" />
+<input type="button" value="Buscar!" onclick="location.href='@Url.Action("ResultadoBusqueda", "ResultadoBusqueda")?idJuego=' + $('#tags').attr['selec']" />

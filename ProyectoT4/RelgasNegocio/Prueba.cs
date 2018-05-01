@@ -8,15 +8,15 @@ namespace ProyectoT4.RelgasNegocio
 {
     public class Prueba
     {
-        public static void AgregarAWishList(int idJuego, int idUsuario, char a)
+        public static void ModificarWishList(int idJuego, int idUsuario, char action)
         {
             var db = new sistemaContext();
             var usuario = db.Usuarios.Where(j => j.Id == idUsuario).FirstOrDefault();
-            if (a.Equals('a'))
+            if (action.Equals('a'))
             {
                agregarJuego(idJuego, idUsuario, db, 'w');
             }
-            else if (a.Equals('q'))
+            else if (action.Equals('q'))
             {
                 eliminarJuego(idJuego, idUsuario, db, 'w');
             }
