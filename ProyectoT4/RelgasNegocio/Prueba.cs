@@ -1,6 +1,7 @@
 ﻿using ProyectoT4.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -8,17 +9,17 @@ namespace ProyectoT4.RelgasNegocio
 {
     public class Prueba
     {
-        public static void ModificarWishList(int idJuego, int idUsuario, char action)
+        public static void ModificarLista(int idJuego, int idUsuario, char action, char tabla)
         {
             var db = new sistemaContext();
-            var usuario = db.Usuarios.Where(j => j.Id == idUsuario).FirstOrDefault();
+            
             if (action.Equals('a'))
             {
-               agregarJuego(idJuego, idUsuario, db, 'w');
+               agregarJuego(idJuego, idUsuario, db, tabla);
             }
             else if (action.Equals('q'))
             {
-                eliminarJuego(idJuego, idUsuario, db, 'w');
+                eliminarJuego(idJuego, idUsuario, db, tabla);
             }
 
         }
@@ -32,10 +33,10 @@ namespace ProyectoT4.RelgasNegocio
                 Juego juego = BuscarJuego(idJuego, db);
 
                 //si no existe en la lista
-                if (user.buscarEnLista(idJuego, tipoLista))
+                if (buscarEnTabla(idJuego, idUsuario, tipoLista))
                 {
-                    //actualiza esto la bd? o no es necesaria ahora la lista??
-                    user.Wishlist.Remove(idJuego);
+                    eliminarDeTabla(idUsuario,idJuego,tipoLista);
+                    
                 }
                 else
                 {
@@ -58,10 +59,9 @@ namespace ProyectoT4.RelgasNegocio
                 Juego juego = BuscarJuego(idJuego, db);
                 
                 //si no existe en la lista
-                if (!user.buscarEnLista(idJuego, tipoLista))
+                if (!buscarEnTabla(idJuego, idUsuario, tipoLista))
                 {
-                    //actualiza esto la bd? o no es necesaria ahora la lista??
-                    user.Wishlist.Add(idJuego);
+                    InsertarEnTabla(idUsuario, idJuego, tipoLista);
                 } else
                 {
                     throw new Exception("El juego ya esta en la lista!");
@@ -72,6 +72,46 @@ namespace ProyectoT4.RelgasNegocio
             {       //mostrar en algun lado el error
                     Console.WriteLine( e.Message);
             }         
+        }
+
+        public static bool buscarEnTabla(int idJuego, int idUsuario, char tipoLista)
+        {   //busca en la tabla a ver si ese usuario tiene ese juego
+            bool esta = false;
+            String tabla = "";
+            switch (tipoLista)
+            {
+                case 'j':
+                    tabla = "Jugados";
+                    break;
+
+                case 'w':
+                    tabla = "DeseosPorUsuario";
+                    break;
+
+                case 'l':
+                    tabla = "Biblioteca";
+                    break;
+
+                default:
+                    break;
+            }
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cn.Open();
+            String query = "SELECT idUsuario, idJuego FROM " + tabla;
+            query += " WHERE (idUsuario='" + idUsuario + "') AND (idJuego='" + idJuego + "')";
+            cmd.CommandText = query;
+            //cmd.CommandText = "SELECT idUsuario, idJuego FROM " + tabla + " WHERE (idUsuario='" + idUsuario + "') AND (idJuego='" + idJuego+ "'))";
+            SqlDataReader dr;
+            dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                esta = true;
+            }
+            cn.Close();
+
+            return esta;
         }
 
         private static Juego BuscarJuego(int idJuego, sistemaContext db)
@@ -92,6 +132,70 @@ namespace ProyectoT4.RelgasNegocio
                 throw new Exception("El usuario no existe!");
             }
             return user;
+        }
+        private static void InsertarEnTabla(int idUsuario, int idJuego, char tipo)
+        {   //hace un insert en la respectiva tabla del idJuego y idUsuario
+            String tabla="";
+
+            switch (tipo)
+            {
+                case 'j':
+                    tabla = "Jugados";
+                    break;
+
+                case 'w':
+                    tabla = "DeseosPorUsuario";
+                    break;
+
+                case 'l':
+                    tabla = "Biblioteca";
+                    break;
+
+                default:
+                    break;
+            }
+            
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cn.Open();
+            cmd.CommandText = "Insert into "+tabla+" (IdUsuario, IdJuego) Values('"+idUsuario+"', '"+idJuego+"')";
+            cmd.ExecuteNonQuery();
+            cmd.Clone();
+            cn.Close();
+
+        }
+        private static void eliminarDeTabla(int idUsuario, int idJuego, char tipo)
+        {   //hace un insert en la respectiva tabla del idJuego y idUsuario
+            String tabla = "";
+
+            switch (tipo)
+            {
+                case 'j':
+                    tabla = "Jugados";
+                    break;
+
+                case 'w':
+                    tabla = "DeseosPorUsuario";
+                    break;
+
+                case 'l':
+                    tabla = "Biblioteca";
+                    break;
+
+                default:
+                    break;
+            }
+
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cn.Open();
+            cmd.CommandText = "Delete from " + tabla + " where idUsuario='" + idUsuario + "'and idJuego='" + idJuego + "')";
+            cmd.ExecuteNonQuery();
+            cmd.Clone();
+            cn.Close();
+
         }
     }
 }

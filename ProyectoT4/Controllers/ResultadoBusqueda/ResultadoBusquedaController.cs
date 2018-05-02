@@ -27,10 +27,9 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             var juego = db.Juegos.Where(j => j.Id == idJuego).FirstOrDefault();
             @ViewBag.Title = juego.Titulo;
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
-            //ViewBag.yaLoJugue = metodoConParametros();
-            //ViewBag.wishList = metodoConParametros();
-            //ViewBag.loQuiero = metodoConParametros();
-            ViewBag.yaLoJugue = false;
+            ViewBag.yaLoJugue = RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, 'j');
+            ViewBag.wishList =RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, 'w');
+            ViewBag.loTengo = RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, 'l');
 
             return View(juego);
         }
@@ -42,30 +41,13 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             var juego = db.Juegos.Where(j => j.Id == idJuego).FirstOrDefault();
             @ViewBag.Title = juego.Titulo;
 
-            switch (tipo)
-            {
-                case 'j':
-
-                    break;
-
-                case 'w':
-                        RelgasNegocio.Prueba.ModificarWishList(idJuego, idUsuario, action);
-                      break;
-
-                case 'l':
-
-                    break;
-
-                default:
-                    break;
-            }
-
+           
+            RelgasNegocio.Prueba.ModificarLista(idJuego, idUsuario, action, tipo);
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
-            //ViewBag.yaLoJugue = metodoConParametros();
-            //ViewBag.wishList = metodoConParametros();
-            //ViewBag.loQuiero = metodoConParametros();
-            ViewBag.yaLoJugue = true;
+            ViewBag.yaLoJugue = RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, 'j');
+            ViewBag.wishList = RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, 'w');
+            ViewBag.loTengo = RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, 'l');
 
             return View(juego);
 

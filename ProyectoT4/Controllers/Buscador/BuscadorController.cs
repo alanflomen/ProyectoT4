@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProyectoT4.Controllers.Buscador
@@ -22,6 +21,7 @@ namespace ProyectoT4.Controllers.Buscador
             //sc.SaveChanges();
             
             ViewBag.Lista = CrearList();
+            
             @ViewBag.Title = "Buscador";
             return View();
         }
@@ -43,6 +43,8 @@ namespace ProyectoT4.Controllers.Buscador
             }
             return lista;
         }
+
+        
 
     }
 
