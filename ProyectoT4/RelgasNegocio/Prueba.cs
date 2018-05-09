@@ -9,22 +9,19 @@ namespace ProyectoT4.RelgasNegocio
 {
     public class Prueba
     {
-        public static void ModificarLista(int idJuego, int idUsuario, char action, char tabla)
+       
+        public static void EliminarLista(int idJuego, int idUsuario, string tabla)
         {
             var db = new sistemaContext();
-            
-            if (action.Equals('a'))
-            {
-               agregarJuego(idJuego, idUsuario, db, tabla);
-            }
-            else if (action.Equals('q'))
-            {
-                eliminarJuego(idJuego, idUsuario, db, tabla);
-            }
-
+            eliminarJuego(idJuego, idUsuario, db, tabla);
+        }
+        public static void AgregaLista(int idJuego, int idUsuario, string tabla)
+        {
+            var db = new sistemaContext();
+            agregarJuego(idJuego, idUsuario, db, tabla);
         }
 
-        private static void eliminarJuego(int idJuego, int idUsuario, sistemaContext db, char tipoLista)
+        private static void eliminarJuego(int idJuego, int idUsuario, sistemaContext db, string tipoLista)
         {
             try
             {
@@ -35,8 +32,8 @@ namespace ProyectoT4.RelgasNegocio
                 //si no existe en la lista
                 if (buscarEnTabla(idJuego, idUsuario, tipoLista))
                 {
-                    eliminarDeTabla(idUsuario,idJuego,tipoLista);
-                    
+                    eliminarDeTabla(idUsuario, idJuego, tipoLista);
+
                 }
                 else
                 {
@@ -50,19 +47,20 @@ namespace ProyectoT4.RelgasNegocio
             }
         }
 
-        public static void agregarJuego(int idJuego, int idUsuario, sistemaContext db, char tipoLista)
+        public static void agregarJuego(int idJuego, int idUsuario, sistemaContext db, string tipoLista)
         {
             try
             {
                 //si son nulos que tire una expepcion con detalles
                 Usuario user = buscarUsuario(idUsuario, db);
                 Juego juego = BuscarJuego(idJuego, db);
-                
+
                 //si no existe en la lista
                 if (!buscarEnTabla(idJuego, idUsuario, tipoLista))
                 {
                     InsertarEnTabla(idUsuario, idJuego, tipoLista);
-                } else
+                }
+                else
                 {
                     throw new Exception("El juego ya esta en la lista!");
                 }
@@ -70,25 +68,25 @@ namespace ProyectoT4.RelgasNegocio
             }
             catch (Exception e)
             {       //mostrar en algun lado el error
-                    Console.WriteLine( e.Message);
-            }         
+                Console.WriteLine(e.Message);
+            }
         }
 
-        public static bool buscarEnTabla(int idJuego, int idUsuario, char tipoLista)
+        public static bool buscarEnTabla(int idJuego, int idUsuario, string tipoLista)
         {   //busca en la tabla a ver si ese usuario tiene ese juego
             bool esta = false;
             String tabla = "";
             switch (tipoLista)
             {
-                case 'j':
+                case "j":
                     tabla = "Jugados";
                     break;
 
-                case 'w':
+                case "w":
                     tabla = "DeseosPorUsuario";
                     break;
 
-                case 'l':
+                case "l":
                     tabla = "Biblioteca";
                     break;
 
@@ -133,65 +131,63 @@ namespace ProyectoT4.RelgasNegocio
             }
             return user;
         }
-        private static void InsertarEnTabla(int idUsuario, int idJuego, char tipo)
-        {   //hace un insert en la respectiva tabla del idJuego y idUsuario
-            String tabla="";
-
-            switch (tipo)
-            {
-                case 'j':
-                    tabla = "Jugados";
-                    break;
-
-                case 'w':
-                    tabla = "DeseosPorUsuario";
-                    break;
-
-                case 'l':
-                    tabla = "Biblioteca";
-                    break;
-
-                default:
-                    break;
-            }
-            
-            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cn.Open();
-            cmd.CommandText = "Insert into "+tabla+" (IdUsuario, IdJuego) Values('"+idUsuario+"', '"+idJuego+"')";
-            cmd.ExecuteNonQuery();
-            cmd.Clone();
-            cn.Close();
-
-        }
-        private static void eliminarDeTabla(int idUsuario, int idJuego, char tipo)
+        private static void InsertarEnTabla(int idUsuario, int idJuego, string tipo)
         {   //hace un insert en la respectiva tabla del idJuego y idUsuario
             String tabla = "";
 
             switch (tipo)
             {
-                case 'j':
+                case "j":
                     tabla = "Jugados";
                     break;
 
-                case 'w':
+                case "w":
                     tabla = "DeseosPorUsuario";
                     break;
 
-                case 'l':
+                case "l":
                     tabla = "Biblioteca";
                     break;
 
                 default:
                     break;
             }
-
-            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
             cn.Open();
-            cmd.CommandText = "Delete from " + tabla + " where idUsuario='" + idUsuario + "'and idJuego='" + idJuego + "')";
+            cmd.CommandText = "Insert into " + tabla + " (IdUsuario, IdJuego) Values('" + idUsuario + "', '" + idJuego + "')";
+            cmd.ExecuteNonQuery();
+            cmd.Clone();
+            cn.Close();
+
+        }
+        private static void eliminarDeTabla(int idUsuario, int idJuego, string tipo)
+        {   //hace un insert en la respectiva tabla del idJuego y idUsuario
+            String tabla = "";
+
+            switch (tipo)
+            {
+                case "j":
+                    tabla = "Jugados";
+                    break;
+
+                case "w":
+                    tabla = "DeseosPorUsuario";
+                    break;
+
+                case "l":
+                    tabla = "Biblioteca";
+                    break;
+
+                default:
+                    break;
+            }
+            SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cn.Open();
+            cmd.CommandText = "Delete from " + tabla + " where idUsuario='" + idUsuario + "'and idJuego='" + idJuego + "'";
             cmd.ExecuteNonQuery();
             cmd.Clone();
             cn.Close();
