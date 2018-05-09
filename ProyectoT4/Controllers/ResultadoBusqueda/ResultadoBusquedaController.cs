@@ -9,22 +9,15 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
 {
     public class ResultadoBusquedaController : Controller
     {
-        // GET: ResultadoBusqueda
-        public ActionResult ResultadoBusqueda()
-        {
-            @ViewBag.Title = "Resultado de la búsqueda";
-            return View();
-
-        }
-
-        /*Este Metodo es ejecutado por el boton submit del formulario, y captura el string que el formulario carga del usuario
+                /*Este Metodo es ejecutado por el boton submit del formulario, y captura el string que el formulario carga del usuario
                  * crea una conexion con la db y busca en la tabla Juegos el juego cuyo titulo se corresponde con el recibido por parametro
                  * y manda ese modelo a la vista*/
-        [HttpGet]
         public ActionResult ResultadoBusqueda(int idJuego)
         {
+           
+
             var db = new sistemaContext();
-            var juego = db.Juegos.Where(j => j.Id == idJuego).FirstOrDefault();
+            var juego = db.Juegos.Find(idJuego);
             @ViewBag.Title = juego.Titulo;
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
             ViewBag.yaLoJugue = RelgasNegocio.Prueba.buscarEnTabla(idJuego, 1, "j");
@@ -38,7 +31,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
         public ActionResult AgregaLista(int idJuego, int idUsuario, string tipo)
         {
             var db = new sistemaContext();
-            var juego = db.Juegos.Where(j => j.Id == idJuego).FirstOrDefault();
+            var juego = db.Juegos.Find(idJuego);
             @ViewBag.Title = juego.Titulo;
 
             RelgasNegocio.Prueba.AgregaLista(idJuego, idUsuario, tipo);
@@ -54,7 +47,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
         public ActionResult EliminarLista(int idJuego, int idUsuario, string tipo)
         {
             var db = new sistemaContext();
-            var juego = db.Juegos.Where(j => j.Id == idJuego).FirstOrDefault();
+            var juego = db.Juegos.Find(idJuego);
             @ViewBag.Title = juego.Titulo;
 
             RelgasNegocio.Prueba.EliminarLista(idJuego, idUsuario, tipo);

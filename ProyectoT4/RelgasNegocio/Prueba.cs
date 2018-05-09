@@ -75,24 +75,7 @@ namespace ProyectoT4.RelgasNegocio
         public static bool buscarEnTabla(int idJuego, int idUsuario, string tipoLista)
         {   //busca en la tabla a ver si ese usuario tiene ese juego
             bool esta = false;
-            String tabla = "";
-            switch (tipoLista)
-            {
-                case "j":
-                    tabla = "Jugados";
-                    break;
-
-                case "w":
-                    tabla = "DeseosPorUsuario";
-                    break;
-
-                case "l":
-                    tabla = "Biblioteca";
-                    break;
-
-                default:
-                    break;
-            }
+            String tabla = elegirTabla(tipoLista);
             SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
@@ -133,25 +116,7 @@ namespace ProyectoT4.RelgasNegocio
         }
         private static void InsertarEnTabla(int idUsuario, int idJuego, string tipo)
         {   //hace un insert en la respectiva tabla del idJuego y idUsuario
-            String tabla = "";
-
-            switch (tipo)
-            {
-                case "j":
-                    tabla = "Jugados";
-                    break;
-
-                case "w":
-                    tabla = "DeseosPorUsuario";
-                    break;
-
-                case "l":
-                    tabla = "Biblioteca";
-                    break;
-
-                default:
-                    break;
-            }
+            String tabla = elegirTabla(tipo);
             SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
@@ -164,8 +129,21 @@ namespace ProyectoT4.RelgasNegocio
         }
         private static void eliminarDeTabla(int idUsuario, int idJuego, string tipo)
         {   //hace un insert en la respectiva tabla del idJuego y idUsuario
-            String tabla = "";
+            String tabla = elegirTabla(tipo);            
+            SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cn.Open();
+            cmd.CommandText = "Delete from " + tabla + " where idUsuario='" + idUsuario + "'and idJuego='" + idJuego + "'";
+            cmd.ExecuteNonQuery();
+            cmd.Clone();
+            cn.Close();
 
+        }
+
+        private static string elegirTabla(string tipo)
+        {
+            string tabla="";
             switch (tipo)
             {
                 case "j":
@@ -183,15 +161,7 @@ namespace ProyectoT4.RelgasNegocio
                 default:
                     break;
             }
-            SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cn.Open();
-            cmd.CommandText = "Delete from " + tabla + " where idUsuario='" + idUsuario + "'and idJuego='" + idJuego + "'";
-            cmd.ExecuteNonQuery();
-            cmd.Clone();
-            cn.Close();
-
+            return tabla;
         }
     }
 }
