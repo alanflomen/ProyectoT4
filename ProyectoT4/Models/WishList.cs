@@ -1,19 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoT4.Models
 {
     public class WishList
     {
-        public List<Juego> Juegos { get; set; }
-        //constructor
-        public WishList()
-        {
-            this.Juegos = new List<Juego>();
-        }
-
-        public void AgregarJuego(Juego juego)
-        {
-            this.Juegos.Add(juego);
-        }
+        [Key, Column(Order = 0)]
+        public int IdUsuario { get; set; }
+        [Key, Column(Order = 1)]
+        public int IdJuego { get; set; }
     }
 }

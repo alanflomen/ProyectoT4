@@ -13,88 +13,59 @@ namespace ProyectoT4.RelgasNegocio
         public static void EliminarLista(int idJuego, int idUsuario, string tabla)
         {
             var db = new sistemaContext();
-            eliminarJuego(idJuego, idUsuario, db, tabla);
+            switch (tabla)
+            {
+                case "j":
+                    Jugados j = db.Jugados.Find(idUsuario, idJuego);
+                    if (j != null)
+                    {
+                        db.Jugados.Remove(j);
+                    }
+                    break;
+
+                case "w":
+                    WishList w = db.Wishlist.Find(idUsuario, idJuego);
+                    if (w != null)
+                    {
+                        db.Wishlist.Remove(w);
+                    }
+                    break;
+
+                case "l":
+                    Libreria l = db.Libreria.Find(idUsuario, idJuego);
+                    if (l != null)
+                    {
+                        db.Libreria.Remove(l);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            db.SaveChanges();
         }
         public static void AgregaLista(int idJuego, int idUsuario, string tabla)
         {
             var db = new sistemaContext();
-            agregarJuego(idJuego, idUsuario, db, tabla);
-        }
-
-        private static void eliminarJuego(int idJuego, int idUsuario, sistemaContext db, string tipoLista)
-        {
-            try
+            switch (tabla)
             {
-                //si son nulos que tire una expepcion con detalles
-                Usuario user = buscarUsuario(idUsuario, db);
-                Juego juego = BuscarJuego(idJuego, db);
+                case "j":
+                    db.Jugados.Add(new Jugados() {IdUsuario= idUsuario, IdJuego=idJuego });
+                    break;
 
-                //si no existe en la lista
-                if (buscarEnTabla(idJuego, idUsuario, tipoLista))
-                {
-                    eliminarDeTabla(idUsuario, idJuego, tipoLista);
+                case "w":
+                    db.Wishlist.Add(new WishList() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    break;
 
-                }
-                else
-                {
-                    throw new Exception("El juego no esta en la lista!");
-                }
+                case "l":
+                    db.Libreria.Add(new Libreria() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    break;
 
+                default:
+                    break;
             }
-            catch (Exception e)
-            {       //mostrar en algun lado el error
-                Console.WriteLine(e.Message);
-            }
+            db.SaveChanges();
         }
-
-        public static void agregarJuego(int idJuego, int idUsuario, sistemaContext db, string tipoLista)
-        {
-            try
-            {
-                //si son nulos que tire una expepcion con detalles
-                Usuario user = buscarUsuario(idUsuario, db);
-                Juego juego = BuscarJuego(idJuego, db);
-
-                //si no existe en la lista
-                if (!buscarEnTabla(idJuego, idUsuario, tipoLista))
-                {
-                    InsertarEnTabla(idUsuario, idJuego, tipoLista);
-                }
-                else
-                {
-                    throw new Exception("El juego ya esta en la lista!");
-                }
-
-            }
-            catch (Exception e)
-            {       //mostrar en algun lado el error
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public static bool buscarEnTabla(int idJuego, int idUsuario, string tipoLista)
-        {   //busca en la tabla a ver si ese usuario tiene ese juego
-            bool esta = false;
-            String tabla = elegirTabla(tipoLista);
-            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf;Integrated Security=True;Connect Timeout=30");
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cn.Open();
-            String query = "SELECT idUsuario, idJuego FROM " + tabla;
-            query += " WHERE (idUsuario='" + idUsuario + "') AND (idJuego='" + idJuego + "')";
-            cmd.CommandText = query;
-            //cmd.CommandText = "SELECT idUsuario, idJuego FROM " + tabla + " WHERE (idUsuario='" + idUsuario + "') AND (idJuego='" + idJuego+ "'))";
-            SqlDataReader dr;
-            dr = cmd.ExecuteReader();
-            if (dr.HasRows)
-            {
-                esta = true;
-            }
-            cn.Close();
-
-            return esta;
-        }
-
         private static Juego BuscarJuego(int idJuego, sistemaContext db)
         {
             var juego = db.Juegos.Where(j => j.Id == idJuego).FirstOrDefault();
@@ -114,54 +85,50 @@ namespace ProyectoT4.RelgasNegocio
             }
             return user;
         }
-        private static void InsertarEnTabla(int idUsuario, int idJuego, string tipo)
-        {   //hace un insert en la respectiva tabla del idJuego y idUsuario
-            String tabla = elegirTabla(tipo);
-            SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cn.Open();
-            cmd.CommandText = "Insert into " + tabla + " (IdUsuario, IdJuego) Values('" + idUsuario + "', '" + idJuego + "')";
-            cmd.ExecuteNonQuery();
-            cmd.Clone();
-            cn.Close();
+        
 
-        }
-        private static void eliminarDeTabla(int idUsuario, int idJuego, string tipo)
-        {   //hace un insert en la respectiva tabla del idJuego y idUsuario
-            String tabla = elegirTabla(tipo);            
-            SqlConnection cn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Alan\Desktop\workspaceT4\Proyecto\ProyectoT4\ProyectoT4\App_Data\SistemaContext.mdf; Integrated Security = True; Connect Timeout = 30");
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cn.Open();
-            cmd.CommandText = "Delete from " + tabla + " where idUsuario='" + idUsuario + "'and idJuego='" + idJuego + "'";
-            cmd.ExecuteNonQuery();
-            cmd.Clone();
-            cn.Close();
-
-        }
-
-        private static string elegirTabla(string tipo)
+        
+        public static bool viewBagJugados(int idUsuario, int idJuego)
         {
-            string tabla="";
-            switch (tipo)
+            var db = new sistemaContext();
+            bool esta = false;
+            if (db.Jugados.Find(1, idJuego) == null)
             {
-                case "j":
-                    tabla = "Jugados";
-                    break;
-
-                case "w":
-                    tabla = "DeseosPorUsuario";
-                    break;
-
-                case "l":
-                    tabla = "Biblioteca";
-                    break;
-
-                default:
-                    break;
+                esta = false;
             }
-            return tabla;
+            else
+            {
+                esta = true;
+            }
+            return esta;
+        }
+        public static bool viewBagLibreria(int idUsuario, int idJuego)
+        {
+            var db = new sistemaContext();
+            bool esta = false;
+            if (db.Libreria.Find(1, idJuego) == null)
+            {
+                esta = false;
+            }
+            else
+            {
+                esta = true;
+            }
+            return esta;
+        }
+        public static bool viewBagWishList(int idUsuario, int idJuego)
+        {
+            var db = new sistemaContext();
+            bool esta = false;
+            if (db.Wishlist.Find(1, idJuego) == null)
+            {
+                esta = false;
+            }
+            else
+            {
+                esta = true;
+            }
+            return esta;
         }
     }
 }

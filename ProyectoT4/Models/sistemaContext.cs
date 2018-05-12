@@ -10,5 +10,9 @@ namespace ProyectoT4.Models
     {
         public DbSet<Juego> Juegos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<WishList> Wishlist { get; set; }
+        public DbSet<Libreria> Libreria { get; set; }
+        public DbSet<Jugados> Jugados { get; set; }
     }
+
 }

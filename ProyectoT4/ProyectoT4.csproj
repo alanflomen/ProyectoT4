@@ -209,12 +209,15 @@
     <Compile Include="Models\Juego.cs" />
     <Compile Include="Models\Libreria.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Jugado.cs" />
+    <Compile Include="Models\Jugados.cs" />
     <Compile Include="Models\Operacion.cs" />
+    <Compile Include="Models\ResultadoBusqueda.cs" />
     <Compile Include="Models\sistemaContext.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\UsuarioMatch.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelgasNegocio\Matches.cs" />
     <Compile Include="RelgasNegocio\Prueba.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
