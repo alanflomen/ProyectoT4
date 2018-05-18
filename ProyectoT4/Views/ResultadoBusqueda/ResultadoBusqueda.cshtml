@@ -102,16 +102,22 @@
             </div>
         </div>
     </div>
-
+    <br>
+    @Html.Label("Usuarios con match: " + @Model.UsuariosMatch.Count)
+    <br>
     @{foreach (var item in Model.UsuariosMatch)
         {
-            Html.DisplayText( "Usuario:" + item.IdUsuario);
-            Html.DisplayText("Rating: " + item.rating);
-            Html.DisplayText("Juegos: ");
+            @Html.Label("Usuario: " + item.IdUsuario);
+            <br>
+            @Html.Label("Juegos: ");
+            
             foreach (var juego in item.JuegosMatch)
             {
-                Html.DisplayText("Id: " + juego);
-            }        }
+                <br>
+                @Html.Label("Id: " + juego);
+                <br>
+            }
+        }
 
     }
 
