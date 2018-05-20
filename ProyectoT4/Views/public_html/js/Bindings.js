@@ -7,7 +7,7 @@ const ShowData = function(data){
 }
 
 /**
- * 
+ * This function replaces the text in the HTML tags
  * @param {string} id 
  * @param {string} text 
  */

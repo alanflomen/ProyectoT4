@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <body class="w3-black">
         <div class="w3-display-middle w3-center w3-round-medium w3-blue-grey w3-padding">
-            <h1>Intercambio</h1>
+            <h1 id="title">Intercambio</h1>
             <div class="w3-row">
                 <div class="w3-padding w3-col m2 l2">
                     <img id="this_user_img" src="img/profiles/1.jpg" alt="Profile Image" class="w3-image w3-circle w3-hover-shadow">
@@ -32,10 +32,16 @@
                     <img id="other_user_img" src="img/profiles/2.jpg" alt="Profile Image" class="w3-image w3-circle w3-hover-shadow">                    
                     <span id="other_user_name">[nombre 2]</span>
                 </div>
-                <button class="w3-button w3-block w3-round w3-green w3-hover-pale-green w3-large w3-animate-bottom">Proponer intercambio</button>                
+                <button id="exchangeButton" class="w3-button w3-block w3-round w3-green w3-hover-pale-green w3-large w3-animate-bottom">Proponer intercambio</button>                
             </div>
             
         </div>
     </body>
 </html>
-<script src="js/pages/exchange.js"></script>
+
+<script src="js/Bindings.js"></script>
+<script src="js/Query.js"></script>
+
+<script>
+    Query('test.json');
+</script>

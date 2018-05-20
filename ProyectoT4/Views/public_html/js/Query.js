@@ -4,13 +4,11 @@
  * @param {array} params 
  * @param {boolean} isPost
  */
-const Query = function(route,params,isPost){
+const Query = function(route,params){
     if(!route) {
         console.log("Route is null, it's impossible to perform the query");
         return;
     }
-
-    isPost = isPost === undefined ? false : isPost;
 
     let request = new XMLHttpRequest();
         request.open('GET', route);
