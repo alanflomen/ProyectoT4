@@ -18,8 +18,10 @@ namespace ProyectoT4.Controllers.Buscador
             //sc.Juegos.Add(new Juego() {  Titulo = "Uncharted", Audio = "Español", Categoria = "Aventura", Rating = 9, Subtitulos = "Español", PathFoto = "https://images-na.ssl-images-amazon.com/images/I/71FH9Ghks5L._SX342_.jpg" });
             //sc.Juegos.Add(new Juego() {  Titulo = "Assassins Creed", Audio = "Ingles", Categoria = "Aventura", Rating = 10, Subtitulos = "Español", PathFoto = "https://images-na.ssl-images-amazon.com/images/I/91g0-r7lZ3L._SX342_.jpg" });
             //sc.Usuarios.Add(new Usuario());
+            //sc.Usuarios.Add(new Usuario());
+            //sc.Usuarios.Add(new Usuario());
             //sc.SaveChanges();
-            
+
             ViewBag.Lista = CrearList();
             
             @ViewBag.Title = "Buscador";
