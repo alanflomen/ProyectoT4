@@ -47,18 +47,29 @@ namespace ProyectoT4.RelgasNegocio
         public static void AgregaLista(int idJuego, int idUsuario, string tabla)
         {
             var db = new sistemaContext();
+            
             switch (tabla)
             {
                 case "j":
-                    db.Jugados.Add(new Jugados() {IdUsuario= idUsuario, IdJuego=idJuego });
+                    if(db.Jugados.Find(idUsuario, idJuego) == null)
+                    {
+                        db.Jugados.Add(new Jugados() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    }
+                    
                     break;
 
                 case "w":
-                    db.Wishlist.Add(new WishList() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    if (db.Wishlist.Find(idUsuario, idJuego) == null)
+                    {
+                        db.Wishlist.Add(new WishList() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    }
                     break;
 
                 case "l":
-                    db.Libreria.Add(new Libreria() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    if (db.Libreria.Find(idUsuario, idJuego) == null)
+                    {
+                        db.Libreria.Add(new Libreria() { IdUsuario = idUsuario, IdJuego = idJuego });
+                    }
                     break;
 
                 default:
