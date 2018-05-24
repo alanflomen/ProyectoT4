@@ -600,3 +600,7 @@ GitHub.sublime-settings
 
 # End of https://www.gitignore.io/api/csharp,aspnetcore,sublimetext,visualstudio,visualstudiocode
 >>>>>>> 9389c67c2094fa9f8cefb19ebc0bd0e1b0886eb8
+ProyectoT4/Web.config
+.vs/config/applicationhost.config
+ProyectoT4/bin/ProyectoT4.dll.config
+ProyectoT4/Web.config
