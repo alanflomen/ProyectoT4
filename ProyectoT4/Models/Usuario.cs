@@ -8,33 +8,23 @@ namespace ProyectoT4.Models
 {
     public class Usuario
     {
-        public int Id{ get; set; }
-        public List<int> Jugados { get; set; }
-        public List<int> Wishlist { get; set; }
-        public List<int> Libreria { get; set; }
+        [Key]
+        public String IdUsuario{ get; set; }
+        public String mail { get; set; }
+        public String  UrlFoto { get; set; }
+        public String Ubicacion { get; set; }
+        public float rating { get; set; }
         // public List<Operacion> operaciones { get; set; }
 
+        public Usuario() { }
 
-        public bool buscarEnLista(int idJuego, char tipoLista)
-        {    bool esta = false;
-            switch (tipoLista)
-            {   //busca en cada lista y si lo encuentra pone esta=true
-                case 'w':
-
-                    break;
-
-                case 'j':
-                    break;
-
-                case 'l':
-                    break;
-
-                default:
-                    break;
-            }
-
-            return esta;
+        public Usuario(String idUsuario, String mail, String url, String ubic)
+        {
+            this.IdUsuario = idUsuario;
+            this.mail = mail;
+            this.UrlFoto = url;
+            this.Ubicacion = ubic;
+            this.rating = 0;
         }
-        
     }
 }

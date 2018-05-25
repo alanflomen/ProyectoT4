@@ -10,17 +10,17 @@ namespace ProyectoT4.RelgasNegocio
     public class Matches
     {
 
-        public static List<UsuarioMatch> ListaMatch(int idUsuario, int idJuego)
+        public static List<UsuarioMatch> ListaMatch(String idUsuario, int idJuego)
         {
             var db = new sistemaContext();
             List<UsuarioMatch> lista = new List<UsuarioMatch>();
 
             //devuelve true si el usuario que busca tiene ese juego en su wishlist
-            var quieroEljuego = db.Wishlist.Where(o => o.IdUsuario == idUsuario && o.IdJuego == idJuego).Count() > 0;
+            var quieroEljuego = db.Wishlist.Where(o => o.IdUsuario.Equals(idUsuario) && o.IdJuego == idJuego).Count() > 0;
             if (!quieroEljuego)
                 return new List<UsuarioMatch>();
             //todos los juegos del usuario
-            var miBiblioteca = db.Libreria.Where(o => o.IdUsuario == idUsuario).Select(i => i.IdJuego).ToList();
+            var miBiblioteca = db.Libreria.Where(o => o.IdUsuario.Equals(idUsuario)).Select(i => i.IdJuego).ToList();
             //quienes lo tengan sin contar al usuario que lo busca
             var usuariosQueLoTienen = db.Libreria.Where(o => o.IdJuego == idJuego && o.IdUsuario != idUsuario).Select(i => i.IdUsuario).ToList();
             //usuariosMatchConLosJuegosQueLesInteresan
@@ -31,7 +31,7 @@ namespace ProyectoT4.RelgasNegocio
             {
                 Usuario u = new Usuario();
                 UsuarioMatch uMatch = new UsuarioMatch();
-                int idUsuarioEncontrado;
+                String idUsuarioEncontrado;
                 int idJuegoEncontrado=0;
                 idUsuarioEncontrado = uMclJqlI.ElementAt(0).IdUsuario;
                 u = db.Usuarios.Find(idUsuarioEncontrado);

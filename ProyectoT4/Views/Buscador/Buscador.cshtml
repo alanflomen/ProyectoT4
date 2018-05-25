@@ -64,9 +64,11 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
     Es decir esto llama al controller Buscador y dentro del mismo el metodo Resultado y le manda
     el value del input que identifica a partir del "name"
 -->
-
+@using Microsoft.AspNet.Identity
+Usuario:
+@User.Identity.GetUserId()
 <div class="container">
-    
+
     <h2><font color="white">Escriba el nombre del juego:</font></h2>
     <form action="../ResultadoBusqueda/ResultadoBusqueda" method="get">
         <img src="https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/33477500_10156464788733033_5347624575788122112_n.jpg?_nc_cat=0&oh=e06c72ed91988b11634da5d4851d1d83&oe=5BC3C1EA" align="right" height="300" width="400">
@@ -124,7 +126,9 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
         if (param === undefined) {
             alert("¡Error! Por favor, ingrese un nombre existente");
         } else {
-            window.location = '/ResultadoBusqueda/ResultadoBusqueda?idJuego=' + param;
+            window.location = '/ResultadoBusqueda/ResultadoBusqueda?idJuego=' + param + '&idUsuario=@User.Identity.GetUserId()';
+
         }
+
     }
 </script>

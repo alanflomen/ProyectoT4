@@ -70,7 +70,7 @@ namespace ProyectoT4.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -79,6 +79,17 @@ namespace ProyectoT4.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Ubicacion")]
+        public string Ubicacion { get; set; }
+
+        [Display(Name = "URL Foto")]
+        public string UrlFoto { get; set; }
+
+
+
+
     }
 
     public class ResetPasswordViewModel

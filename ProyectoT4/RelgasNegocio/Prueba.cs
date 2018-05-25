@@ -10,7 +10,7 @@ namespace ProyectoT4.RelgasNegocio
     public class Prueba
     {
        
-        public static void EliminarLista(int idJuego, int idUsuario, string tabla)
+        public static void EliminarLista(int idJuego, String idUsuario, string tabla)
         {
             var db = new sistemaContext();
             switch (tabla)
@@ -44,7 +44,7 @@ namespace ProyectoT4.RelgasNegocio
             }
             db.SaveChanges();
         }
-        public static void AgregaLista(int idJuego, int idUsuario, string tabla)
+        public static void AgregaLista(int idJuego, String idUsuario, string tabla)
         {
             var db = new sistemaContext();
             
@@ -89,7 +89,7 @@ namespace ProyectoT4.RelgasNegocio
 
         private static Usuario buscarUsuario(int idUsuario, sistemaContext db)
         {
-            var user = db.Usuarios.Where(j => j.Id == idUsuario).FirstOrDefault();
+            var user = db.Usuarios.Where(j => j.IdUsuario.Equals(idUsuario)).FirstOrDefault();
             if (user == null)
             {
                 throw new Exception("El usuario no existe!");
@@ -99,11 +99,11 @@ namespace ProyectoT4.RelgasNegocio
         
 
         
-        public static bool viewBagJugados(int idUsuario, int idJuego)
+        public static bool viewBagJugados(String idUsuario, int idJuego)
         {
             var db = new sistemaContext();
             bool esta = false;
-            if (db.Jugados.Find(1, idJuego) == null)
+            if (db.Jugados.Find(idUsuario, idJuego) == null)
             {
                 esta = false;
             }
@@ -113,11 +113,11 @@ namespace ProyectoT4.RelgasNegocio
             }
             return esta;
         }
-        public static bool viewBagLibreria(int idUsuario, int idJuego)
+        public static bool viewBagLibreria(String idUsuario, int idJuego)
         {
             var db = new sistemaContext();
             bool esta = false;
-            if (db.Libreria.Find(1, idJuego) == null)
+            if (db.Libreria.Find(idUsuario, idJuego) == null)
             {
                 esta = false;
             }
@@ -127,11 +127,11 @@ namespace ProyectoT4.RelgasNegocio
             }
             return esta;
         }
-        public static bool viewBagWishList(int idUsuario, int idJuego)
+        public static bool viewBagWishList(String idUsuario, int idJuego)
         {
             var db = new sistemaContext();
             bool esta = false;
-            if (db.Wishlist.Find(1, idJuego) == null)
+            if (db.Wishlist.Find(idUsuario, idJuego) == null)
             {
                 esta = false;
             }
