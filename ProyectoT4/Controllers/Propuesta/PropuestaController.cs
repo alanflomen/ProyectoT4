@@ -32,10 +32,14 @@ namespace ProyectoT4.Controllers.Propuesta
 				Juego juego2 = db.Juegos.Find(Idjuego2);
 
 				var operacion = new Operacion( jugador1,  jugador2,  juego1,  juego2);
-
 				//Guardar en la DB
+				db.Operaciones.Add(operacion);
+				db.SaveChanges();
+				
+				//Llamar a la regla de Negocio que envía mail saliente con el aviso de la propuesta
 
-				resPropuesta = "Propuesta Realizada";
+
+				resPropuesta = "Propuesta Realizada y enviada OK";
 			}
 			else
 			{

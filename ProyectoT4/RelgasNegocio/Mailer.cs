@@ -10,9 +10,9 @@ namespace ProyectoT4.RelgasNegocio
 	{
 
 		public void EnviarMail() {
-			SmtpClient smtpClient = new SmtpClient("mail.MyWebsiteDomainName.com", 25);
+			SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 465);
 
-			smtpClient.Credentials = new System.Net.NetworkCredential('info@MyWebsiteDomainName.com", "myIDPassword");
+			smtpClient.Credentials = new System.Net.NetworkCredential("insertCoin@gmail.com", "myIDPassword");
 	
 			smtpClient.UseDefaultCredentials = true;
 			smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
@@ -20,9 +20,9 @@ namespace ProyectoT4.RelgasNegocio
 			MailMessage mail = new MailMessage();
 
 			//Setting From , To and CC
-			mail.From = new MailAddress("info@MyWebsiteDomainName", "MyWeb Site");
-			mail.To.Add(new MailAddress("info@MyWebsiteDomainName"));
-			mail.CC.Add(new MailAddress("MyEmailID@gmail.com"));
+			mail.From = new MailAddress("insertCoin@gmail.com", "MyWeb Site");
+			mail.To.Add(new MailAddress("insertCoin@gmail.com"));
+			mail.CC.Add(new MailAddress("vicentini.nicolas@gmail.com"));
 
 			smtpClient.Send(mail);
 		}
