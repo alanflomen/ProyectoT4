@@ -36,8 +36,10 @@ namespace ProyectoT4.Controllers.Propuesta
 
 			if (operacionValida)
 			{
-				
+
 				//Llamar a la regla de Negocio que envía mail saliente con el aviso de la propuesta
+				Mailer mailer = new Mailer();
+				mailer.EnviarMail();
 
 				//Guardar en la DB
 				db.Operaciones.Add(operacion);
