@@ -16,5 +16,14 @@ const Replace = function(id,text){
         console.error("The id to replace is null");
         return;
     }
-    document.getElementById(id).innerText = text;
+    let htmlElement = document.getElementById(id);
+    if(htmlElement != null && htmlElement.tagName == "img")
+    {
+        htmlElement.setAttribute("src",text);
+        htmlElement.setAttribute("alt",text);
+    }
+    else if (htmlElement instanceof Array)
+        console.error("Arrays not supported yet");
+    else
+        htmlElement.innerText = text;
 }
