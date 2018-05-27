@@ -1,0 +1,42 @@
+<html>
+    <title>[juegoNombre] en [nombrePagina]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <body class="w3-black">
+        <div class="w3-display-middle w3-center w3-round-medium w3-blue-grey w3-padding w3-container">
+            <!-- <h1 id="title">Intercambio</h1> -->
+            <div class="w3-padding w3-half">
+                <img id="game_img" src="" alt="no img">
+            </div>
+            <div class="w3-padding w3-half">
+                <h2 id="game_name">[game_game]</h2>
+                <p id="game_description">[game_description] Lorem ipsum dolor sit amet</p>
+                <span id="game_stars">[stars]</span>
+                <button class="w3-margin-top w3-button w3-block w3-round w3-blue w3-hover-pale-blue w3-animate-opacity">Wanted</button>
+                <button class="w3-margin-top w3-button w3-block w3-round w3-blue w3-hover-pale-blue w3-animate-opacity">Owned</button>
+                <button class="w3-margin-top w3-button w3-block w3-round w3-blue w3-hover-pale-blue w3-animate-opacity">Played</button>
+                <hr>
+                <span id="matched_users">[matched_users]</span>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="js/Bindings.js"></script>
+<script src="js/Query.js"></script>
+
+<script>
+    // Query('test.json');
+    var testJSON = JSON.parse(
+    `{
+    "title": "Tittleeeeee",
+    "this_user_name": "Nico",
+    "this_game_name": "PES",
+    "other_game_name": "Guitar Hero",
+    "other_user_name": "Alan",
+    "exchangeButton": "Cambiar"
+    }`);
+
+    ShowData(testJSON);
+</script>

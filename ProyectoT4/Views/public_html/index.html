@@ -1,0 +1,46 @@
+<html lang="es-AR">
+    <title>Insert Coin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2fce4c">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <body class="w3-dark-gray">
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-bar-block w3-collapse w3-card-2 w3-animate-left w3-black" style="width:200px;" id="sidebar">
+            <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
+            <div class="w3-center">
+                <img src="img/logo.jpg" width="150px" height="auto" class="w3-margin">
+            </div>
+            <!-- <hr> -->
+            <script src="js/cardsScripts.js"></script>
+            <script src="js/navbar.js"></script>
+        </div>
+
+        <!-- Page Content -->
+        <div class="w3-main" style="margin-left:200px">
+            <!-- Header -->
+            <div class="w3-blue-gray w3-container">
+                <h2 class="w3-margin-top w3-margin-bottom w3-cell-middle">
+                    <button class="w3-button w3-blue-gray w3-xlarge w3-hide-large w3-circle" onclick="w3_open()">&#9776;</button>
+                    <!-- <strong class="w3-cell-middle">Insert Coin</strong> -->
+                    <input type="search" id="search" placeholder="🔍 Look for a game" class="w3-border-0 w3-xlarge w3-round-medium w3-block" style="max-width: 350px;">
+                </h2>
+            </div>
+
+            <!-- Cards -->
+            <div class="w3-margin-bottom">
+                <script src="js/cardsDivs.js"></script>
+            </div>
+
+            <footer class="w3-margin-top">
+                <h6 class="w3-center">Insert Coin - Instituto Tecnol&oacute;gico ORT</h6>
+            </footer>
+
+        </div>
+
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/swipe.js"></script>
+        <script type="text/javascript" src="js/navigation.js"></script>        
+    </body>
+</html>
