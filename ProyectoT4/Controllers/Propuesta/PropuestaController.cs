@@ -11,7 +11,7 @@ namespace ProyectoT4.Controllers.Propuesta
     public class PropuestaController : Controller
     {
         // GET: Propuesta
-        public ActionResult RealizarPropuesta( int Idjuego1, int Idjuego2, string IdUsuario1,string IdUsuario2, string textoOpcional)
+        public ActionResult RealizarPropuesta(int Idjuego1, int Idjuego2, string IdUsuario1,string IdUsuario2, string textoOpcional)
         {
 			//Mensaje de resultado de Realizar propueta
 			string resPropuesta = "";
@@ -19,25 +19,29 @@ namespace ProyectoT4.Controllers.Propuesta
 			//Realizamos Validaciones en RN
 			ValidacionOperacion validacion = new ValidacionOperacion();
 			bool operacionValida = validacion.ValidarOperacion(Idjuego1, Idjuego2, IdUsuario1, IdUsuario2, textoOpcional);
-		
+
+
+			//Contruir la Operacion
+
+			sistemaContext db = new sistemaContext();
+			Usuario jugador1 = db.Usuarios.Find(IdUsuario1);
+			Usuario jugador2 = db.Usuarios.Find(IdUsuario2);
+			Juego juego1 = db.Juegos.Find(Idjuego1);
+			Juego juego2 = db.Juegos.Find(Idjuego2);
+
+			var operacion = new Operacion(jugador1, jugador2, juego1, juego2);
+			
+
+			
 
 			if (operacionValida)
 			{
-				//Contruir la Operacion
-
-				sistemaContext db = new sistemaContext();
-				Usuario jugador1 = db.Usuarios.Find(IdUsuario1);
-				Usuario jugador2 = db.Usuarios.Find(IdUsuario2);
-				Juego juego1 = db.Juegos.Find(Idjuego1);
-				Juego juego2 = db.Juegos.Find(Idjuego2);
-
-				var operacion = new Operacion( jugador1,  jugador2,  juego1,  juego2);
-				//Guardar en la DB
-				db.Operaciones.Add(operacion);
-				db.SaveChanges();
 				
 				//Llamar a la regla de Negocio que envía mail saliente con el aviso de la propuesta
 
+				//Guardar en la DB
+				db.Operaciones.Add(operacion);
+				db.SaveChanges();
 
 				resPropuesta = "Propuesta Realizada y enviada OK";
 			}
@@ -45,8 +49,8 @@ namespace ProyectoT4.Controllers.Propuesta
 			{
 				resPropuesta = "Propuesta Invalida";
 			}
-			
-            return View("../ResultadoBusqueda/ResultadoBusqueda", resPropuesta);
+			@ViewBag.Mensaje = resPropuesta;
+            return View(operacion);
         }
     }
 }

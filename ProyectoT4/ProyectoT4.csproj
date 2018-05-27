@@ -291,11 +291,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Buscador\Buscador.cshtml" />
     <Content Include="Views\ResultadoBusqueda\ResultadoBusqueda.cshtml" />
+    <Content Include="Views\Propuesta\RealizarPropuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AccesoDatos\" />
     <Folder Include="Models\Buscador\" />
-    <Folder Include="Views\Propuesta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
