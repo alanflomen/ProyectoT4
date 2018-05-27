@@ -29,7 +29,7 @@ function handleTouchMove(evt) {
             w3_close();
         } else {
             /* right swipe */
-            //w3_open();
+            w3_open();
         }                       
     } else {
         if ( yDiff > 0 ) {
