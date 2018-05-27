@@ -45,8 +45,8 @@ namespace ProyectoT4.Controllers.Propuesta
 			{
 				resPropuesta = "Propuesta Invalida";
 			}
-
-            return View(resPropuesta);
+			
+            return View("../ResultadoBusqueda/ResultadoBusqueda", resPropuesta);
         }
     }
 }

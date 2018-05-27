@@ -10,7 +10,7 @@ namespace ProyectoT4.RelgasNegocio
 	{
 		public bool ValidarOperacion(int Idjuego1, int Idjuego2, string IdUsuario1, string IdUsuario2, string textoOpcional)
 		{
-			bool OpValida = false;
+			bool OpValida = true;
 			//sistemaContext db = new sistemaContext();
 
 			//validar que usuario 1 aún tenga el juego1 en su Wishlist y el Juego2 en su biblioteca
@@ -20,9 +20,9 @@ namespace ProyectoT4.RelgasNegocio
 			
 
 			//Validar que en el textoOpcional no se utilicen palabrotas
-			if (!textoOpcional.Contains("Puto"))
+			if (textoOpcional.Contains("Puto") || textoOpcional == null)
 			{
-				OpValida = true;
+				OpValida = false;
 			}
 			
 			return OpValida;
