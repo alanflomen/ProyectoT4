@@ -3,7 +3,8 @@ var cards = [
     "myGames",
     "myWishlist",
     null,
-    "proposals",   
+    "messages",  
+    "proposal", 
     "search",
     null,
     "settings"
