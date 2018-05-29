@@ -9,6 +9,6 @@ namespace ProyectoT4.Models
     {
         public Juego JuegoBuscado { get; set; }
         public String IdUsuario { get; set; }
-        public List<UsuarioMatch> UsuariosMatch { get; set; }
+        public List<JuegosMatch> JuegosMatch { get; set; }
     }
 }

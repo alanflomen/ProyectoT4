@@ -39,13 +39,13 @@
                                 <div class="stars">
                                     Rating:
                                     @{
-                                        if (Model != null)
-                                        {
-                                            for (int i = 0; i < Model.JuegoBuscado.Rating / 2; i++)
-                                            {<span class="fa fa-star checked"></span>
-                                            }
+                if (Model != null)
+                {
+                    for (int i = 0; i < Model.JuegoBuscado.Rating / 2; i++)
+                    {<span class="fa fa-star checked"></span>
+}
 
-                                        }
+}
 
                                     }
                                 </div>
@@ -63,43 +63,47 @@
                             <strong>
                                 <span class="size" data-toggle="tooltip" title="categoria">@Html.DisplayFor(modelitem => modelitem.JuegoBuscado.Categoria)</span>
                             </strong>
+                            <BR>
+                            Plataforma:<strong>
+                                <span class="size" data-toggle="tooltip" title="Subtitulos">@Html.DisplayFor(modelitem => modelitem.JuegoBuscado.Plataforma)</span>
+                            </strong>
                             <br>
                             <br>
                             <div class="action">
                                 @{//si esta en la lista de jugados, muestra otro boton
-                                    if (wishList == false)
-                                    {
-                                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Lo quiero!</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Remover de Lo quiero!</button>
-                                    }
+            if (wishList == false)
+            {
+                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Lo quiero!</button>
+}
+else
+{
+                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Remover de Lo quiero!</button>
+}
                                 }
 
                                 <br>
 
                                 @{
-                                    if (loTengo == false)
-                                    {
-                                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Lo tengo para cambiar</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Remover de Lo tengo para cambiar</button>
-                                    }
+            if (loTengo == false)
+            {
+                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Lo tengo para cambiar</button>
+}
+else
+{
+                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Remover de Lo tengo para cambiar</button>
+}
                                 }
                                 <br>
 
                                 @{ //si esta en la lista de jugados, muestra otro boton
-                                    if (yaLoJugue == false)
-                                    {
-                                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Ya lo jugué</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Remover de Ya lo jugué</button>
-                                    }
+            if (yaLoJugue == false)
+            {
+                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Ya lo jugué</button>
+}
+else
+{
+                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Remover de Ya lo jugué</button>
+}
                                 }
                             </div>
                         </div>
@@ -108,18 +112,20 @@
             </div>
         </div>
         <br>
-        @Html.Label("Usuarios con match: " + @Model.UsuariosMatch.Count)
+        @Html.Label("Juegos con match: " + @Model.JuegosMatch.Count)
         <br>
-        @{foreach (var item in Model.UsuariosMatch)
+        @{foreach (var juego in Model.JuegosMatch)
             {
-                @Html.Label("Usuario: " + item.IdUsuario);
+                @Html.Label("IdJuego: " + juego.IdJuego);
                 <br>
-                @Html.Label("IdJuego mios que quiere: ");
+                @Html.Label("Titulo: " + juego.Titulo);
+                <br>
+                @Html.Label("Usuarios que quieren ese juego: ");
 
-                foreach (var juego in item.JuegosMatch)
+                foreach (var user in juego.UsuariosMatch)
                 {
                     <br>
-                    @Html.Label("Id: " + juego);
+                    @Html.Label("IdUsuario: " + user.IdUsuario);
                 }
                 <br>
                 <br>

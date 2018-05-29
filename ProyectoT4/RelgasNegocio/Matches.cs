@@ -10,54 +10,50 @@ namespace ProyectoT4.RelgasNegocio
     public class Matches
     {
 
-        public static List<UsuarioMatch> ListaMatch(String idUsuario, int idJuego)
+        public static List<JuegosMatch> ListaMatch(String idUsuario, int idJuego)
         {
             var db = new sistemaContext();
-            List<UsuarioMatch> lista = new List<UsuarioMatch>();
+            List<JuegosMatch> lista = new List<JuegosMatch>();
 
             //devuelve true si el usuario que busca tiene ese juego en su wishlist
             var quieroEljuego = db.Wishlist.Where(o => o.IdUsuario.Equals(idUsuario) && o.IdJuego == idJuego).Count() > 0;
             if (!quieroEljuego)
-                return new List<UsuarioMatch>();
+                return new List<JuegosMatch>();
             //todos los juegos del usuario
             var miBiblioteca = db.Libreria.Where(o => o.IdUsuario.Equals(idUsuario)).Select(i => i.IdJuego).ToList();
             //quienes lo tengan sin contar al usuario que lo busca
             var usuariosQueLoTienen = db.Libreria.Where(o => o.IdJuego == idJuego && o.IdUsuario != idUsuario).Select(i => i.IdUsuario).ToList();
             //usuariosMatchConLosJuegosQueLesInteresan
-            var uMclJqlI = db.Wishlist.Where(o => miBiblioteca.Contains(o.IdJuego) && usuariosQueLoTienen.Contains(o.IdUsuario)).ToList();
+            var uMclJqlI = db.Wishlist.Where(o => miBiblioteca.Contains(o.IdJuego) && usuariosQueLoTienen.Contains(o.IdUsuario)).OrderBy(o => o.IdJuego).ToList();
 
 
             if (uMclJqlI.Count > 0)
             {
                 Usuario u = new Usuario();
-                UsuarioMatch uMatch = new UsuarioMatch();
+                Juego j = db.Juegos.Find(uMclJqlI.ElementAt(0).IdJuego);
+                JuegosMatch uMatch = new JuegosMatch(j.Id, j.Rating, j.Titulo);
                 String idUsuarioEncontrado;
-                int idJuegoEncontrado=0;
-                idUsuarioEncontrado = uMclJqlI.ElementAt(0).IdUsuario;
-                u = db.Usuarios.Find(idUsuarioEncontrado);
-                uMatch.IdUsuario = idUsuarioEncontrado;
+                int idJuegoEncontrado= j.Id;
+                
 
                 foreach (var item in uMclJqlI)
                 {
-                    if (idUsuarioEncontrado == item.IdUsuario)
+                    if (idJuegoEncontrado == item.IdJuego)
                     {
-                        idJuegoEncontrado = item.IdJuego;                        
-                        //uMatch.rating = u.rating;
-                        //uMatch.url = u.url;
-                        uMatch.JuegosMatch.Add(idJuegoEncontrado);
+                        idUsuarioEncontrado = item.IdUsuario;
+                        u = db.Usuarios.Find(idUsuarioEncontrado);
+                        uMatch.UsuariosMatch.Add(u);
                     }
                     else
                     {
                         lista.Add(uMatch);
                         idUsuarioEncontrado = item.IdUsuario;
                         idJuegoEncontrado = item.IdJuego;
+                        j = db.Juegos.Find(idJuegoEncontrado);
                         u = new Usuario();
                         u = db.Usuarios.Find(idUsuarioEncontrado);
-                        uMatch = new UsuarioMatch();                        
-                        uMatch.IdUsuario = idUsuarioEncontrado;
-                        //uMatch.rating = u.rating;
-                        //uMatch.url = u.url;
-                        uMatch.JuegosMatch.Add(idJuegoEncontrado);
+                        uMatch = new JuegosMatch(j.Id, j.Rating, j.Titulo);
+                        uMatch.UsuariosMatch.Add(u);
 
                     }
                     //si solo hay un resultado, entra aca

@@ -24,7 +24,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             
             res.IdUsuario = idUsuario;
             //metodo que matchea y crea los usuarios matcheados con sus juegos, y me devuelve la lista
-            res.UsuariosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
+            res.JuegosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas          
             ViewBag.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
@@ -47,7 +47,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             RelgasNegocio.Prueba.AgregaLista(idJuego, idUsuario, tipo);
 
             //metodo que matchea y crea los usuarios matcheados con sus juegos
-            res.UsuariosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
+            res.JuegosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
 
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
@@ -71,7 +71,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             RelgasNegocio.Prueba.EliminarLista(idJuego, idUsuario, tipo);
 
             //metodo que matchea y crea los usuarios matcheados con sus juegos
-            res.UsuariosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
+            res.JuegosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
             ViewBag.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);

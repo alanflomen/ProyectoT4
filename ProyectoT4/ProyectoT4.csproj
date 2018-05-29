@@ -215,7 +215,7 @@
     <Compile Include="Models\ResultadoBusqueda.cs" />
     <Compile Include="Models\sistemaContext.cs" />
     <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\UsuarioMatch.cs" />
+    <Compile Include="Models\JuegosMatch.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelgasNegocio\Mailer.cs" />
