@@ -1,4 +1,4 @@
-var sadAJAX = "<h1>System loading</h1><h2>Please wait a moment and refresh the tab.</h2>";
+var sadAJAX = "<h1>Something went wrong</h1><h2>Please wait a moment and refresh the tab.</h2>";
 
 function w3_open() {
     document.getElementById("sidebar").style.display = "block";
@@ -47,15 +47,15 @@ function loadHelp(item){
 
 function navigateToCard(destination){
     loadCard(destination);
-    loadHelp(destination);
+    // loadHelp(destination);
     cards.forEach(function(item,index){
         if(item == destination){
             document.getElementById(item + "Container").classList.remove("w3-hide");
-            document.getElementById(item + "ContainerHelp").classList.remove("w3-hide");
+            // document.getElementById(item + "ContainerHelp").classList.remove("w3-hide");
         }
         else if(item != null){
             document.getElementById(item + "Container").classList.add("w3-hide");
-            document.getElementById(item + "ContainerHelp").classList.add("w3-hide");
+            // document.getElementById(item + "ContainerHelp").classList.add("w3-hide");
         }
     });
     
@@ -63,4 +63,5 @@ function navigateToCard(destination){
 }
 
 // Initial card
-navigateToCard(cards[0]);
+// navigateToCard(cards[0]);
+navigateToCard(cards['detail']);
