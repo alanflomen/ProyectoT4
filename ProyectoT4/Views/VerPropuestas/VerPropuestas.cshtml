@@ -1,0 +1,73 @@
+﻿
+@model ProyectoT4.Models.ContenedorPropuesta
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerPropuestas</title>
+</head>
+<body>
+    Propuestas enviadas: @Model.Enviadas.Count
+    <br>
+    @{
+        foreach (var prop in Model.Enviadas)
+        {
+            @Html.Label("Operacion:");
+            <br>
+            @Html.Label("IdOperacion: " + prop.oper.IdOperacion);
+            <br>
+            @Html.Label("IdUsuarioEnvia: " + prop.usuario1.IdUsuario);
+            <br>
+            @Html.Label("IdUsuarioRecibe: " + prop.usuario2.IdUsuario);
+            <br>
+            @Html.Label("IdJuegoBuscado: " + prop.Juegos[0].Titulo);
+            <br>
+            @Html.Label("IdJuegoOfrecido1: " + prop.Juegos[1].Titulo);
+            <br>
+            if (prop.Juegos[2] != null)
+            {
+                @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[2].Titulo);
+                <br>
+            }
+            if (prop.Juegos[3] != null)
+            {
+                @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[3].Titulo);
+                <br>
+            }
+        }
+    }
+    <br>
+    Propuestas recibidas:  @Model.Recibidas.Count
+    <br>
+    @{
+        foreach (var prop in Model.Recibidas)
+
+        {
+            @Html.Label("Operacion:");
+            <br>
+            @Html.Label("IdOperacion: " + prop.oper.IdOperacion);
+            <br>
+            @Html.Label("IdUsuarioEnvia: " + prop.usuario1.IdUsuario);
+            <br>
+            @Html.Label("IdUsuarioRecibe: " + prop.usuario2.IdUsuario);
+            <br>
+            @Html.Label("IdJuegoBuscado: " + prop.Juegos[0].Titulo);
+            <br>
+            @Html.Label("IdJuegoOfrecido1: " + prop.Juegos[1].Titulo);
+            <br>
+            if (prop.Juegos[2] != null)
+            {
+                @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[2].Titulo);
+                <br>
+            }
+            if (prop.Juegos[3] != null)
+            {
+                @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[3].Titulo);
+                <br>
+            }
+        }
+    }
+
+</body>
+</html>

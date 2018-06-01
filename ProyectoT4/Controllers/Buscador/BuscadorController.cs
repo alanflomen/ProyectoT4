@@ -17,13 +17,15 @@ namespace ProyectoT4.Controllers.Buscador
             //sc.Juegos.Add(new Juego() { Titulo = "Far Cry 5", Audio = "Ingles", Categoria = "Accion", Rating = 8, Subtitulos = "Español", PathFoto = "https://images-na.ssl-images-amazon.com/images/I/91q2-WeJxBL._SX342_.jpg", Plataforma = "PS4" });
             //sc.Juegos.Add(new Juego() { Titulo = "Uncharted", Audio = "Español", Categoria = "Aventura", Rating = 9, Subtitulos = "Español", PathFoto = "https://images-na.ssl-images-amazon.com/images/I/71FH9Ghks5L._SX342_.jpg", Plataforma = "PS4" });
             //sc.Juegos.Add(new Juego() { Titulo = "Assassins Creed", Audio = "Ingles", Categoria = "Aventura", Rating = 10, Subtitulos = "Español", PathFoto = "https://images-na.ssl-images-amazon.com/images/I/91g0-r7lZ3L._SX342_.jpg", Plataforma = "PS4" });
-            ////sc.Usuarios.Add(new Usuario());
-            ////sc.Usuarios.Add(new Usuario());
-            ////sc.Usuarios.Add(new Usuario());
+            //// para testear: los usuarios hay que agregarlos a mano porque el ID cambia 
+            //// cada vez que se registra uno nuevo                       
+            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 2, 1, "Enviada"));
+            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 3, 4, "Enviada"));
+            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 4, 2, "Recibida"));
             //sc.SaveChanges();
 
-            ViewBag.Lista = CrearList();
-            
+
+            ViewBag.Lista = CrearList();            
             @ViewBag.Title = "Buscador";
             return View();
         }

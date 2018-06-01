@@ -24,12 +24,12 @@ namespace ProyectoT4.Controllers.Propuesta
 			//Contruir la Operacion
 
 			sistemaContext db = new sistemaContext();
-			Usuario jugador1 = db.Usuarios.Find(IdUsuario1);
-			Usuario jugador2 = db.Usuarios.Find(IdUsuario2);
-			Juego juego1 = db.Juegos.Find(Idjuego1);
-			Juego juego2 = db.Juegos.Find(Idjuego2);
+			String jugador1 = db.Usuarios.Find(IdUsuario1).IdUsuario;
+            String jugador2 = db.Usuarios.Find(IdUsuario2).IdUsuario;
+			int juego1 = db.Juegos.Find(Idjuego1).Id;
+			int juego2 = db.Juegos.Find(Idjuego2).Id;
 
-			var operacion = new Operacion(jugador1, jugador2, juego1, juego2);
+			var operacion = new Operacion(jugador1, jugador2, juego1, juego2, "enviada");
 			
 
 			

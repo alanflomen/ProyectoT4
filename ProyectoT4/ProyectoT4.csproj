@@ -191,6 +191,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccesoDatos\ArmadorDePropuestas.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -202,16 +203,19 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Propuesta\PropuestaController.cs" />
     <Compile Include="Controllers\ResultadoBusqueda\ResultadoBusquedaController.cs" />
+    <Compile Include="Controllers\VerPropuestas\VerPropuestasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContenedorPropuesta.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Juego.cs" />
     <Compile Include="Models\Libreria.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Jugados.cs" />
     <Compile Include="Models\Operacion.cs" />
+    <Compile Include="Models\ModeloPropuesta.cs" />
     <Compile Include="Models\ResultadoBusqueda.cs" />
     <Compile Include="Models\sistemaContext.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -292,9 +296,9 @@
     <Content Include="Views\Buscador\Buscador.cshtml" />
     <Content Include="Views\ResultadoBusqueda\ResultadoBusqueda.cshtml" />
     <Content Include="Views\Propuesta\RealizarPropuesta.cshtml" />
+    <Content Include="Views\VerPropuestas\VerPropuestas.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AccesoDatos\" />
     <Folder Include="Models\Buscador\" />
   </ItemGroup>
   <ItemGroup>
