@@ -1,7 +1,3 @@
-/**
- * 
- * @param {Array} data 
- */
 const ShowData = function(data){
     for(var property in data) { 
         // console.log(property);

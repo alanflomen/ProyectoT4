@@ -5,7 +5,6 @@ var cards = [
     null,
     "messages",  
     "proposal", 
-    "detail",
     "search",
     null,
     "settings"
