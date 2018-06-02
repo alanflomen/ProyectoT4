@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ArmadorDePropuestas.cs" />
+    <Compile Include="AccesoDatos\ArmadorSinLogin.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Propuesta\PropuestaController.cs" />
     <Compile Include="Controllers\ResultadoBusqueda\ResultadoBusquedaController.cs" />
+    <Compile Include="Controllers\ResultadoSinLogin\ResultadoSinLoginController.cs" />
     <Compile Include="Controllers\VerPropuestas\VerPropuestasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,6 +299,7 @@
     <Content Include="Views\ResultadoBusqueda\ResultadoBusqueda.cshtml" />
     <Content Include="Views\Propuesta\RealizarPropuesta.cshtml" />
     <Content Include="Views\VerPropuestas\VerPropuestas.cshtml" />
+    <Content Include="Views\ResultadoSinLogin\ResultadoSinLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Buscador\" />

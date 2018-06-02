@@ -1,0 +1,31 @@
+﻿
+@model ProyectoT4.Models.JuegosMatch
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ResultadoSinLogin</title>
+</head>
+<body>
+    Si estuvieses registrado podrias cambiar:
+    <br />
+    @Html.Label("IdJuego: " + Model.IdJuego)
+    <br />
+    @Html.Label("Titulo: " + Model.Titulo)
+    <br />
+    @Html.Label("Usuarios que lo tienen: " + Model.UsuariosMatch.Count)
+    <br />
+    @{ if (Model.UsuariosMatch.Count != 0)
+        {
+            foreach (var user in Model.UsuariosMatch)
+            {
+                @Html.Label("idUsuario: " + user.IdUsuario)
+                <br />
+            }
+        }
+
+    }
+</body>
+</html>

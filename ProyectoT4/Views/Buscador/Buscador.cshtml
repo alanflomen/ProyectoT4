@@ -133,3 +133,15 @@ Usuario:
     }
 </script>
 <button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver Propuestas...</button>
+<script>
+    function sinLogin(param) {
+        if (param === undefined) {
+            alert("¡Error! Por favor, ingrese un nombre existente");
+        } else {
+            window.location = '/ResultadoSinLogin/ResultadoSinLogin?idJuego=' + param;
+
+        }
+
+    }
+</script>
+<input type="button" value="Sin login" onclick=sinLogin($('#tags').attr['selec']) />
