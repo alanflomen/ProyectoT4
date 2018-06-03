@@ -22,7 +22,6 @@ var scriptsManager = {
     }
 };
 
-
 /**
  * Creates a new CardScript
  * @param {String} name

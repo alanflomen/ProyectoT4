@@ -45,6 +45,10 @@ function loadHelp(item){
     client.send();
 }
 
+/**
+ * 
+ * @param {String} destination 
+ */
 function navigateToCard(destination){
     loadCard(destination);
     // loadHelp(destination);
@@ -64,4 +68,4 @@ function navigateToCard(destination){
 
 // Initial card
 // navigateToCard(cards[0]);
-navigateToCard(cards['detail']);
+navigateToCard('detail');

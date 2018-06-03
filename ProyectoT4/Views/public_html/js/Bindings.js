@@ -45,3 +45,31 @@ const Replace = function(id,text){
     else
         htmlElement.innerText = text;
 }
+
+/**
+ * @function
+ * @param {*} values
+ * @param {String} apiURL
+ * @param {Function} callback
+ */
+const sendToServer = function(values,apiURL, callback)
+{
+    if(!values || !apiURL){
+        console.error("Not enough parameters to execute");
+        return;
+    }
+    let responseQuery = $.param(values);
+    console.log(responseQuery);
+    
+    client.open('POST', apiURL + '?' + responseQuery);
+    client.onreadystatechange = function() {
+        console.log("Received info");
+        // document.getElementById('network_loadingCircle').classList.add('w3-hide');
+        // scriptsManager.network.loadInfo();
+        if(this.readyState == 4 && this.status == 200)
+            if(callback) callback();
+        else
+            console.error("Something went wrong, check your connection");
+    };
+    client.send();
+}
