@@ -27,9 +27,9 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             res.JuegosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas          
-            ViewBag.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
-            ViewBag.loTengo = RelgasNegocio.Prueba.viewBagLibreria(idUsuario, idJuego);
-            ViewBag.wishList = RelgasNegocio.Prueba.viewBagWishList(idUsuario, idJuego);
+            res.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
+            res.loTengo = RelgasNegocio.Prueba.viewBagLibreria(idUsuario, idJuego);
+            res.wishList = RelgasNegocio.Prueba.viewBagWishList(idUsuario, idJuego);
 
             return View(res);
         }
@@ -51,9 +51,9 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
 
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
-            ViewBag.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
-            ViewBag.loTengo = RelgasNegocio.Prueba.viewBagLibreria(idUsuario, idJuego);
-            ViewBag.wishList = RelgasNegocio.Prueba.viewBagWishList(idUsuario, idJuego);
+            res.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
+            res.loTengo = RelgasNegocio.Prueba.viewBagLibreria(idUsuario, idJuego);
+            res.wishList = RelgasNegocio.Prueba.viewBagWishList(idUsuario, idJuego);
 
             return View("ResultadoBusqueda", res);
 
@@ -74,9 +74,9 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             res.JuegosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
 
             //Con el IdUsuario, busco si ya tengo ese juego en cada una de las listas
-            ViewBag.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
-            ViewBag.loTengo = RelgasNegocio.Prueba.viewBagLibreria(idUsuario, idJuego);
-            ViewBag.wishList = RelgasNegocio.Prueba.viewBagWishList(idUsuario, idJuego);
+            res.yaLoJugue = RelgasNegocio.Prueba.viewBagJugados(idUsuario, idJuego);
+            res.loTengo = RelgasNegocio.Prueba.viewBagLibreria(idUsuario, idJuego);
+            res.wishList = RelgasNegocio.Prueba.viewBagWishList(idUsuario, idJuego);
 
             return View("ResultadoBusqueda", res);
 
