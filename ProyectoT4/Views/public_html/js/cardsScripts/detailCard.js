@@ -23,7 +23,7 @@ scriptsManager.detail = {
                 idUsuario: scriptsManager.detail.currentGame.IdUsuario,
                 tipo: scriptsManager.detail.apiConsts.typeHas
             },
-            currentGame.wishlist ? scriptsManager.detail.apiConsts.deleteFromList : scriptsManager.detail.apiConsts.addToList);
+            currentGame.loTengo ? scriptsManager.detail.apiConsts.deleteFromList : scriptsManager.detail.apiConsts.addToList);
     },
     addToPlayed: function(){
         sendToServer(
@@ -32,7 +32,7 @@ scriptsManager.detail = {
                 idUsuario: scriptsManager.detail.currentGame.IdUsuario,
                 tipo: scriptsManager.detail.apiConsts.typePlayed
             },
-            currentGame.wishlist ? scriptsManager.detail.apiConsts.deleteFromList : scriptsManager.detail.apiConsts.addToList);
+            currentGame.yaLoJugue ? scriptsManager.detail.apiConsts.deleteFromList : scriptsManager.detail.apiConsts.addToList);
     }
 }
 
