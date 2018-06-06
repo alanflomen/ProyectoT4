@@ -8,38 +8,41 @@ namespace ProyectoT4.RelgasNegocio
 {
 	public class Mailer
 	{
+		string _sender = "";
+		string _password = "";
+		public Mailer(string sender, string password)
+		{
+			_sender = sender;
+			_password = password;
+		}
 
-		public void EnviarMail() {
-			SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+		public void EnviarMail(string recipient, string subject, string message) {
 
-			smtpClient.Credentials = new System.Net.NetworkCredential("insertcoin.proyectot4@gmail.com", "proyectot4");
-	
-			smtpClient.UseDefaultCredentials = true;
-			smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-			smtpClient.EnableSsl = true;
-			MailMessage mail = new MailMessage() ;
+			SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+			client.Port = 587;
+			client.DeliveryMethod = SmtpDeliveryMethod.Network;
+			client.UseDefaultCredentials = false;
+			System.Net.NetworkCredential credentials =
+				new System.Net.NetworkCredential(_sender, _password);
+			client.EnableSsl = true;
+			client.Credentials = credentials;
+
+			try
+			{
+				var mail = new MailMessage(_sender.Trim(), recipient.Trim());
+				mail.Subject = subject;
+				mail.Body = message;
+				client.Send(mail);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				throw ex;
+			}
+
+
 			
-			
-			//Setting From , To and CC
-			mail.From = new MailAddress("insertcoin.proyectot4@gmail.com", "InsertCoin");
-			mail.To.Add(new MailAddress("insertcoin.proyectot4@gmail.com"));
-			//mail.CC.Add(new MailAddress("vicentini.nicolas@gmail.com"));
-
-
-			smtpClient.Send(mail);
-
-			//try
-			//{
-			//	smtpClient.Send(mail);
-			//}
-			//catch (Exception ex)
-			//{
-			//	throw new Exception("No se ha podido enviar el email", ex.InnerException);
-			//}
-			//finally
-			//{
-			//	smtpClient.Dispose();
-			//}
 			
 		}
 	}

@@ -21,15 +21,15 @@ namespace ProyectoT4.Models
         public String Estado { get; set; }
 
         //constructor parametrizado
-        public Operacion(String usuarioEnvia, String usuarioRecibe, int juegoBuscado, int juegoOfrecido1, String estado)
+        public Operacion(String usuarioEnvia, String usuarioRecibe, int juegoBuscado, int juegoOfrecido1, int juegoOfrecido2, int juegoOfrecido3, String estado)
         {
             this.UsuarioEnvia = usuarioEnvia;
             this.UsuarioRecibe = usuarioRecibe;
             this.Fecha = DateTime.Now;
             this.JuegoBuscado = juegoBuscado;
             this.JuegoOfrecido1 = juegoOfrecido1;
-            this.JuegoOfrecido2 = -1;
-            this.JuegoOfrecido3 = -1;       
+            this.JuegoOfrecido2 = juegoOfrecido2;
+            this.JuegoOfrecido3 = juegoOfrecido3;       
             this.Estado = estado;
             //para mi esto no va, lo autogenera la bd
             //this.IdOperacion = AsignarId();
