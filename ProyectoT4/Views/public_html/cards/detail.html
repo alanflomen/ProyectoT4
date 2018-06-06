@@ -1,0 +1,26 @@
+<h2 id="JuegoBuscado_Titulo">[game]</h2>
+<hr>
+<div class="w3-center w3-round-medium w3-blue-grey w3-padding w3-container">
+    <div class="w3-padding w3-half">
+        <img id="JuegoBuscado_PathFoto" src="img/games/2.jpg" alt="no img" style="width: 200px; height: auto;">
+    </div>
+    <div class="w3-padding w3-half">
+        <!-- <h2 id="JuegoBuscado_Titulo">[game_game]</h2> -->
+        <p>
+            <ul>
+                <li>Categoria: <span id="JuegoBuscado_Categoria">[category]</span></li> 
+                <li>Audio: <span id="JuegoBuscado_Audio">[audio]</span></li>
+                <li>Subtitulos: <span id="JuegoBuscado_Subtitulos">[subtitulos]</span></li>
+                <li>Plataforma: <span id="JuegoBuscado_Plataforma">[platform]</span>            </li>
+            </ul>
+        </p>
+        <span id="JuegoBuscado_Rating">[stars]</span>
+        <button class="w3-margin-top w3-button w3-block w3-round w3-blue w3-hover-pale-blue w3-animate-opacity" onclick="scriptManager.detail.addToWanted()">Wanted</button>
+        <button class="w3-margin-top w3-button w3-block w3-round w3-blue w3-hover-pale-blue w3-animate-opacity" onclick="scriptManager.detail.addToWanted()">Owned</button>
+        <button class="w3-margin-top w3-button w3-block w3-round w3-blue w3-hover-pale-blue w3-animate-opacity" onclick="scriptManager.detail.addToWanted()">Played</button>
+        <hr>
+        <span id="matched_users">[matched_users]</span>
+    </div>
+</div>
+
+<script src="js/cardsScripts/detailCard.js"></script>

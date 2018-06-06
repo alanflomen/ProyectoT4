@@ -22,18 +22,22 @@ var scriptsManager = {
     }
 };
 
-
 /**
  * Creates a new CardScript
  * @param {String} name
  * @param {function} start
  * @param {function} dispose
+ * @param {String} jsonSource
  * @example
- * CardScript('Card Name', function(){}, function(){})
+ * CardScript('Card Name', function(){}, function(){}, 'JSON URI')
  * @returns {CardScript}
  */
-function CardScript(name,start,dispose){
+function CardScript(name,start,dispose,jsonSource){
     this.scriptName = name || "No name";
     this.start = start || function(){console.log(this.scriptName + " started")};
     this.dispose = dispose || function(){console.log(this.scriptName + " disposed")};
+    this.jsonSource = jsonSource;
+    
+    if(!jsonSource)
+        console.warn("jsonSource is null in " + name + " checkout this, it may be an error");
 }

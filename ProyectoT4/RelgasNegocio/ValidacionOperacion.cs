@@ -8,25 +8,32 @@ namespace ProyectoT4.RelgasNegocio
 {
 	public class ValidacionOperacion
 	{
-		public bool ValidarOperacion(int Idjuego1, int Idjuego2, string IdUsuario1, string IdUsuario2, string textoOpcional)
+		public static bool ValidarOperacion(int juegoBuscado, int juegoOfrecido1, int juegoOfrecido2, int juegoOfrecido3, string usuarioEnvia, string UsuarioRecibe, string textoOpcional)
 		{
-			bool OpValida = true;
-			//sistemaContext db = new sistemaContext();
+			bool OpValida = false;
+			sistemaContext db = new sistemaContext();      
 
-			//validar que usuario 1 aún tenga el juego1 en su Wishlist y el Juego2 en su biblioteca
-			
+            //validar usuario envia todavia quiere ese juego
+            WishList wl1 = db.Wishlist.Find(usuarioEnvia, juegoBuscado);
+            //validar usuario envia todavia tiene ese juego en su libreria
+            Libreria lb1 = db.Libreria.Find(usuarioEnvia, juegoOfrecido1);
+            Libreria lb1B = db.Libreria.Find(usuarioEnvia, juegoOfrecido2);
+            Libreria lb1C = db.Libreria.Find(usuarioEnvia, juegoOfrecido3);
 
-			//validar que usuario 2 aún tenga el juego1 en su biblioteca y el Juego2 en su Wishlist
-			
 
-			//Validar que en el textoOpcional no se utilicen palabrotas
-			if (textoOpcional.Contains("Puto") || textoOpcional == null)
-			{
-				OpValida = false;
-			}
-			
-			return OpValida;
+            if (wl1 != null && lb1 != null)
+            {
+                //validar que usuariorecibe aún tenga el juegoBuscado en su biblioteca y el juegoOfrecido1 en su Wishlist
+                WishList wl2 = db.Wishlist.Find(UsuarioRecibe, juegoOfrecido1);
+                Libreria lb2 = db.Libreria.Find(UsuarioRecibe, juegoBuscado);
+                if (wl2 != null && lb2 != null)
+                {
+                    OpValida = true;
+                }
+            }        
+
+            return OpValida;
 		}
-
+       
 	}
 }
