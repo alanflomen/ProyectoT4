@@ -40,9 +40,9 @@ $.extend(true,scriptsManager.detail,
     new CardScript("detailCard.js",
         function(){
             let clientStatus = new XMLHttpRequest();
-            clientStatus.open('GET', this.jsonSource);
+            clientStatus.open('GET', backend + "/" + scriptsManager.detail.jsonSource);
             clientStatus.onreadystatechange = function() {
-                if(this.readyState == 4 && this.status == 200){
+                if(this.readyState == 4){ //&& this.status == 200){
                     console.log(clientStatus.responseText);
                     let parsedObj = JSON.parse(clientStatus.responseText);
                     scriptsManager.detail.currentGame = parsedObj;
@@ -53,8 +53,10 @@ $.extend(true,scriptsManager.detail,
                     console.error("Didn't sent a response");
             }
             clientStatus.send();
-        }
+        },
+        null,
+        "ResultadoBusqueda/ResultadoBusqueda?idJuego=2"
     )
 );
 
-scriptsManager.switchPage(scriptsManager.status);
+scriptsManager.switchPage(scriptsManager.detail);

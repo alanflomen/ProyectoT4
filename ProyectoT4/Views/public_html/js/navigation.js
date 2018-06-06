@@ -30,21 +30,6 @@ function loadCard(item){
     }
 }
 
-function loadHelp(item){
-    var client = new XMLHttpRequest();
-    client.open('GET', 'help/'+ item + '.html');
-    client.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200){
-            console.log(client.responseText);
-            $("#"+item+"Help").empty().html(client.responseText);
-        }
-        else{
-            $("#"+item+"Help").empty().html(sadAJAX);
-        }
-    }
-    client.send();
-}
-
 /**
  * 
  * @param {String} destination 
@@ -68,4 +53,4 @@ function navigateToCard(destination){
 
 // Initial card
 // navigateToCard(cards[0]);
-navigateToCard('detail');
+// navigateToCard('detail');

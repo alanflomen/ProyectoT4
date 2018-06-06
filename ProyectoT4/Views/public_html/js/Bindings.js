@@ -1,3 +1,5 @@
+const backend = "localhost:20995";
+
 /**
  * 
  * @param {Array} data 
@@ -61,7 +63,7 @@ const sendToServer = function(values,apiURL, callback)
     let responseQuery = $.param(values);
     console.log(responseQuery);
     
-    client.open('POST', apiURL + '?' + responseQuery);
+    client.open('POST', backend + "/" + apiURL + '?' + responseQuery);
     client.onreadystatechange = function() {
         console.log("Received info");
         // document.getElementById('network_loadingCircle').classList.add('w3-hide');
