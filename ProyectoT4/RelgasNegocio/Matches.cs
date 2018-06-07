@@ -66,7 +66,54 @@ namespace ProyectoT4.RelgasNegocio
 
             }
 
+            lista = removerYaPropuestos(lista, idJuego, idUsuario);
 
+            return lista;
+        }
+
+        private static List<JuegosMatch> removerYaPropuestos(List<JuegosMatch> lista, int idJuegoBuscado, String idUsuarioEnvia)
+        {
+            sistemaContext db = new sistemaContext();
+            int juego;
+            int op=0;
+            foreach (var jm in lista)
+            {
+                juego = jm.IdJuego;
+                foreach (var user in jm.UsuariosMatch)
+                {
+                    try
+                    {
+                        op = db.Operaciones.Where(o => o.JuegoBuscado == idJuegoBuscado && o.UsuarioRecibe.Equals(user.IdUsuario) && o.UsuarioEnvia.Equals(idUsuarioEnvia) && (o.JuegoOfrecido1 == juego || o.JuegoOfrecido2 == juego || o.JuegoOfrecido3 == juego) && o.Estado.Equals("Enviada")).Select(i => i.IdOperacion).First();
+                    }
+                    catch (Exception)
+                    {
+
+                        op = 0;
+                    }
+                    //trae el id de operacion si: el estado, el juego buscado, idRecibe, idenvia, juegos ofrecidos son iguales a los actuales del match
+                    if (op != 0)
+                    {
+                        jm.UsuariosMatch.Remove(user);
+                    }
+                    if (jm.UsuariosMatch.Count() == 0)
+                    {
+                        lista.Remove(jm);
+                        break;
+                    }
+
+                }
+                if (lista.Count() == 0)
+                {
+                    
+                    break;
+                }
+
+            }
+            db.SaveChanges();
+          
+            {
+
+            }
             return lista;
         }
     }

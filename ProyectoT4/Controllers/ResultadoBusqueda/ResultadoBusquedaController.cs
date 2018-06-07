@@ -66,7 +66,9 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             res.JuegoBuscado = db.Juegos.Find(idJuego);
             @ViewBag.Title = res.JuegoBuscado.Titulo;
             res.IdUsuario = idUsuario;
-            
+
+            //elimina las propuestas activas que involucren ese juego
+            RelgasNegocio.Prueba.borrarPropuestas(idUsuario, idJuego);
 
             RelgasNegocio.Prueba.EliminarLista(idJuego, idUsuario, tipo);
 

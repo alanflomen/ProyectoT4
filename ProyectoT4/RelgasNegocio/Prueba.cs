@@ -141,5 +141,30 @@ namespace ProyectoT4.RelgasNegocio
             }
             return esta;
         }
+        public static void borrarPropuestas(String idUsuario, int idJuego)
+        {
+            sistemaContext db = new sistemaContext();
+            //busca todas las operaciones que el usuario haya propuesto ese juego
+            var enviadas = db.Operaciones.Where(o=> o.JuegoOfrecido1 == idJuego || o.JuegoOfrecido2 == idJuego || o.JuegoOfrecido3 == idJuego && (o.UsuarioEnvia.Equals(idUsuario))).Select(i => i.IdOperacion).ToList();
+            var recibidas = db.Operaciones.Where(o => o.JuegoBuscado == idJuego && o.UsuarioRecibe.Equals(idUsuario)).Select(i => i.IdOperacion).ToList();
+            eliminarOperaciones(enviadas);
+            eliminarOperaciones(recibidas);
+
+        }
+
+        private static void eliminarOperaciones(List<int> oper)
+        {
+            Operacion opTemp;
+            sistemaContext db = new sistemaContext();
+            foreach (var o in oper)
+            {
+                opTemp = db.Operaciones.Find(o);
+                opTemp.Estado = "Cancelada";
+            }
+            db.SaveChanges();
+        }
+
+        
+       
     }
 }
