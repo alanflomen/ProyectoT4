@@ -1,8 +1,6 @@
 
-<<<<<<< HEAD
 ProyectoT4/App_Data/SistemaContext.mdf
 ProyectoT4/App_Data/SistemaContext_log.ldf
-=======
 # Created by https://www.gitignore.io/api/csharp,aspnetcore,sublimetext,visualstudio,visualstudiocode
 
 ### ASPNETCore ###
@@ -29,6 +27,18 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+
+ProyectoT4/[Dd]ebug/
+ProyectoT4/[Dd]ebugPublic/
+ProyectoT4/[Rr]elease/
+ProyectoT4/[Rr]eleases/
+ProyectoT4/x64/
+ProyectoT4/x86/
+ProyectoT4/bld/
+ProyectoT4/[Bb]in/
+ProyectoT4/[Oo]bj/
+ProyectoT4/[Ll]og/
+
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -599,8 +609,9 @@ GitHub.sublime-settings
 
 
 # End of https://www.gitignore.io/api/csharp,aspnetcore,sublimetext,visualstudio,visualstudiocode
->>>>>>> 9389c67c2094fa9f8cefb19ebc0bd0e1b0886eb8
 ProyectoT4/Web.config
 .vs/config/applicationhost.config
 ProyectoT4/bin/ProyectoT4.dll.config
 ProyectoT4/Web.config
+ProyectoT4/Web.config
+.vs/config/applicationhost.config

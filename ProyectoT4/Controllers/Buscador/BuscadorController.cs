@@ -19,9 +19,9 @@ namespace ProyectoT4.Controllers.Buscador
             //sc.Juegos.Add(new Juego() { Titulo = "Assassins Creed", Audio = "Ingles", Categoria = "Aventura", Rating = 10, Subtitulos = "Español", PathFoto = "https://images-na.ssl-images-amazon.com/images/I/91g0-r7lZ3L._SX342_.jpg", Plataforma = "PS4" });
             //// para testear: los usuarios hay que agregarlos a mano porque el ID cambia 
             //// cada vez que se registra uno nuevo                       
-            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 2, 1, "Enviada"));
-            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 3, 4, "Enviada"));
-            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 4, 2, "Recibida"));
+            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 2, 1, 1, 1, "Enviada"));
+            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 3, 4, 1, 1, "Enviada"));
+            //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 4, 2, 1, 1, "Recibida"));
             //sc.SaveChanges();
 
 
