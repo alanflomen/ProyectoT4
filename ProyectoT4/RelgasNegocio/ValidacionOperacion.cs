@@ -15,7 +15,7 @@ namespace ProyectoT4.RelgasNegocio
             int op;
             try
             {
-                op = db.Operaciones.Where(o => o.JuegoBuscado == juegoBuscado && o.UsuarioRecibe.Equals(UsuarioRecibe) && o.UsuarioEnvia.Equals(usuarioEnvia) && (o.JuegoOfrecido1 == juegoOfrecido1 || o.JuegoOfrecido2 == juegoOfrecido2 || o.JuegoOfrecido3 == juegoOfrecido3) && o.Estado.Equals("Enviada")).Select(n => n.IdOperacion).First();
+                op = db.Operaciones.Where(o => o.JuegoBuscado == juegoBuscado && o.UsuarioRecibe.Equals(UsuarioRecibe) && o.UsuarioEnvia.Equals(usuarioEnvia) && (o.JuegoOfrecido1 == juegoOfrecido1 ) && o.Estado.Equals("Enviada")).Select(n => n.IdOperacion).First();
             }
             catch (Exception)
             {

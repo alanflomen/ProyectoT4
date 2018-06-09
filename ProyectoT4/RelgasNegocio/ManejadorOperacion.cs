@@ -8,14 +8,31 @@ namespace ProyectoT4.RelgasNegocio
 {
     public class ManejadorOperacion
     {
-        public static void canceladorDePropuestas(String idUsuario, int idJuego)
+        public static void canceladorDePropuestas(String idUsuario, int idJuego, String tipo)
         {
             sistemaContext db = new sistemaContext();
             //busca todas las operaciones que el usuario haya propuesto ese juego
-            var enviadas = db.Operaciones.Where(o => o.JuegoOfrecido1 == idJuego || o.JuegoOfrecido2 == idJuego || o.JuegoOfrecido3 == idJuego && (o.UsuarioEnvia.Equals(idUsuario))).Select(i => i.IdOperacion).ToList();
-            var recibidas = db.Operaciones.Where(o => o.JuegoBuscado == idJuego && o.UsuarioRecibe.Equals(idUsuario)).Select(i => i.IdOperacion).ToList();
-            cancelarOperaciones(enviadas);
-            cancelarOperaciones(recibidas);
+            switch (tipo)
+            {
+                case "w":
+                    var recibidasWishList = db.Operaciones.Where(o => o.Estado.Equals("Enviada") && (o.JuegoOfrecido1 == idJuego || o.JuegoOfrecido2 == idJuego || o.JuegoOfrecido3 == idJuego) && (o.UsuarioRecibe.Equals(idUsuario))).Select(i => i.IdOperacion).ToList(); ;
+                    var enviadasWishList = db.Operaciones.Where(o => o.JuegoBuscado == idJuego && o.UsuarioEnvia.Equals(idUsuario) && o.Estado.Equals("Enviada")).Select(i => i.IdOperacion).ToList(); ;
+                    cancelarOperaciones(enviadasWishList);
+                    cancelarOperaciones(recibidasWishList);
+                    break;
+                case "l":
+                    var enviadasLibreria = db.Operaciones.Where(o => o.Estado.Equals("Enviada") && (o.JuegoOfrecido1 == idJuego || o.JuegoOfrecido2 == idJuego || o.JuegoOfrecido3 == idJuego) && (o.UsuarioEnvia.Equals(idUsuario))).Select(i => i.IdOperacion).ToList();
+                    var recibidasLibreria = db.Operaciones.Where(o => o.JuegoBuscado == idJuego && o.UsuarioRecibe.Equals(idUsuario) && o.Estado.Equals("Enviada")).Select(i => i.IdOperacion).ToList();
+                    cancelarOperaciones(enviadasLibreria);
+                    cancelarOperaciones(recibidasLibreria);
+                    break;
+                default:
+                    break;
+            }
+           
+
+           
+            
 
         }
 

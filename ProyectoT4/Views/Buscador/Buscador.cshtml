@@ -116,8 +116,6 @@ Usuario:
         });
     });
 </script>
-
-
 <!--Llama a la funcione de abajo que verifica que el usuario no haya escrito cualquier cosa
     y si tiene un id valido, lo manda al resultado-->
 
@@ -126,11 +124,13 @@ Usuario:
         if (param === undefined) {
             alert("¡Error! Por favor, ingrese un nombre existente");
         } else {
-            window.location = '/ResultadoBusqueda/ResultadoBusqueda?idJuego=' + param + '&idUsuario=@User.Identity.GetUserId()';
-
-        }
-
+                window.location = '/ResultadoBusqueda/ResultadoBusqueda?idJuego=' + param + '&idUsuario=@User.Identity.GetUserId()';
+            }
     }
+
+
+
+
 </script>
 <button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver Propuestas...</button>
 <script>
