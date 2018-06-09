@@ -184,11 +184,6 @@
         </div>
         <br>
 
-
-
-
-
-
         @Html.Label("Juegos con match: " + @Model.JuegosMatch.Count)
         <br>
         <div class="row">
@@ -197,6 +192,7 @@
                 foreach (var juego in Model.JuegosMatch)
                 {
                     <div class="column">
+
                         @Html.Label("Titulo: " + juego.Titulo)
                         <br>
                         <img src="@juego.PathFoto" style="width:50%">
@@ -204,7 +200,7 @@
                         <a href=#@juego.Titulo>Abrir propuestas → @juego.Titulo</a>
                         <div id=@juego.Titulo class="modalDialog">
                             <div>
-                                <a href="#close" title="Close" class="close">X</a>
+                                <a href="#close" title="Cerrar" class="close">X</a>
                                 <h2>@juego.Titulo</h2>
                                 @{
                                     foreach (var user in juego.UsuariosMatch)
@@ -215,27 +211,16 @@
                                         <br>
                                         <button type="button" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&IdjuegoOfrecido2=-1&IdjuegoOfrecido3=-1&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario&textoOpcional=un ejemplo de texto adicional';" class="btn btn-primary">Realizar Propuesta</button> <br>
                                         <br>
-
                                     }
                                 }
                             </div>
                             <br>
                         </div>
                     </div>
-
                 }
             }
-
-
         </div>
-
-
-
-
-
-
     </font>
-
 </body>
 </html>
 
@@ -264,3 +249,11 @@
     }
 </script>
 
+<script>
+    //tecla enter
+    document.addEventListener("keypress", function (event) {
+        if (event.keyCode == 27) {
+            window.history.back();
+        }
+    })
+</script>
