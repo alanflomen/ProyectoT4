@@ -38,10 +38,6 @@ namespace ProyectoT4.Models
         {
             this.Fecha = DateTime.Now;
         }
-        //devuelve un valor del Id incrementado en 1, respecto al ultimo creado
-        private int AsignarId()
-        {
-            return 0;
-        }
+        
     }
 }

@@ -12,6 +12,20 @@ namespace ProyectoT4.RelgasNegocio
         {
             bool OpValida = false;
             sistemaContext db = new sistemaContext();
+            int op;
+            try
+            {
+                op = db.Operaciones.Where(o => o.JuegoBuscado == juegoBuscado && o.UsuarioRecibe.Equals(UsuarioRecibe) && o.UsuarioEnvia.Equals(usuarioEnvia) && (o.JuegoOfrecido1 == juegoOfrecido1 || o.JuegoOfrecido2 == juegoOfrecido2 || o.JuegoOfrecido3 == juegoOfrecido3) && o.Estado.Equals("Enviada")).Select(n => n.IdOperacion).First();
+            }
+            catch (Exception)
+            {
+                op = 0;
+            }
+            if (op != 0)
+            {
+                OpValida= false;
+                return OpValida;
+            }
 
             //validar usuario envia todavia quiere ese juego
             WishList wl1 = db.Wishlist.Find(usuarioEnvia, juegoBuscado);
@@ -27,7 +41,7 @@ namespace ProyectoT4.RelgasNegocio
             //si todas las validaciones son positivas
             if (wl1 != null && lb1 != null && wl2 != null && lb2 != null)
             {
-                   //pregunto si hay mas juegos y valido que los tenga
+                //pregunto si hay mas juegos y valido que los tenga
                 if (juegoOfrecido2 != -1 && lb1B != null)
                 {
                     if (juegoOfrecido3 != -1 && lb1C != null)
@@ -40,7 +54,8 @@ namespace ProyectoT4.RelgasNegocio
                     }
 
 
-                } else if (juegoOfrecido2 == -1 && lb1B == null)
+                }
+                else if (juegoOfrecido2 == -1 && lb1B == null)
                 {
                     if (juegoOfrecido3 != -1 && lb1C != null)
                     {

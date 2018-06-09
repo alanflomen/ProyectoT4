@@ -13,7 +13,7 @@ namespace ProyectoT4.AccesoDatos
             JuegosMatch jm;
             var db = new sistemaContext();
             Juego j = db.Juegos.Find(idJuego);
-            jm = new JuegosMatch(idJuego, j.Rating, j.Titulo);
+            jm = new JuegosMatch(idJuego, j.Rating, j.Titulo, j.PathFoto);
             List<String> usuarios = db.Libreria.Where(o => o.IdJuego == idJuego).Select(i => i.IdUsuario).ToList();
 
             if (usuarios.Count != 0)

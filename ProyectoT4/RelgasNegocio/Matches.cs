@@ -31,11 +31,11 @@ namespace ProyectoT4.RelgasNegocio
             {
                 Usuario u = new Usuario();
                 Juego j = db.Juegos.Find(uMclJqlI.ElementAt(0).IdJuego);
-                JuegosMatch uMatch = new JuegosMatch(j.Id, j.Rating, j.Titulo);
+                JuegosMatch uMatch = new JuegosMatch(j.Id, j.Rating, j.Titulo, j.PathFoto);
                 String idUsuarioEncontrado;
                 int idJuegoEncontrado= j.Id;
                 
-
+                //recorro y armo el modelo
                 foreach (var item in uMclJqlI)
                 {
                     if (idJuegoEncontrado == item.IdJuego)
@@ -52,7 +52,7 @@ namespace ProyectoT4.RelgasNegocio
                         j = db.Juegos.Find(idJuegoEncontrado);
                         u = new Usuario();
                         u = db.Usuarios.Find(idUsuarioEncontrado);
-                        uMatch = new JuegosMatch(j.Id, j.Rating, j.Titulo);
+                        uMatch = new JuegosMatch(j.Id, j.Rating, j.Titulo, j.PathFoto);
                         uMatch.UsuariosMatch.Add(u);
 
                     }
@@ -65,7 +65,7 @@ namespace ProyectoT4.RelgasNegocio
                 }
 
             }
-
+            //saco los usuarios que tienen propuestas activas con ese juego
             lista = removerYaPropuestos(lista, idJuego, idUsuario);
 
             return lista;
@@ -76,31 +76,48 @@ namespace ProyectoT4.RelgasNegocio
             sistemaContext db = new sistemaContext();
             int juego;
             int op=0;
-            foreach (var jm in lista)
+            //guardo las posiciones de la lista a borrar
+            List<int> temp = new List<int>();
+            int contador = 0;
+            for (int i = 0; i < lista.Count(); i++)
             {
-                juego = jm.IdJuego;
-                foreach (var user in jm.UsuariosMatch)
+                juego = lista[i].IdJuego;
+                for (int j = 0; j < lista[i].UsuariosMatch.Count() ; j++) 
+
                 {
+                    Usuario user = lista[i].UsuariosMatch[j];
                     try
                     {
-                        op = db.Operaciones.Where(o => o.JuegoBuscado == idJuegoBuscado && o.UsuarioRecibe.Equals(user.IdUsuario) && o.UsuarioEnvia.Equals(idUsuarioEnvia) && (o.JuegoOfrecido1 == juego || o.JuegoOfrecido2 == juego || o.JuegoOfrecido3 == juego) && o.Estado.Equals("Enviada")).Select(i => i.IdOperacion).First();
+                        //trae el id de operacion si: el estado, el juego buscado, idRecibe,
+                        //idenvia, juegos ofrecidos son iguales a los actuales del match
+                        op = db.Operaciones.Where(o => o.JuegoBuscado == idJuegoBuscado && o.UsuarioRecibe.Equals(user.IdUsuario) && o.UsuarioEnvia.Equals(idUsuarioEnvia) && (o.JuegoOfrecido1 == juego || o.JuegoOfrecido2 == juego || o.JuegoOfrecido3 == juego) && o.Estado.Equals("Enviada")).Select(n => n.IdOperacion).First();
                     }
                     catch (Exception)
                     {
-
                         op = 0;
                     }
-                    //trae el id de operacion si: el estado, el juego buscado, idRecibe, idenvia, juegos ofrecidos son iguales a los actuales del match
+                    //si existe una operacion activa, elimina al usuario de los resultados 
+                    //para ese juego
                     if (op != 0)
                     {
-                        jm.UsuariosMatch.Remove(user);
-                    }
-                    if (jm.UsuariosMatch.Count() == 0)
-                    {
-                        lista.Remove(jm);
-                        break;
-                    }
+                        temp.Add(j);
+                        contador++;
+                    }                    
 
+                }
+                //si hay usuarios para borrar
+                if (temp.Count() != 0)
+                {
+                    borrarDelArray(temp, lista[i].UsuariosMatch);
+                    temp = new List<int>();
+                    contador = 0;
+                }
+                
+                
+                if (lista[i].UsuariosMatch.Count() == 0)
+                {
+                    lista.RemoveAt(i);
+                    
                 }
                 if (lista.Count() == 0)
                 {
@@ -111,10 +128,23 @@ namespace ProyectoT4.RelgasNegocio
             }
             db.SaveChanges();
           
-            {
-
-            }
+            
             return lista;
+        }
+
+        private static void borrarDelArray(List<int> temp, List<Usuario> usuariosMatch)
+        {
+            if (temp.Count() == 1)
+            {
+                usuariosMatch.RemoveAt(temp.ElementAt(0));
+            }
+            else
+            {
+                for (int i = temp.Count() - 1; i >= 0; i--)
+                {
+                    usuariosMatch.RemoveAt(i);
+                }
+            }
         }
     }
 }

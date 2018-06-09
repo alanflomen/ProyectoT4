@@ -24,6 +24,12 @@ namespace ProyectoT4.Controllers.Buscador
             //sc.Operaciones.Add(new Operacion("UsuarioEnvia", "UsuarioRecibe", 4, 2, "Recibida"));
             //sc.SaveChanges();
 
+            //sistemaContext sc = new sistemaContext();
+            //Operacion o = new Operacion("544b282e-c392-4a50-99b9-15622bef7965", "a7261203-c3bf-4b66-a191-ca4882e7901a", 2, 1, -1, -1, "Enviada");
+            //sc.Operaciones.Add(o);
+            //o = new Operacion("a7261203-c3bf-4b66-a191-ca4882e7901a", "544b282e-c392-4a50-99b9-15622bef7965", 2, 1, -1, -1, "Enviada");
+            //sc.Operaciones.Add(o);
+            //sc.SaveChanges();
 
             ViewBag.Lista = CrearList();            
             @ViewBag.Title = "Buscador";
