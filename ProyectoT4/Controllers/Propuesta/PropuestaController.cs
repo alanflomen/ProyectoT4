@@ -46,5 +46,18 @@ namespace ProyectoT4.Controllers.Propuesta
 			@ViewBag.Mensaje = resPropuesta;
             return View(operacion);
         }
-    }
+
+
+		public ActionResult AnalizarPropuesta(string UsuarioEnvia, string UsuarioRecibe, int IdJuegoBuscado, int IdjuegoOfrecido1)
+		{
+			//Llegan 2 usuarios y dos juegos
+			ModeloPropuesta mp = new ModeloPropuesta(UsuarioEnvia, UsuarioRecibe, IdJuegoBuscado, IdjuegoOfrecido1);
+			return View(mp);
+		}
+
+
+
+
+
+	}
 }
