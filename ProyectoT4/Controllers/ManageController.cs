@@ -62,14 +62,20 @@ namespace ProyectoT4.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
+            sistemaContext db = new sistemaContext();
             var userId = User.Identity.GetUserId();
+            var miWishlist = db.Wishlist.Where(o => o.IdUsuario.Equals(userId)).Select(i => i.IdJuego).ToList();
+            var miLibreria = db.Libreria.Where(o => o.IdUsuario.Equals(userId)).Select(i => i.IdJuego).ToList();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
+                usuarioSesion = db.Usuarios.Find(User.Identity.GetUserId()),
+                WishList= RelgasNegocio.Matches.crearLista(miWishlist),
+                Libreria = RelgasNegocio.Matches.crearLista(miLibreria),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
@@ -333,7 +339,26 @@ namespace ProyectoT4.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+
+        public ActionResult EliminarListaDesdePerfil(int idJuego, String idUsuario, string tipo)
+        {
+            RelgasNegocio.ManejadorOperacion.canceladorDePropuestas(idUsuario, idJuego, tipo);
+            RelgasNegocio.Prueba.EliminarLista(idJuego, idUsuario, tipo);
+            sistemaContext db = new sistemaContext();
+            var userId = User.Identity.GetUserId();
+            var miWishlist = db.Wishlist.Where(o => o.IdUsuario.Equals(userId)).Select(i => i.IdJuego).ToList();
+            var miLibreria = db.Libreria.Where(o => o.IdUsuario.Equals(userId)).Select(i => i.IdJuego).ToList();
+
+            
+
+            return Redirect("/Manage/Index");
+        }
+
+
+
+
+
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

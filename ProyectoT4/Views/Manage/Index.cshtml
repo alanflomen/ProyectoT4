@@ -2,40 +2,207 @@
 @using Microsoft.AspNet.Identity
 
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Perfil";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
 
-<h2>@ViewBag.Title.</h2>
+        .modalDialog {
+            position: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 99999;
+            opacity: 0;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+            pointer-events: none;
+        }
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
+            .modalDialog:target {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .modalDialog > div {
+                width: 400px;
+                position: relative;
+                margin: 10% auto;
+                padding: 5px 20px 13px 20px;
+                border-radius: 10px;
+                background: #fff;
+                background: -moz-linear-gradient(#fff, #999);
+                background: -webkit-linear-gradient(#fff, #999);
+                background: -o-linear-gradient(#fff, #999);
+            }
+
+        .close {
+            background: #606061;
+            color: #FFFFFF;
+            line-height: 25px;
+            position: absolute;
+            right: -12px;
+            text-align: center;
+            top: -10px;
+            width: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            -moz-box-shadow: 1px 1px 3px #000;
+            -webkit-box-shadow: 1px 1px 3px #000;
+            box-shadow: 1px 1px 3px #000;
+        }
+
+            .close:hover {
+                background: #00d9ff;
+            }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .column {
+            float: left;
+            width: 20%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        /* Foto perfil */
+        .profile-header-container {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .profile-header-img {
+            padding: 54px;
+        }
+
+            .profile-header-img > img.img-circle {
+                width: 120px;
+                height: 120px;
+                border: 2px solid #51D2B7;
+            }
+
+        .profile-header {
+            margin-top: 43px;
+        }
+
+        /**
+        * Ranking component
+        */
+        .rank-label-container {
+            margin-top: -19px;
+            /* z-index: 1000; */
+            text-align: center;
+        }
+
+        .label.label-default.rank-label {
+            background-color: rgb(81, 210, 183);
+            padding: 5px 10px 5px 10px;
+            border-radius: 27px;
+        }
+    </style>
+</head>
+<body>
+    <h2>@ViewBag.Title</h2>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="profile-header-container">
+                <div class="profile-header-img">
+                    <img class="img-circle" src="@Model.usuarioSesion.UrlFoto" />
+                    <!-- badge -->
+                    <div class="rank-label-container">
+                        <span class="label label-default rank-label">Rating : @Model.usuarioSesion.rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>E-Mail:</dt>
+            <dd>
+                @User.Identity.GetUserName()
+            </dd>
+            <br>
+            <dt>Contraseña:</dt>
+            <dd>
+                [
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Cambiar contraseña", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Crear", "SetPassword")
+                }
+                ]
+            </dd>
+            <br>
+            <dt>Ubicación:</dt>
+            <dd>
+                @Model.usuarioSesion.Ubicacion
+            </dd>
+            <br>
+            <dt>Propuestas:</dt>
+            <dd>
+                <button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver todas mis propuestas</button>
+            </dd>
+        </dl>
+    </div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
+    <h2>Mis Juegos:</h2>
+    <div class="row">
+        @{
+            foreach (var juego in Model.Libreria)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                <div class="column" align="center">
+                    <p><b>@juego.Titulo</b></p>
+                    <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
+                        <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
+                    </a>
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil", "Manage" )?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Remover de Libreria</button>
+
+                </div>
             }
-            else
+        }
+    </div>
+    <h2>Mi WishList:</h2>
+    <div class="row">
+        @{
+            foreach (var juego in Model.WishList)
             {
-                @Html.ActionLink("Create", "SetPassword")
+                <div class="column" align="center">
+                    <p><b>@juego.Titulo</b></p>
+                    <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
+                        <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
+                    </a>
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil", "Manage" )?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Remover de WishList</button>
+
+                </div>
             }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-
-        <dt>Propuestas:</dt>
-        <dd>
-            <button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver todas mis propuestas</button>
-
-
-        </dd>
-    </dl>
-</div>
+        }
+    </div>
+</body>
+</html>
