@@ -209,7 +209,7 @@
                                         <br>
                                         @Html.Label("Ubicacion: " + user.Ubicacion);
                                         <br>
-                                        <button type="button" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&IdjuegoOfrecido2=-1&IdjuegoOfrecido3=-1&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario&textoOpcional=un ejemplo de texto adicional';" class="btn btn-primary">Realizar Propuesta</button> <br>
+                                        <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario';class="btn btn-primary">Analizar Propuesta</button> <br>
                                         <br>
                                     }
                                 }
@@ -219,6 +219,7 @@
                     </div>
                 }
             }
+
         </div>
     </font>
 </body>
