@@ -89,18 +89,18 @@
                     @Html.Label("IdUsuarioRecibe: ")
                     <a href="mailto:xx@xx.com">xx@xx.com</a>
                     <br>
-                    @Html.Label("IdJuegoBuscado: " + prop.Juegos[0].Titulo)
+                    @Html.Label("JuegoBuscado: " + prop.Juegos[0].Titulo)
                     <br>
-                    @Html.Label("IdJuegoOfrecido1: " + prop.Juegos[1].Titulo)
+                    @Html.Label("JuegoOfrecido1: " + prop.Juegos[1].Titulo)
                     <br>
                     @if (prop.Juegos[2] != null)
                     {
-                        @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[2].Titulo)
+                        @Html.Label("JuegoOfrecido2: " + prop.Juegos[2].Titulo)
                         <br>
                     }
                     @if (prop.Juegos[3] != null)
                     {
-                        @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[3].Titulo)
+                        @Html.Label("JuegoOfrecido2: " + prop.Juegos[3].Titulo)
                         <br>
                     }
                     <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )" class="btn btn-primary">Ver Propuesta</button> <br>
@@ -138,18 +138,18 @@
                     @Html.Label("IdUsuarioRecibe: ")
                     <a href="mailto:@prop.usuario2.mail">@prop.usuario2.mail</a>
                     <br>
-                    @Html.Label("IdJuegoBuscado: " + prop.Juegos[0].Titulo)
+                    @Html.Label("JuegoBuscado: " + prop.Juegos[0].Titulo)
                     <br>
-                    @Html.Label("IdJuegoOfrecido1: " + prop.Juegos[1].Titulo)
+                    @Html.Label("JuegoOfrecido1: " + prop.Juegos[1].Titulo)
                     <br>
                     @if (prop.Juegos[2] != null)
                     {
-                        @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[2].Titulo)
+                        @Html.Label("JuegoOfrecido2: " + prop.Juegos[2].Titulo)
                         <br>
                     }
                     @if (prop.Juegos[3] != null)
                     {
-                        @Html.Label("IdJuegoOfrecido2: " + prop.Juegos[3].Titulo)
+                        @Html.Label("JuegoOfrecido2: " + prop.Juegos[3].Titulo)
                         <br>
                     }
                     <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta")?idOperacion=@prop.oper.IdOperacion'" class="btn btn-primary">Ver Propuesta</button>

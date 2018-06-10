@@ -66,29 +66,50 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
 -->
 @using Microsoft.AspNet.Identity
 Usuario:
-@User.Identity.GetUserId()
-<div class="container">
+@{
+    if (@User.Identity.GetUserId() == null)
+    {
+        @Html.Label("Invitado")
+    }
+    else
+    {
+        @Html.Label(@User.Identity.GetUserId())
+    }
+}
 
-    <h2><font color="white">Escriba el nombre del juego:</font></h2>
-    <form action="../ResultadoBusqueda/ResultadoBusqueda" method="get">
-        <img src="https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/33477500_10156464788733033_5347624575788122112_n.jpg?_nc_cat=0&oh=e06c72ed91988b11634da5d4851d1d83&oe=5BC3C1EA" align="right" height="300" width="400">
-        <div class="form-group">
-            <input type="text" name="id" autofocus class="form-control" id="tags">
-            <br>
-            <input type="button" value="Buscar!" onclick=antifalla($('#tags').attr['selec']) />
+        <div class="container">
 
+            <h2><font color="white">Escriba el nombre del juego:</font></h2>
+            <form action="../ResultadoBusqueda/ResultadoBusqueda" method="get">
+                <img src="https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/33477500_10156464788733033_5347624575788122112_n.jpg?_nc_cat=0&oh=e06c72ed91988b11634da5d4851d1d83&oe=5BC3C1EA" align="right" height="300" width="400">
+                <div class="form-group">
+                    <input type="text" name="id" autofocus class="form-control" id="tags">
+                    <br>
+                    @{
+                        String usuario = User.Identity.GetUserId();
+                                                if (usuario == null)
+                                                {
+                <input type="button" class="btn btn-primary" value="Buscar!" onclick=sinLogin($('#tags').attr['selec']) />
+                                                }
+                                                else
+                                                {
+                <input type="button" class="btn btn-primary" value="Buscar!" onclick=antifalla($('#tags').attr['selec']) />
+
+                                                }
+                    }
+
+                </div>
+            </form>
         </div>
-    </form>
-</div>
 
 
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-<!--autocomplete-->
-<script>
+        <!--autocomplete-->
+        <script>
     $(function () {
         var availableTags = [
            @foreach (var item in @ViewBag.Lista)
@@ -115,11 +136,11 @@ Usuario:
 
         });
     });
-</script>
-<!--Llama a la funcione de abajo que verifica que el usuario no haya escrito cualquier cosa
-    y si tiene un id valido, lo manda al resultado-->
+        </script>
+        <!--Llama a la funcione de abajo que verifica que el usuario no haya escrito cualquier cosa
+            y si tiene un id valido, lo manda al resultado-->
 
-<script>
+        <script>
     function antifalla(param) {
         if (param === undefined) {
             alert("¡Error! Por favor, ingrese un nombre existente");
@@ -131,17 +152,16 @@ Usuario:
 
 
 
-</script>
-<button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver Propuestas...</button>
-<script>
-    function sinLogin(param) {
-        if (param === undefined) {
-            alert("¡Error! Por favor, ingrese un nombre existente");
-        } else {
-            window.location = '/ResultadoSinLogin/ResultadoSinLogin?idJuego=' + param;
+        </script>
+        <button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver Propuestas...</button>
+        <script>
+            function sinLogin(param) {
+                if (param === undefined) {
+                    alert("¡Error! Por favor, ingrese un nombre existente");
+                } else {
+                    window.location = '/ResultadoSinLogin/ResultadoSinLogin?idJuego=' + param;
 
-        }
+                }
 
-    }
-</script>
-<input type="button" value="Sin login" onclick=sinLogin($('#tags').attr['selec']) />
+            }
+        </script>

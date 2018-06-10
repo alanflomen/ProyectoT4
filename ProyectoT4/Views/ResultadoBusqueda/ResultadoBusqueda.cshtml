@@ -191,34 +191,38 @@
             @{
                 foreach (var juego in Model.JuegosMatch)
                 {
-            <div class="column">
+                    <div class="column">
 
-                @Html.Label("Titulo: " + juego.Titulo)
-                <br>
-                <a href="href=#@juego.Titulo">
-                    <img src="@juego.PathFoto" style="width:50%">
-                </a>
-                <br>
-                <a href=#@juego.Titulo>Ver Opciones → @juego.Titulo</a>
-                <div id=@juego.Titulo class="modalDialog">
+                        @Html.Label("Titulo: " + juego.Titulo)
+                        <br>
+                        @Html.Label("Usuarios que lo quieren: " + juego.UsuariosMatch.Count())
+                        <br>
+                        <a href="?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
+                            <img src="@juego.PathFoto" style="width:50%">
+                        </a>
+                        <br>
+                        <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
+                        <div id=@juego.IdJuego class="modalDialog">
 
-                    <div>
-                        <a href="#close" title="Cerrar" class="close">X</a>
-                        <h2>@juego.Titulo</h2>
-                        @{
-        foreach (var user in juego.UsuariosMatch)
-        {
-                    @Html.Label("Usuario: "); @user.mail
-                    <br>
-                    @Html.Label("Ubicacion: " + user.Ubicacion);
-                    <br>
-                    <button type="button" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&IdjuegoOfrecido2=-1&IdjuegoOfrecido3=-1&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario&textoOpcional=un ejemplo de texto adicional';" class="btn btn-primary">Realizar Propuesta</button> <br> <br>
-}
-                        }
+                            <div>
+                                <a href="#close" title="Cerrar" class="close">X</a>
+                                <h2>@juego.Titulo</h2>
+                                @{
+                                    foreach (var user in juego.UsuariosMatch)
+                                    {
+                                        @Html.Label("Usuario: "); @user.mail
+                                        <br>
+                                        @Html.Label("Ubicacion: " + user.Ubicacion);
+                                        <br>
+                                        <button type="button" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&IdjuegoOfrecido2=-1&IdjuegoOfrecido3=-1&UsuarioEnvia =@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario&textoOpcional =un ejemplo de texto adicional';" class="btn btn-primary">Realizar Propuesta</button> 
+                                        <br> 
+                                        <br>
+                                    }
+                                }
+                            </div>
+                            <br>
+                        </div>
                     </div>
-                    <br>
-                </div>
-            </div>
                 }
             }
         </div>
