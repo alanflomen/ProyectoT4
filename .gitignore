@@ -615,3 +615,4 @@ ProyectoT4/bin/ProyectoT4.dll.config
 ProyectoT4/Web.config
 ProyectoT4/Web.config
 .vs/config/applicationhost.config
+ProyectoT4/Views/ResultadoBusqueda/ResultadoBusqueda.cshtml
