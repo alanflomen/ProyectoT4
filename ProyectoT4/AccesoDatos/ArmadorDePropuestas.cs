@@ -13,7 +13,7 @@ namespace ProyectoT4.AccesoDatos
             List<ModeloPropuesta> lista = new List<ModeloPropuesta>();
             var db = new sistemaContext();
             ModeloPropuesta modelo;
-            var propuestas = db.Operaciones.Where(o => o.UsuarioEnvia.Equals(idUsuario)).Select(i => i.IdOperacion).ToList();
+            var propuestas = db.Operaciones.Where(o => o.UsuarioEnvia.Equals(idUsuario) && !o.Estado.Equals("Cancelada")).Select(i => i.IdOperacion).ToList();
             foreach (var oper in propuestas)
             {
                 modelo = new ModeloPropuesta(oper);

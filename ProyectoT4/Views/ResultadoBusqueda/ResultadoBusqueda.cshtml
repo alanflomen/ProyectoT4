@@ -195,10 +195,15 @@
 
                         @Html.Label("Titulo: " + juego.Titulo)
                         <br>
-                        <img src="@juego.PathFoto" style="width:50%">
+                        @Html.Label("Usuarios que lo quieren: " + juego.UsuariosMatch.Count())
                         <br>
-                        <a href=#@juego.Titulo>Abrir propuestas → @juego.Titulo</a>
-                        <div id=@juego.Titulo class="modalDialog">
+                        <a href="?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
+                            <img src="@juego.PathFoto" style="width:50%">
+                        </a>
+                        <br>
+                        <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
+                        <div id=@juego.IdJuego class="modalDialog">
+
                             <div>
                                 <a href="#close" title="Cerrar" class="close">X</a>
                                 <h2>@juego.Titulo</h2>
@@ -209,7 +214,10 @@
                                         <br>
                                         @Html.Label("Ubicacion: " + user.Ubicacion);
                                         <br>
-                                        <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario';class="btn btn-primary">Analizar Propuesta</button> <br>
+
+                                        <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario'";class="btn btn-primary">Analizar Propuesta</button> <br>
+
+                                       
                                         <br>
                                     }
                                 }
@@ -251,7 +259,7 @@
 </script>
 
 <script>
-    //tecla enter
+    //tecla escape
     document.addEventListener("keypress", function (event) {
         if (event.keyCode == 27) {
             window.history.back();

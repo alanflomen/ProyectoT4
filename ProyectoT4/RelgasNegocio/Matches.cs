@@ -90,7 +90,7 @@ namespace ProyectoT4.RelgasNegocio
                     {
                         //trae el id de operacion si: el estado, el juego buscado, idRecibe,
                         //idenvia, juegos ofrecidos son iguales a los actuales del match
-                        op = db.Operaciones.Where(o => o.JuegoBuscado == idJuegoBuscado && o.UsuarioRecibe.Equals(user.IdUsuario) && o.UsuarioEnvia.Equals(idUsuarioEnvia) && (o.JuegoOfrecido1 == juego || o.JuegoOfrecido2 == juego || o.JuegoOfrecido3 == juego) && o.Estado.Equals("Enviada")).Select(n => n.IdOperacion).First();
+                        op = db.Operaciones.Where(o => o.JuegoBuscado == idJuegoBuscado && o.UsuarioRecibe.Equals(user.IdUsuario) && o.UsuarioEnvia.Equals(idUsuarioEnvia) && (o.JuegoOfrecido1 == juego ) && o.Estado.Equals("Enviada")).Select(n => n.IdOperacion).First();
                     }
                     catch (Exception)
                     {

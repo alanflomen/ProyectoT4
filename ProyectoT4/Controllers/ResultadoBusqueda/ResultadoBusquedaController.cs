@@ -68,7 +68,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             res.IdUsuario = idUsuario;
 
             //elimina las propuestas activas que involucren ese juego
-            RelgasNegocio.ManejadorOperacion.canceladorDePropuestas(idUsuario, idJuego);
+            RelgasNegocio.ManejadorOperacion.canceladorDePropuestas(idUsuario, idJuego, tipo);
 
             RelgasNegocio.Prueba.EliminarLista(idJuego, idUsuario, tipo);
 
