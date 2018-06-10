@@ -13,6 +13,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+
+
         /*Styles de el popup*/
 
         .modalDialog {
@@ -215,9 +217,11 @@
                                         @Html.Label("Ubicacion: " + user.Ubicacion);
                                         <br>
 
+
                                         <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario'";class="btn btn-primary">Analizar Propuesta</button> <br>
 
                                        
+
                                         <br>
                                     }
                                 }

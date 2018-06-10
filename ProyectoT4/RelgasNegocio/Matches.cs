@@ -146,5 +146,17 @@ namespace ProyectoT4.RelgasNegocio
                 }
             }
         }
+        public static List<Juego> crearLista(List<int> idJuegos)
+        {
+            sistemaContext db = new sistemaContext();
+            Juego j;
+            List<Juego> juegos = new List<Juego>();
+            foreach (var juego in idJuegos)
+            {
+                j = db.Juegos.Find(juego);
+                juegos.Add(j);
+            }
+            return juegos;
+        }
     }
 }

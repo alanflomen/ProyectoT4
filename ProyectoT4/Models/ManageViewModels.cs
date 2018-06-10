@@ -12,6 +12,9 @@ namespace ProyectoT4.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public Usuario usuarioSesion { get; set; }
+        public List<Juego> WishList { get; set; }
+        public List<Juego> Libreria { get; set; }
     }
 
     public class ManageLoginsViewModel

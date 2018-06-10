@@ -65,15 +65,12 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
     el value del input que identifica a partir del "name"
 -->
 @using Microsoft.AspNet.Identity
-Usuario:
+
 @{
     if (@User.Identity.GetUserId() == null)
     {
-        @Html.Label("Invitado")
-    }
-    else
-    {
-        @Html.Label(@User.Identity.GetUserId())
+
+        @Html.Label("Usuario Invitado")
     }
 }
 
@@ -153,7 +150,6 @@ Usuario:
 
 
         </script>
-        <button class="btn btn-danger" onclick="location.href='@Url.Action("VerPropuestas", "VerPropuestas")?idUsuario=@User.Identity.GetUserId()';" type="button">Ver Propuestas...</button>
         <script>
             function sinLogin(param) {
                 if (param === undefined) {

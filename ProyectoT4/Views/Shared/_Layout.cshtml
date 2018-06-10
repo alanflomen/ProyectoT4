@@ -18,9 +18,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Insert Coin", "Buscador", "Buscador", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+
             <div class="navbar-collapse collapse">
+                <img src="https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/35062840_10156503030693033_3689180403920273408_n.jpg?_nc_cat=0&_nc_eui2=AeHTg1TGSpd_Klbe7e8GDS0cdhlyS4xxRj8oTprTj7RKibHsEHsXerEM0HINziY1tRMps2p6ZUIUOuKCYK8O5jIF-wiv4PERYy_bA82qAw6ziA&oh=3705c5431d167f9a90dbf202dd403dc7&oe=5B7EE35F" align="left" style="width:5%">
+
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Buscador", "Buscador", "Buscador")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -34,8 +36,10 @@
         @RenderBody()
         <hr />
         <footer>
-            <p> @DateTime.Now.Year - Insert Coin ®</p>
-        </footer>
+            <div align="center">
+                <p> @DateTime.Now.Year - Insert Coin ®</p>
+        </div>
+                </footer>
     </div>
     
     
