@@ -1,8 +1,8 @@
 ﻿@model ProyectoT4.Models.ModeloPropuesta
+@{ViewBag.Title = "Propuesta";
+        }
 
-@{
-    Layout = null;
-}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,10 +17,10 @@
 </head>
 <body>
     <div class="header">
-        <h2 >Analizar Propuesta</h2>
+        <h2>Analizar Propuesta</h2>
     </div>
     <div class="row">
-        <div class="perfil" >
+        <div class="perfil">
             <div class="container">
                 <div class="row">
                     <div class="profile-header-container">
@@ -60,9 +60,9 @@
     </div>
 
     <div class="footer">
-        <div class="form-group">
+        <div class="form-group" align="center">
             <label for="exampleFormControlTextarea1">Proponer con un mensaje</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Ingrese aquí un mensaje opcional para quien recibe su propuesta de intercambio"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols="50" placeholder="Ingrese aquí un mensaje opcional para quien recibe su propuesta de intercambio"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=texto Hardcodeado de prueba'">Realizar Propuesta</button>
         <button type="submit" class="btn btn-primary" style="display:none"></button>
@@ -72,12 +72,13 @@
 </body>
 </html>
 
-
 <style>
-
+    #exampleFormControlTextarea1 {
+        resize: none;
+    }
     /**
- * Profile image component
- */
+    * Profile image component
+    */
     .profile-header-container {
         text-align: left;
     }
@@ -97,8 +98,8 @@
     }
 
     /**
- * Ranking component
- */
+    * Ranking component
+    */
     .rank-label-container {
         margin-top: -19px;
         /* z-index: 1000; */
@@ -113,8 +114,8 @@
 
 
     /*
-        PERFILES
-    */
+           PERFILES
+       */
 
     .perfil {
         float: left;
@@ -159,6 +160,7 @@
         /*background-color: #f1f1f1;*/
         padding: 10px;
         text-align: center;
+
     }
 
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
