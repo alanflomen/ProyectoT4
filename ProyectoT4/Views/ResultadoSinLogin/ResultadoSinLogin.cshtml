@@ -102,13 +102,14 @@
                         <a href="#close" title="Cerrar" class="close">X</a>
                         <h2>Posible propuesta: </h2>
                         <p><strong>Usuario: xxxx</strong></p>
+                        <p><strong>Ubicación: @user.Ubicacion</strong></p>
                         <p><strong>Rating: @user.rating</strong></p>
                         @Html.Label("E-Mail: ")
                         <a href="mailto:xx@xx.com">xx@xx.com</a>
                         <br>
                         <br>
                         <button type="button" onclick="mensaje()" class="btn btn-primary">Realizar propuesta</button>
-                        <button type="button" onclick="location.href='@Url.Action("Register", "Account" )'" class="btn btn-warning">Registrarme</button> <br> <br>
+                        <button type="button" onclick="location.href='@Url.Action("Register", "Account")'" class="btn btn-warning">Registrarme</button> <br> <br>
                         <br>
                     </div>
                     <br>
