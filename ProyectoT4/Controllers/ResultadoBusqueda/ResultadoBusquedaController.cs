@@ -15,13 +15,13 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
          * y manda ese modelo a la vista*/
         [Authorize]
         public ActionResult ResultadoBusqueda(int idJuego, String idUsuario)
-        {            
+        {
             var db = new sistemaContext();
             ProyectoT4.Models.ResultadoBusqueda res = new Models.ResultadoBusqueda();
             //completo el modelo a pasar
             res.JuegoBuscado = db.Juegos.Find(idJuego);
             @ViewBag.Title = res.JuegoBuscado.Titulo;
-            
+
             res.IdUsuario = idUsuario;
             //metodo que matchea y crea los usuarios matcheados con sus juegos, y me devuelve la lista
             res.JuegosMatch = RelgasNegocio.Matches.ListaMatch(idUsuario, idJuego);
@@ -83,6 +83,12 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             return View("ResultadoBusqueda", res);
 
         }
-
+        [Authorize]
+        public ActionResult TodosLosJuegos(String idUsuario)
+        {
+            List<JuegosMatch> res = RelgasNegocio.ArmadorTodosLosJuegos.armadorJuegos(idUsuario);
+            modeloTodosLosJuegos model = new modeloTodosLosJuegos(res);
+            return View(model);
+        }
     }
 }

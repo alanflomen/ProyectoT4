@@ -1,0 +1,149 @@
+﻿<!--indico la ruta al modelo con el que va a trabajar la vista con -->
+@model ProyectoT4.Models.modeloTodosLosJuegos
+@{ ViewBag.Title = "Todos los juegos";
+    }
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+
+        /*Styles de el popup*/
+
+        .modalDialog {
+            position: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 99999;
+            opacity: 0;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+            pointer-events: none;
+        }
+
+            .modalDialog:target {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .modalDialog > div {
+                width: 400px;
+                position: relative;
+                margin: 10% auto;
+                padding: 5px 20px 13px 20px;
+                border-radius: 10px;
+                background: #c6cc5c;
+            }
+
+        .close {
+            background: #606061;
+            color: #FFFFFF;
+            line-height: 25px;
+            position: absolute;
+            right: -12px;
+            text-align: center;
+            top: -10px;
+            width: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            -moz-box-shadow: 1px 1px 3px #000;
+            -webkit-box-shadow: 1px 1px 3px #000;
+            box-shadow: 1px 1px 3px #000;
+        }
+
+            .close:hover {
+                background: #00d9ff;
+            }
+        /*Styles de el image align*/
+        * {
+            box-sizing: border-box;
+        }
+
+        .column {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+
+
+   
+
+</head>
+<body >
+    <h2>Resultado de la busqueda:</h2>
+    <font color="white">        
+
+        @Html.Label("Todos los juegos: " + @Model.lista.Count())
+        <br>
+        <div class="row">
+            @{
+            foreach (var juego in Model.lista)
+            {
+                <div class="column" align="center">
+                    @Html.Label("Titulo: " + juego.Titulo)
+                    <br>
+                    @Html.Label("Usuarios que lo tienen: " + juego.UsuariosMatch.Count())
+                    <br>
+                    <a href="?idJuego=@juego.IdJuego#@juego.IdJuego">
+                        <img src="@juego.PathFoto" style="width:50%">
+                    </a>
+                    <br>
+                    <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
+                    <div id=@juego.IdJuego class="modalDialog" align="left">
+                        <div>
+                            <a href="#close" title="Cerrar" class="close">X</a>
+                            <h2>@juego.Titulo</h2>
+                            @{
+                            foreach (var user in juego.UsuariosMatch)
+                            {
+                                @Html.Label("Usuario: "); @user.mail
+                                <br>
+                                @Html.Label("Ubicacion: "); @user.Ubicacion
+                                <br>
+                                <button type="button" onclick="" class="btn btn-primary">Ver que juegos quiere</button>
+                                <br>
+                                <br>
+                        }
+                            }
+                        </div>
+                        <br>
+                    </div>
+                </div>
+        }
+            }
+        </div>
+    </font>
+</body>
+</html>
+
+
+
+
+
+<script>
+    //tecla escape
+    document.addEventListener("keypress", function (event) {
+        if (event.keyCode == 27) {
+            window.history.back();
+        }
+    })
+</script>
