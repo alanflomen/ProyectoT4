@@ -85,11 +85,11 @@
             content: "";
             clear: both;
             display: table;
+        }
     </style>
 
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  
 
 </head>
 <body style="background-color:black;">
@@ -193,7 +193,7 @@
             @{
                 foreach (var juego in Model.JuegosMatch)
                 {
-                    <div class="column">
+                    <div class="column" align="center">
 
                         @Html.Label("Titulo: " + juego.Titulo)
                         <br>
@@ -204,7 +204,7 @@
                         </a>
                         <br>
                         <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
-                        <div id=@juego.IdJuego class="modalDialog">
+                        <div id=@juego.IdJuego class="modalDialog" align="left">
 
                             <div>
                                 <a href="#close" title="Cerrar" class="close">X</a>

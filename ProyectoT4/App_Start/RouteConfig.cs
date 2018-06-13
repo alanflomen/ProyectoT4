@@ -18,6 +18,10 @@ namespace ProyectoT4
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Buscador", action = "Buscador", id = UrlParameter.Optional }
             );
+
+
+            routes.MapRoute("404-PageNotFound", "{*url}", new { controller = "Error404", action = "Error404" }
+    );
         }
     }
 }
