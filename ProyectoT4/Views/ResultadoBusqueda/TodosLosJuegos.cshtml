@@ -1,5 +1,8 @@
 ﻿<!--indico la ruta al modelo con el que va a trabajar la vista con -->
 @model ProyectoT4.Models.modeloTodosLosJuegos
+@using Microsoft.AspNet.Identity
+
+
 @{ ViewBag.Title = "Todos los juegos";
     }
 
@@ -103,7 +106,7 @@
                     <br>
                     @Html.Label("Usuarios que lo tienen: " + juego.UsuariosMatch.Count())
                     <br>
-                    <a href="?idJuego=@juego.IdJuego#@juego.IdJuego">
+                    <a href="?idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
                         <img src="@juego.PathFoto" style="width:50%">
                     </a>
                     <br>

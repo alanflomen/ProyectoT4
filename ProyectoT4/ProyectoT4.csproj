@@ -222,7 +222,6 @@
     <Compile Include="Models\ModeloPropuesta.cs" />
     <Compile Include="Models\ResultadoBusqueda.cs" />
     <Compile Include="Models\sistemaContext.cs" />
-    <Compile Include="Models\TodosLosJuegos.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\JuegosMatch.cs" />
     <Compile Include="Models\WishList.cs" />

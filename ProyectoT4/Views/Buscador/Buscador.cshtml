@@ -73,15 +73,15 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
         @Html.Label("Usuario Invitado")
     }
 }
-
-<div class="container">
-
-    <h2><font color="white">Escriba el nombre del juego:</font></h2>
-    <form action="../ResultadoBusqueda/ResultadoBusqueda" method="get">
-        <img src="https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/33477500_10156464788733033_5347624575788122112_n.jpg?_nc_cat=0&oh=e06c72ed91988b11634da5d4851d1d83&oe=5BC3C1EA" align="right" height="300" width="400">
-        <div class="form-group">
-            <input type="text" name="id" autofocus class="form-control" id="tags">
-            <br>
+<form action="../ResultadoBusqueda/ResultadoBusqueda" method="get">
+    <div class="container-fluid" align="center" >
+        <div class="row">
+            <img src="https://scontent.faep8-2.fna.fbcdn.net/v/t1.0-9/33477500_10156464788733033_5347624575788122112_n.jpg?_nc_cat=0&oh=e06c72ed91988b11634da5d4851d1d83&oe=5BC3C1EA" height="300" width="400">
+        </div>
+        <div class="row">
+            <input type="text" name="id" autofocus class="form-control" id="tags" placeholder="Escriba el nombre del juego..." cols="50">
+        </div>
+        <div class="row">
             @{
                 String usuario = User.Identity.GetUserId();
                 if (usuario == null)
@@ -94,11 +94,10 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
 
                 }
             }
-
+            <input type="button" class="btn btn-info" value="TODOS LOS JUEGOS!" onclick="location.href='@Url.Action("TodosLosJuegos", "ResultadoBusqueda")?idUsuario=@User.Identity.GetUserId()'" />
         </div>
-    </form>
-</div>
-
+    </div>
+</form>
 
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -161,4 +160,4 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
 
     }
 </script>
-<input type="button" class="btn btn-info" value="TODOS LOS JUEGOS!" onclick="location.href='@Url.Action("TodosLosJuegos", "ResultadoBusqueda")?idUsuario=@User.Identity.GetUserId()'" />
+

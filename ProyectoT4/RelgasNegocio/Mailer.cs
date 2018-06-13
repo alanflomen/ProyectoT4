@@ -38,7 +38,7 @@ namespace ProyectoT4.RelgasNegocio
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-				throw ex;
+				
 			}
 
 
