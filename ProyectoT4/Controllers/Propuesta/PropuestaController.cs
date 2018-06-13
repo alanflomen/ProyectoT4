@@ -25,7 +25,6 @@ namespace ProyectoT4.Controllers.Propuesta
             String texto = "UsuarioEnvia: " + UsuarioEnvia + "\n" +  "UsuarioRecibe: " + UsuarioRecibe + "\n" + "JuegoBuscado: " + db.Juegos.Find(IdJuegoBuscado).Titulo + "\n" + "JuegoOfrecido: " + db.Juegos.Find(IdjuegoOfrecido1).Titulo;
 
 
-
             if (operacionValida)
 			{
 
@@ -44,8 +43,10 @@ namespace ProyectoT4.Controllers.Propuesta
 				resPropuesta = "Propuesta Invalida";
 			}
 			@ViewBag.Mensaje = resPropuesta;
-            return View(operacion);
-        }
+			
+			return RedirectToAction("ResultadoBusqueda", "ResultadoBusqueda", new { idJuego = IdJuegoBuscado, idUsuario = UsuarioEnvia });
+
+		}
 
 
 		public ActionResult AnalizarPropuesta(string UsuarioEnvia, string UsuarioRecibe, int IdJuegoBuscado, int IdjuegoOfrecido1)
