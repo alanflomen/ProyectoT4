@@ -44,7 +44,7 @@ namespace ProyectoT4.Controllers.Propuesta
 			}
 			@ViewBag.Mensaje = resPropuesta;
 			
-			return RedirectToAction("ResultadoBusqueda", "ResultadoBusqueda", new { idJuego = IdJuegoBuscado, idUsuario = UsuarioEnvia });
+			return RedirectToAction("ResultadoBusqueda", "ResultadoBusqueda", new { idJuego = IdJuegoBuscado, idUsuario = UsuarioEnvia, RealizarPropuesta_result = resPropuesta });
 
 		}
 

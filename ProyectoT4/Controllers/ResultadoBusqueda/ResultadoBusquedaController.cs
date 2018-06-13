@@ -14,8 +14,9 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
          * crea una conexion con la db y busca en la tabla Juegos el juego cuyo titulo se corresponde con el recibido por parametro
          * y manda ese modelo a la vista*/
         [Authorize]
-        public ActionResult ResultadoBusqueda(int idJuego, String idUsuario)
+        public ActionResult ResultadoBusqueda(int idJuego, String idUsuario, String RealizarPropuesta_result)
         {
+            ViewBag.Mensaje = RealizarPropuesta_result;
             var db = new sistemaContext();
             ProyectoT4.Models.ResultadoBusqueda res = new Models.ResultadoBusqueda();
             //completo el modelo a pasar

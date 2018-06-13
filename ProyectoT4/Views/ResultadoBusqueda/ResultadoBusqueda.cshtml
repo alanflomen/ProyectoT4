@@ -87,13 +87,35 @@
             display: table;
         }
     </style>
-
-
-  
-
 </head>
+
 <body style="background-color:black;">
     <h2>Resultado de la busqueda:</h2>
+    @{
+            String mensaje = ViewBag.Mensaje;
+            switch (mensaje)
+            {
+                case "vacia":             
+
+                break;
+            case "Propuesta Realizada y enviada OK":
+                <script>
+                    alert("Propuesta realizada y enviada!");
+                </script>
+
+                break;
+            case "Propuesta Invalida":
+                <script>
+                    alert("Propuesta Invalida");
+                </script>
+
+                break;
+            default:
+                break;
+        }
+    }
+
+
     <font color="white">
 
         <div class="container">
@@ -218,9 +240,9 @@
                                         <br>
 
 
-                                        <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario'"; class="btn btn-primary">Analizar Propuesta</button> <br>
+                                        <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario'"; class="btn btn-primary">Analizar Propuesta</button> <br>
 
-                                       
+
 
                                         <br>
                                     }
@@ -269,4 +291,21 @@
             window.history.back();
         }
     })
+
+
+    function MensajePropuesta(hola) {
+        alert("sape")
+        switch (hola) {
+            case "null":
+                alert("nuloooo")
+                break;
+            case n:
+                alert("Vacio")
+                break;
+            default:
+                alert("ERROR");
+        }
+
+    }
+
 </script>

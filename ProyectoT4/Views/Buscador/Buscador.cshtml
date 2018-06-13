@@ -141,7 +141,7 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
         if (param === undefined) {
             alert("¡Error! Por favor, ingrese un nombre existente");
         } else {
-                window.location = '/ResultadoBusqueda/ResultadoBusqueda?idJuego=' + param + '&idUsuario=@User.Identity.GetUserId()';
+                window.location = '/ResultadoBusqueda/ResultadoBusqueda?idJuego=' + param + '&idUsuario=@User.Identity.GetUserId()&RealizarPropuesta_result=vacia';
             }
     }
 
