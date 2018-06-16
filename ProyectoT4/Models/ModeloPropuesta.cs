@@ -11,8 +11,15 @@ namespace ProyectoT4.Models
 		public Usuario usuarioEnvia { get; set; }
 		public Usuario usuarioRecibe { get; set; }
 		public Juego[] Juegos { get; set; }
+        //true = mostrar aceptar
+        public Boolean BtnAceptar { get; set; }
+        public Boolean BtnRealizarPropuesta { get; set; }
+        //true = mostrar Rechazar
+        public Boolean BtnRechazar { get; set; }
+         //true = mostrar Contra Oferta
+        public Boolean BtnContraOferta { get; set; }
 
-		public ModeloPropuesta(int idoperacion)
+        public ModeloPropuesta(int idoperacion)
 		{
 			Juegos = new Juego[4];
 			var db = new sistemaContext();
@@ -21,6 +28,9 @@ namespace ProyectoT4.Models
 			this.usuarioRecibe = db.Usuarios.Find(oper.UsuarioRecibe);
 			this.Juegos[0] = db.Juegos.Find(oper.JuegoBuscado);
 			this.Juegos[1] = db.Juegos.Find(oper.JuegoOfrecido1);
+            this.BtnAceptar = true;
+            this.BtnRechazar = true;
+            this.BtnContraOferta = true;
 			if (oper.JuegoOfrecido2 != -1)
 			{
 				this.Juegos[2] = db.Juegos.Find(oper.JuegoOfrecido2);
@@ -44,6 +54,7 @@ namespace ProyectoT4.Models
 			this.usuarioRecibe = db.Usuarios.Find(IdUsuarioRecibe);
 			this.Juegos[0] = db.Juegos.Find(juegoBuscado);
 			this.Juegos[1] = db.Juegos.Find(juegoOfrecido1);
+            this.BtnRealizarPropuesta = true;
 		}
 	}
 }

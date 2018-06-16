@@ -17,7 +17,7 @@ namespace ProyectoT4.Models
         public int JuegoOfrecido1 { get; set; }
         public int JuegoOfrecido2 { get; set; }
         public int JuegoOfrecido3 { get; set; }
-        //Estado = propuesta enviada, aceptada o rechazada...etc
+        //Estados posibles: = enviada, aceptada, cancelada, contraOfertaEnvia, contraOfertaRecibe
         public String Estado { get; set; }
 
         //constructor parametrizado

@@ -1,6 +1,6 @@
 ﻿@model ProyectoT4.Models.ModeloPropuesta
 @{ViewBag.Title = "Propuesta";
-        }
+}
 
 
 
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="" style="">
+        <div style="display:flex;justify-content:space-between;align-items:center">
             <div class="">
                 <div class="">
                     <div class="profile-header-container">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-  
+
     <div class="row">
         <div class="column"><img src="@Model.Juegos[1].PathFoto" style="width: 200px; height:250px; float: right" /></div>
         <div class="column">
@@ -65,13 +65,38 @@
             <label for="exampleFormControlTextarea1">Proponer con un mensaje</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols="50" placeholder="Ingrese aquí un mensaje opcional para quien recibe su propuesta de intercambio"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=texto Hardcodeado de prueba'">Realizar Propuesta</button>
-        <button type="submit" class="btn btn-primary" style="display:none"></button>
-        <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("ResultadoBusqueda", "ResultadoBusqueda")?idUsuario=@Model.usuarioEnvia.IdUsuario&Idjuego=@Model.Juegos[0].Id';">Volver a Resultados de Busqueda</button>
+        @{
+            //true = mostrar aceptar - false if = mostrar Realizar propuesta
+            if (Model.BtnAceptar)
+            {
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion'">Aceptar Propuesta</button>
+            }
+            else if (Model.BtnRealizarPropuesta)
+            {
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=texto Hardcodeado de prueba'">Realizar Propuesta</button>
+            }
+
+            if (Model.BtnContraOferta)
+            {
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
+            }
+
+            if (Model.BtnRechazar)
+            {
+                <button type="submit" class="btn btn-danger" onclick="location.href='@Url.Action("RechazarPropuesta", "Propuesta")'">Rechazar Oferta</button>
+            }
+        }
+        <button type="submit" class="btn btn-info" onclick=Atras()>Volver</button>
     </div>
 
 </body>
 </html>
+
+<script>
+    function Atras() {
+        window.history.back();
+    }
+</script>
 
 <style>
     #exampleFormControlTextarea1 {
@@ -161,7 +186,6 @@
         /*background-color: #f1f1f1;*/
         padding: 10px;
         text-align: center;
-
     }
 
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */

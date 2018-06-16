@@ -83,18 +83,27 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
         </div>
         <div class="row">
             @{
-                String usuario = User.Identity.GetUserId();
-                if (usuario == null)
-                {
-                    <input type="button" class="btn btn-primary" value="Buscar!" onclick=sinLogin($('#tags').attr['selec']) />
-                }
-                else
-                {
-                    <input type="button" class="btn btn-primary" value="Buscar!" onclick=antifalla($('#tags').attr['selec']) />
+        String usuario = User.Identity.GetUserId();
+        if (usuario == null)
+        {
+            <input type="button" class="btn btn-primary" value="Buscar!" onclick=sinLogin($('#tags').attr['selec']) />
+}
+else
+{
+        <input type="button" class="btn btn-primary" value="Buscar!" onclick=antifalla($('#tags').attr['selec']) />
 
-                }
+}
             }
-            <input type="button" class="btn btn-info" value="TODOS LOS JUEGOS!" onclick="location.href='@Url.Action("TodosLosJuegos", "ResultadoBusqueda")?idUsuario=@User.Identity.GetUserId()'" />
+            <br />
+            <br />
+            <br />
+            <div class="row">
+                <strong>¿No sabés que juego buscar? Mirá todos los juegos que están disponibles!</strong>
+                <br />
+                <br />
+                <input type="button" class="btn btn-info" value="Ver todos" onclick="location.href='@Url.Action("TodosLosJuegos", "ResultadoBusqueda")?idUsuario=@User.Identity.GetUserId()'" />
+                <br />
+            </div>
         </div>
     </div>
 </form>

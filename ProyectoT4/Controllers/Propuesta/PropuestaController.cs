@@ -54,11 +54,30 @@ namespace ProyectoT4.Controllers.Propuesta
 			//Llegan 2 usuarios y dos juegos
 			ModeloPropuesta mp = new ModeloPropuesta(UsuarioEnvia, UsuarioRecibe, IdJuegoBuscado, IdjuegoOfrecido1);
 			return View(mp);
-		}
+		}        
+        public ActionResult AnalizarPropuestaGestionador(int idOperacion, string idUsuario)
+        {
+            ModeloPropuesta mp = new ModeloPropuesta(idOperacion);
+            //si el usuario que recibe la propuesta, ya hizo contra oferta
+            if (mp.oper.Estado.Equals("contraOfertaRecibe") && mp.usuarioRecibe.IdUsuario.Equals(idUsuario))
+            {
+                mp.BtnContraOferta = false;
+            }
+            //si el usuario que envia la propuesta, ya hizo contra oferta
+            if (mp.oper.Estado.Equals("contraOfertaEnvia") && mp.usuarioEnvia.IdUsuario.Equals(idUsuario))
+            {
+                mp.BtnContraOferta = false;
+            }
+            if (mp.oper.Estado.Equals("enviada") && mp.usuarioEnvia.IdUsuario.Equals(idUsuario))
+            {
+                mp.BtnAceptar = false;
+            }
+            return View("AnalizarPropuesta", mp);
+        }
 
 
 
 
 
-	}
+    }
 }
