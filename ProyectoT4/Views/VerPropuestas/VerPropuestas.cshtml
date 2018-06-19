@@ -1,5 +1,6 @@
 ﻿
 @model ProyectoT4.Models.ContenedorPropuesta
+
 <!DOCTYPE html>
 
 <html>
@@ -67,6 +68,14 @@
 <body>
     Propuestas enviadas: @Model.Enviadas.Count
     <br>
+    @{
+        if (!Model.mensaje.Equals("vacio"))
+        {
+            <script>
+                    alert("Propuesta aceptada!");
+            </script>
+        }
+    }
 
     @{
         foreach (var prop in Model.Enviadas)
@@ -103,7 +112,7 @@
                         @Html.Label("JuegoOfrecido2: " + prop.Juegos[3].Titulo)
                         <br>
                     }
-                    <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta" )" class="btn btn-primary">Ver Propuesta</button> <br>
+                    <button type="button" onclick="location.href='@Url.Action("AnalizarPropuestaGestionador", "Propuesta")?idOperacion=@prop.oper.IdOperacion&idUsuario=@prop.usuarioEnvia.IdUsuario'" class="btn btn-primary">Ver Propuesta</button> <br>
                 </div>
             </div>
             <br>
@@ -152,7 +161,7 @@
                         @Html.Label("JuegoOfrecido2: " + prop.Juegos[3].Titulo)
                         <br>
                     }
-                    <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta")?idOperacion=@prop.oper.IdOperacion'" class="btn btn-primary">Ver Propuesta</button>
+                    <button type="button" onclick="location.href='@Url.Action("AnalizarPropuestaGestionador", "Propuesta")?idOperacion=@prop.oper.IdOperacion&idUsuario=@prop.usuarioRecibe.IdUsuario'" class="btn btn-primary">Ver Propuesta</button>
                     <br>
                 </div>
             </div>
@@ -161,6 +170,52 @@
 
     }
 
+
+    <br>
+    Propuestas Aceptadas: @Model.Enviadas.Count
+    <br>
+
+    @{
+        foreach (var prop in Model.Aceptadas)
+        {
+
+            String texto = "IdJuegoBuscado: " + prop.Juegos[0].Titulo + " IdJuegoOfrecido1: " + prop.Juegos[1].Titulo;
+
+
+            <a href="#@prop.oper.IdOperacion">@texto</a>
+            <div id="@prop.oper.IdOperacion" class="modalDialog">
+                <div>
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h2>Operacion:</h2>
+                    <p><strong>DETALLES</strong></p>
+                    @Html.Label("IdOperacion: " + prop.oper.IdOperacion)
+                    <br>
+                    @Html.Label("IdUsuarioEnvia: ")
+                    <a href="mailto:@prop.usuarioEnvia.mail">@prop.usuarioEnvia.mail</a>
+                    <br>
+                    @Html.Label("IdUsuarioRecibe: ")
+                    <a href="mailto:xx@xx.com">xx@xx.com</a>
+                    <br>
+                    @Html.Label("JuegoBuscado: " + prop.Juegos[0].Titulo)
+                    <br>
+                    @Html.Label("JuegoOfrecido1: " + prop.Juegos[1].Titulo)
+                    <br>
+                    @if (prop.Juegos[2] != null)
+                    {
+                        @Html.Label("JuegoOfrecido2: " + prop.Juegos[2].Titulo)
+                        <br>
+                    }
+                    @if (prop.Juegos[3] != null)
+                    {
+                        @Html.Label("JuegoOfrecido2: " + prop.Juegos[3].Titulo)
+                        <br>
+                    }
+                </div>
+            </div>
+            <br>
+
+        }
+    }
 
 
 

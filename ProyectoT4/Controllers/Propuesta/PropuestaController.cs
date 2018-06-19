@@ -29,8 +29,8 @@ namespace ProyectoT4.Controllers.Propuesta
 			{
 
 				//Llamar a la regla de Negocio que envía mail saliente con el aviso de la propuesta
-				Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-				mailer.EnviarMail("alanflomen@gmail.com", "TEST", texto);
+				//Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
+				//mailer.EnviarMail("alanflomen@gmail.com", "TEST", texto);
 
 				//Guardar en la DB
 				db.Operaciones.Add(operacion);
@@ -71,12 +71,123 @@ namespace ProyectoT4.Controllers.Propuesta
             if (mp.oper.Estado.Equals("enviada") && mp.usuarioEnvia.IdUsuario.Equals(idUsuario))
             {
                 mp.BtnAceptar = false;
+                mp.BtnContraOferta = false;
+
             }
             return View("AnalizarPropuesta", mp);
         }
 
+        public ActionResult AceptarPropuesta(int idOperacion, String idUsuarioActual)
+        {
+            //busco los usuarios y saco de sus wishlist los juegos de la operacion y de su libreria
+            sistemaContext db = new sistemaContext();
+            Operacion ope = db.Operaciones.Find(idOperacion);
+            //cambio el estado a aceptada
+            ope.Estado = "aceptada";
+            //los saco de la wishlist
+            int idJuegoBuscado = ope.JuegoBuscado;
+            String idUsuarioBusca = ope.UsuarioEnvia;
+            WishList w = db.Wishlist.Find(idUsuarioBusca, idJuegoBuscado);
+            db.Wishlist.Remove(w);
+            int idjuegoOfrecido = ope.JuegoOfrecido1;
+            String idUsuarioRecibe = ope.UsuarioRecibe;
+            w = db.Wishlist.Find(idUsuarioRecibe, idjuegoOfrecido);
+            db.Wishlist.Remove(w);
+            if (ope.JuegoOfrecido2 != -1)
+            {
+                idjuegoOfrecido = ope.JuegoOfrecido2;
+                w = db.Wishlist.Find(idUsuarioRecibe, idjuegoOfrecido);
+                db.Wishlist.Remove(w);
+            }
+            if (ope.JuegoOfrecido3 != -1)
+            {
+                idjuegoOfrecido = ope.JuegoOfrecido2;
+                w = db.Wishlist.Find(idUsuarioRecibe, idjuegoOfrecido);
+                db.Wishlist.Remove(w);
+            }
+            //ahora los saco de la libreria
+
+            Libreria l = db.Libreria.Find(idUsuarioRecibe, ope.JuegoBuscado);
+            db.Libreria.Remove(l);
+
+            l = db.Libreria.Find(idUsuarioBusca, ope.JuegoOfrecido1);
+            db.Libreria.Remove(l);
+
+            if (ope.JuegoOfrecido2 != -1)
+            {
+                l = db.Libreria.Find(idUsuarioBusca, ope.JuegoOfrecido2);
+                db.Libreria.Remove(l);
+            }
+            if (ope.JuegoOfrecido3 != -1)
+            {
+                l = db.Libreria.Find(idUsuarioBusca, ope.JuegoOfrecido3);
+                db.Libreria.Remove(l);
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("VerPropuestas","VerPropuestas", new { idUsuario = idUsuarioActual, msj = "Propuesta aceptada!" });
+        }
+
+        public ActionResult RealizarContraOferta(int idOperacion, string textoOpcional)
+        {
+            //estado-previo: el usuario de la sesión analiza una propuesta y decide agregar texto y enviarla como contra-oferta
+            //llega por parametros una operación y un texto adicional
+            String resultado = "";
+            //buscar la operación
+            sistemaContext sc = new sistemaContext();
+            Operacion op = sc.Operaciones.Find(idOperacion);
+            //cambiarle el estado
+            op.Estado = "contraOfertaEnvia";
+
+            /*
+			 * agregarle el texto
+			 */
+            //guardar los cambios
+            sc.SaveChanges();
+
+            //generar el modelo de propuesta para enviar a la vista
+            ModeloPropuesta mp = new ModeloPropuesta(idOperacion);
+            mp.BtnRechazar = false;
+            mp.BtnAceptar = false;
+            mp.BtnContraOferta = false;
+            mp.BtnRealizarPropuesta = false;
+
+            //volver a la pantalla de analizar propuesta con un resultado de la acción
+            return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = op.UsuarioRecibe, msj = resultado });
+        }
+
+        public ActionResult RechazarPropuesta(string usuarioRechaza, int idOperacion, string textoOpcional)
+        {
+            //Resultado de la acción
+            String resultado = "";
+            //Verificar que la propuesta a rechazar aun exista (es posible esto?)
+            //Buscar la Operacion en la db
+            sistemaContext sc = new sistemaContext();
+            Operacion op = sc.Operaciones.Find(idOperacion);
+
+            //si existe	
+            if (op != null && op.Estado != "cancelada")
+            {
+                //cambiarle el estado a cancelada
+                op.Estado = "cancelada";
+                //Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
+                //Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
+                //mailer.EnviarMail("vicentini.nicolas@gmail.com", "TEST", "PropuestaRechazada");
+                sc.SaveChanges();
+                resultado = "Operación N°: " + idOperacion + " Rechazada";
+            }
+            else //no existe
+            {
+                //avisar que la operacion ya fue anulada
+                resultado = "La operacion N°: " + idOperacion + " ya fue previamente cancelada.";
+            }
 
 
+
+            //volver a la vista
+            return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = op.UsuarioRecibe, msj = resultado });
+
+        }
 
 
     }

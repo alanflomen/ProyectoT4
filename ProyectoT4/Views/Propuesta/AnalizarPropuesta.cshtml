@@ -1,4 +1,6 @@
 ﻿@model ProyectoT4.Models.ModeloPropuesta
+@using Microsoft.AspNet.Identity
+
 @{ViewBag.Title = "Propuesta";
 }
 
@@ -69,7 +71,7 @@
             //true = mostrar aceptar - false if = mostrar Realizar propuesta
             if (Model.BtnAceptar)
             {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion'">Aceptar Propuesta</button>
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
             }
             else if (Model.BtnRealizarPropuesta)
             {

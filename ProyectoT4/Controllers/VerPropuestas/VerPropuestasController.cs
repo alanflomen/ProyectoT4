@@ -10,18 +10,21 @@ namespace ProyectoT4.Controllers
     public class VerPropuestasController : Controller
     {
         // GET: VerPropuestas
-        public ActionResult VerPropuestas(String idUsuario)
+        public ActionResult VerPropuestas(String idUsuario, String msj)
         {
             @ViewBag.Title = "Ver Propuestas";
 
             ContenedorPropuesta listado;
             List<ModeloPropuesta> enviadas;
             List<ModeloPropuesta> recibidas;
+            List<ModeloPropuesta> aceptadas;
             enviadas = AccesoDatos.ArmadorDePropuestas.generarEnviadas(idUsuario);
             recibidas = AccesoDatos.ArmadorDePropuestas.generarRecibidas(idUsuario);
-            listado = new ContenedorPropuesta(enviadas, recibidas);
+            aceptadas = AccesoDatos.ArmadorDePropuestas.generarAceptadas(idUsuario);
+            listado = new ContenedorPropuesta(enviadas, recibidas, aceptadas, msj);
 
             return View(listado);
         }
+
     }
 }
