@@ -19,9 +19,11 @@ namespace ProyectoT4.Models
         public int JuegoOfrecido3 { get; set; }
         //Estados posibles: = enviada, aceptada, cancelada, contraOfertaEnvia, contraOfertaRecibe
         public String Estado { get; set; }
+		//Mensajes entre los usuarios separados por ""
+		public string Mensajes { get; set; }
 
-        //constructor parametrizado
-        public Operacion(String usuarioEnvia, String usuarioRecibe, int juegoBuscado, int juegoOfrecido1, int juegoOfrecido2, int juegoOfrecido3, String estado)
+		//constructor parametrizado
+		public Operacion(String usuarioEnvia, String usuarioRecibe, int juegoBuscado, int juegoOfrecido1, int juegoOfrecido2, int juegoOfrecido3, String estado, string textoOpcional)
         {
             this.UsuarioEnvia = usuarioEnvia;
             this.UsuarioRecibe = usuarioRecibe;
@@ -31,8 +33,9 @@ namespace ProyectoT4.Models
             this.JuegoOfrecido2 = juegoOfrecido2;
             this.JuegoOfrecido3 = juegoOfrecido3;       
             this.Estado = estado;
-            //para mi esto no va, lo autogenera la bd
-            //this.IdOperacion = AsignarId();
+			//para mi esto no va, lo autogenera la bd
+			//this.IdOperacion = AsignarId();
+			this.Mensajes = textoOpcional;
         }
         public Operacion()
         {

@@ -160,31 +160,54 @@
     </div>
 
     <div class="footer">
-        
+
         <div class="form-group" align="center">
             @Html.TextAreaFor(m => m.textoOpcional, new { @class = "form-control", @placeholder = "Ingrese aquí un mensaje opcional para quien recibe su propuesta de intercambio" })
-           
+
         </div>
+
         @{
-            //true = mostrar aceptar - false if = mostrar Realizar propuesta
-            if (Model.BtnAceptar)
-            {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
-            }
-            else if (Model.BtnRealizarPropuesta)
-            {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=@Model.textoOpcional'">Realizar Propuesta</button>
-            }
+        //true = mostrar aceptar - false if = mostrar Realizar propuesta
+        if (Model.BtnAceptar)
+        {
+            <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
+            <div>
+                Mensajes: @Model.oper.Mensajes
+            </div>
+    }
+    else if (Model.BtnRealizarPropuesta)
+    {
+        <button type="submit" class="btn btn-primary" onclick="RealizarPropuesta()">Realizar Propuesta</button>
+        <script>
+                function RealizarPropuesta() {
+                    var urlStr = "@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=";
+                    window.location = urlStr + $("#textoOpcional").val();
+                }
+        </script>
 
-            if (Model.BtnContraOferta)
-            {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
-            }
+}
 
-            if (Model.BtnRechazar)
-            {
-                <button type="submit" class="btn btn-danger" onclick="RechazarOferta()">Rechazar Oferta</button>
-            }
+if (Model.BtnContraOferta)
+{
+    <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
+    <div>
+        Mensajes: @Model.oper.Mensajes
+    </div>
+}
+
+if (Model.BtnRechazar)
+{
+    <button type="submit" class="btn btn-danger" onclick="RechazarOferta()">Rechazar Oferta</button>
+    <script>
+                function RechazarOferta() {
+                    var urlStr = "@Url.Action("RechazarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&UsuarioActual=@User.Identity.GetUserId()&textoOpcional=";
+                    window.location = urlStr + $("#textoOpcional").val();
+                }
+    </script>
+    <div>
+        Mensajes: @Model.oper.Mensajes
+    </div>
+}
         }
         <button type="submit" class="btn btn-info" onclick=Atras()>Volver</button>
     </div>
@@ -196,9 +219,8 @@
     function Atras() {
         window.history.back();
     }
-    function RechazarOferta() {
-        var urlStr = "@Url.Action("RechazarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&UsuarioActual=@User.Identity.GetUserId()&textoOpcional='";
-        window.location = urlStr + $("#textoOpcional").val();
-    }
+
 </script>
+
+
 
