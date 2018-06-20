@@ -66,13 +66,14 @@
     <title>VerPropuestas</title>
 </head>
 <body>
+    
     Propuestas enviadas: @Model.Enviadas.Count
     <br>
     @{
         if (!Model.mensaje.Equals("vacio"))
         {
             <script>
-                    alert("Propuesta aceptada!");
+                    alert('@Model.mensaje');
             </script>
         }
     }
