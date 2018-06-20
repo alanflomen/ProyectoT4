@@ -170,10 +170,11 @@
         //true = mostrar aceptar - false if = mostrar Realizar propuesta
         if (Model.BtnAceptar)
         {
-            <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
             <div>
                 Mensajes: @Model.oper.Mensajes
             </div>
+            <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
+
     }
     else if (Model.BtnRealizarPropuesta)
     {
@@ -190,9 +191,7 @@
 if (Model.BtnContraOferta)
 {
     <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
-    <div>
-        Mensajes: @Model.oper.Mensajes
-    </div>
+
 }
 
 if (Model.BtnRechazar)
@@ -204,9 +203,7 @@ if (Model.BtnRechazar)
                     window.location = urlStr + $("#textoOpcional").val();
                 }
     </script>
-    <div>
-        Mensajes: @Model.oper.Mensajes
-    </div>
+
 }
         }
         <button type="submit" class="btn btn-info" onclick=Atras()>Volver</button>
