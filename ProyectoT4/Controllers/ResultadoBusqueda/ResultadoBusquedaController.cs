@@ -44,6 +44,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             res.JuegoBuscado = db.Juegos.Find(idJuego);
             @ViewBag.Title = res.JuegoBuscado.Titulo;
             res.IdUsuario = idUsuario;
+            ViewBag.Mensaje = "vacio";
 
             RelgasNegocio.Prueba.AgregaLista(idJuego, idUsuario, tipo);
 
@@ -67,6 +68,7 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             res.JuegoBuscado = db.Juegos.Find(idJuego);
             @ViewBag.Title = res.JuegoBuscado.Titulo;
             res.IdUsuario = idUsuario;
+            ViewBag.Mensaje = "vacio";
 
             //elimina las propuestas activas que involucren ese juego
             RelgasNegocio.ManejadorOperacion.canceladorDePropuestas(idUsuario, idJuego, tipo);
@@ -89,6 +91,8 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
         {
             List<JuegosMatch> res = RelgasNegocio.ArmadorTodosLosJuegos.armadorJuegos(idUsuario);
             modeloTodosLosJuegos model = new modeloTodosLosJuegos(res);
+            ViewBag.Mensaje = "vacio";
+
             return View(model);
         }
     }
