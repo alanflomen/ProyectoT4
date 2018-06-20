@@ -19,6 +19,8 @@ namespace ProyectoT4.Models
          //true = mostrar Contra Oferta
         public Boolean BtnContraOferta { get; set; }
 
+        public string  textoOpcional { get; set; }
+
         public ModeloPropuesta(int idoperacion)
 		{
 			Juegos = new Juego[4];

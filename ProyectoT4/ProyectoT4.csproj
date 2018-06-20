@@ -301,7 +301,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Buscador\Buscador.cshtml" />
     <Content Include="Views\ResultadoBusqueda\ResultadoBusqueda.cshtml" />
-    <Content Include="Views\Propuesta\RealizarPropuesta.cshtml" />
     <Content Include="Views\VerPropuestas\VerPropuestas.cshtml" />
     <Content Include="Views\ResultadoSinLogin\ResultadoSinLogin.cshtml" />
     <Content Include="Views\Propuesta\AnalizarPropuesta.cshtml" />

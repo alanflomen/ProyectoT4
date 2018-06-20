@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoT4.RelgasNegocio;
+using Microsoft.AspNet.Identity;
 
 namespace ProyectoT4.Controllers.Propuesta
 {
@@ -128,7 +129,7 @@ namespace ProyectoT4.Controllers.Propuesta
             return RedirectToAction("VerPropuestas","VerPropuestas", new { idUsuario = idUsuarioActual, msj = "Propuesta aceptada!" });
         }
 
-        public ActionResult RealizarContraOferta(int idOperacion, string textoOpcional)
+        public ActionResult RealizarContraOferta(string idUsuarioActual , int idOperacion, string textoOpcional)
         {
             //estado-previo: el usuario de la sesión analiza una propuesta y decide agregar texto y enviarla como contra-oferta
             //llega por parametros una operación y un texto adicional
@@ -145,18 +146,11 @@ namespace ProyectoT4.Controllers.Propuesta
             //guardar los cambios
             sc.SaveChanges();
 
-            //generar el modelo de propuesta para enviar a la vista
-            ModeloPropuesta mp = new ModeloPropuesta(idOperacion);
-            mp.BtnRechazar = false;
-            mp.BtnAceptar = false;
-            mp.BtnContraOferta = false;
-            mp.BtnRealizarPropuesta = false;
-
             //volver a la pantalla de analizar propuesta con un resultado de la acción
-            return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = op.UsuarioRecibe, msj = resultado });
+            return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = idUsuarioActual, msj = resultado });
         }
 
-        public ActionResult RechazarPropuesta(string usuarioRechaza, int idOperacion, string textoOpcional)
+        public ActionResult RechazarPropuesta(string usuarioActual, int idOperacion, string textoOpcional)
         {
             //Resultado de la acción
             String resultado = "";
@@ -166,7 +160,7 @@ namespace ProyectoT4.Controllers.Propuesta
             Operacion op = sc.Operaciones.Find(idOperacion);
 
             //si existe	
-            if (op != null && op.Estado != "cancelada")
+            if (op != null && !op.Estado.Equals("cancelada") && !op.Estado.Equals("aceptada"))
             {
                 //cambiarle el estado a cancelada
                 op.Estado = "cancelada";
@@ -174,18 +168,17 @@ namespace ProyectoT4.Controllers.Propuesta
                 //Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
                 //mailer.EnviarMail("vicentini.nicolas@gmail.com", "TEST", "PropuestaRechazada");
                 sc.SaveChanges();
-                resultado = "Operación N°: " + idOperacion + " Rechazada";
+
+                resultado = "Operacion #: " + idOperacion + " Rechazada";
             }
             else //no existe
             {
                 //avisar que la operacion ya fue anulada
-                resultado = "La operacion N°: " + idOperacion + " ya fue previamente cancelada.";
+                resultado = "La operacion #" + idOperacion + " ya fue previamente cancelada.";
             }
-
-
-
+            
             //volver a la vista
-            return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = op.UsuarioRecibe, msj = resultado });
+            return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = usuarioActual, msj = resultado });
 
         }
 

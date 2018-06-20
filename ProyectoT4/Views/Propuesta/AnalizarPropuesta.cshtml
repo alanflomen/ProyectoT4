@@ -4,102 +4,6 @@
 @{ViewBag.Title = "Propuesta";
 }
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Analizar Propuesta</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-</head>
-<body>
-    <div class="header">
-        <h2>Analizar Propuesta</h2>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-        <div class="">
-            <div class="">
-                <div class="">
-                    <div class="profile-header-container">
-                        <div class="profile-header-img">
-                            <img class="img-circle" src="@Model.usuarioEnvia.UrlFoto" />
-                            <!-- badge -->
-                            <div class="rank-label-container">
-                                <span class="label label-default rank-label">Ubicacion: @Model.usuarioEnvia.Ubicacion</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="">
-                <div class="">
-                    <div class="profile-header-container">
-                        <div class="profile-header-img" style="">
-                            <img class="img-circle" src="@Model.usuarioRecibe.UrlFoto" />
-                            <!-- badge -->
-                            <div class="rank-label-container">
-                                <span class="label label-default rank-label">Ubicacion: @Model.usuarioRecibe.Ubicacion</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column"><img src="@Model.Juegos[1].PathFoto" style="width: 200px; height:250px; float: right" /></div>
-        <div class="column">
-            <img src="https://cdn4.iconfinder.com/data/icons/arrows-8/100/exchange-512.png" style="width: 150px; display: block; margin: auto;" />
-        </div>
-        <div class="column"><img src="@Model.Juegos[0].PathFoto" style="width: 200px; height:250px" /></div>
-    </div>
-
-    <div class="footer">
-        <div class="form-group" align="center">
-            <label for="exampleFormControlTextarea1">Proponer con un mensaje</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols="50" placeholder="Ingrese aquí un mensaje opcional para quien recibe su propuesta de intercambio"></textarea>
-        </div>
-        @{
-            //true = mostrar aceptar - false if = mostrar Realizar propuesta
-            if (Model.BtnAceptar)
-            {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
-            }
-            else if (Model.BtnRealizarPropuesta)
-            {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=texto Hardcodeado de prueba'">Realizar Propuesta</button>
-            }
-
-            if (Model.BtnContraOferta)
-            {
-                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
-            }
-
-            if (Model.BtnRechazar)
-            {
-                <button type="submit" class="btn btn-danger" onclick="location.href='@Url.Action("RechazarPropuesta", "Propuesta")'">Rechazar Oferta</button>
-            }
-        }
-        <button type="submit" class="btn btn-info" onclick=Atras()>Volver</button>
-    </div>
-
-</body>
-</html>
-
-<script>
-    function Atras() {
-        window.history.back();
-    }
-</script>
-
 <style>
     #exampleFormControlTextarea1 {
         resize: none;
@@ -198,3 +102,103 @@
         }
     }
 </style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Analizar Propuesta</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body>
+    <div class="header">
+        <h2>Analizar Propuesta</h2>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="profile-header-container">
+                        <div class="profile-header-img">
+                            <img class="img-circle" src="@Model.usuarioEnvia.UrlFoto" />
+                            <!-- badge -->
+                            <div class="rank-label-container">
+                                <span class="label label-default rank-label">Ubicacion: @Model.usuarioEnvia.Ubicacion</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="">
+                <div class="">
+                    <div class="profile-header-container">
+                        <div class="profile-header-img" style="">
+                            <img class="img-circle" src="@Model.usuarioRecibe.UrlFoto" />
+                            <!-- badge -->
+                            <div class="rank-label-container">
+                                <span class="label label-default rank-label">Ubicacion: @Model.usuarioRecibe.Ubicacion</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column"><img src="@Model.Juegos[1].PathFoto" style="width: 200px; height:250px; float: right" /></div>
+        <div class="column">
+            <img src="https://cdn4.iconfinder.com/data/icons/arrows-8/100/exchange-512.png" style="width: 150px; display: block; margin: auto;" />
+        </div>
+        <div class="column"><img src="@Model.Juegos[0].PathFoto" style="width: 200px; height:250px" /></div>
+    </div>
+
+    <div class="footer">
+        
+        <div class="form-group" align="center">
+            @Html.TextAreaFor(m => m.textoOpcional, new { @class = "form-control", @placeholder = "Ingrese aquí un mensaje opcional para quien recibe su propuesta de intercambio" })
+           
+        </div>
+        @{
+            //true = mostrar aceptar - false if = mostrar Realizar propuesta
+            if (Model.BtnAceptar)
+            {
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("AceptarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()'">Aceptar Propuesta</button>
+            }
+            else if (Model.BtnRealizarPropuesta)
+            {
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.Juegos[0].Id&idJuegoOfrecido1=@Model.Juegos[1].Id&idJuegoOfrecido2=-1&idJuegoOfrecido3=-1&usuarioEnvia=@Model.usuarioEnvia.IdUsuario&usuarioRecibe=@Model.usuarioRecibe.IdUsuario&textoOpcional=@Model.textoOpcional'">Realizar Propuesta</button>
+            }
+
+            if (Model.BtnContraOferta)
+            {
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
+            }
+
+            if (Model.BtnRechazar)
+            {
+                <button type="submit" class="btn btn-danger" onclick="RechazarOferta()">Rechazar Oferta</button>
+            }
+        }
+        <button type="submit" class="btn btn-info" onclick=Atras()>Volver</button>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function Atras() {
+        window.history.back();
+    }
+    function RechazarOferta() {
+        var urlStr = "@Url.Action("RechazarPropuesta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&UsuarioActual=@User.Identity.GetUserId()&textoOpcional='";
+        window.location = urlStr + $("#textoOpcional").val();
+    }
+</script>
+
