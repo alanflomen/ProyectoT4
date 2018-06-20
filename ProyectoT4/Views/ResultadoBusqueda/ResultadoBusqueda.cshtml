@@ -92,7 +92,7 @@
 <body style="background-color:black;">
     <h2>Resultado de la busqueda:</h2>
     @{
-        if (!@ViewBag.Mensaje.Equals("vacio"))
+        if (ViewBag.Mensaje != null && !@ViewBag.Mensaje.Equals("vacio"))
         {
             <script>
                     alert('@ViewBag.Mensaje');
