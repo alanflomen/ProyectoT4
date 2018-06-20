@@ -10,7 +10,7 @@ namespace ProyectoT4.Controllers
     public class VerPropuestasController : Controller
     {
         // GET: VerPropuestas
-        public ActionResult VerPropuestas(String idUsuario, String msj)
+        public ActionResult VerPropuestas(string idUsuario, string msj)
         {
             @ViewBag.Title = "Ver Propuestas";
 

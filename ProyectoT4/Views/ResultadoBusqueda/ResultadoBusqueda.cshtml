@@ -92,26 +92,11 @@
 <body style="background-color:black;">
     <h2>Resultado de la busqueda:</h2>
     @{
-            String mensaje = ViewBag.Mensaje;
-            switch (mensaje)
-            {
-                case "vacia":             
-
-                break;
-            case "Propuesta Realizada y enviada OK":
-                <script>
-                    alert("Propuesta realizada y enviada!");
-                </script>
-
-                break;
-            case "Propuesta Invalida":
-                <script>
-                    alert("Propuesta Invalida");
-                </script>
-
-                break;
-            default:
-                break;
+        if (!@ViewBag.Mensaje.Equals("vacio"))
+        {
+            <script>
+                    alert('@ViewBag.Mensaje');
+            </script>
         }
     }
 
