@@ -46,5 +46,16 @@ namespace ProyectoT4.RelgasNegocio
             lista.Add(jm);
             return lista;
         }
+        public static List<JuegosMatch> armadorJuegosSinLogin()
+        {
+            var db = new sistemaContext();
+            List<JuegosMatch> atlj = null;
+            List<Libreria> librerias = db.Libreria.ToList();
+            if (librerias.Count() != 0)
+            {
+                atlj = hacerLista(librerias);
+            }
+            return atlj;
+        }
     }
 }

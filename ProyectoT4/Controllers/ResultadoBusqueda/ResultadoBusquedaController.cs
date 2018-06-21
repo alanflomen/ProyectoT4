@@ -86,10 +86,18 @@ namespace ProyectoT4.Controllers.ResultadoBusqueda
             return View("ResultadoBusqueda", res);
 
         }
-        [Authorize]
         public ActionResult TodosLosJuegos(String idUsuario)
         {
-            List<JuegosMatch> res = RelgasNegocio.ArmadorTodosLosJuegos.armadorJuegos(idUsuario);
+            List<JuegosMatch> res;
+            if (idUsuario.Equals("-1"))
+            {
+                 res = RelgasNegocio.ArmadorTodosLosJuegos.armadorJuegosSinLogin();
+            }
+            else
+            {
+                res = RelgasNegocio.ArmadorTodosLosJuegos.armadorJuegos(idUsuario);
+
+            }
             modeloTodosLosJuegos model = new modeloTodosLosJuegos(res);
             ViewBag.Mensaje = "vacio";
 
