@@ -138,12 +138,28 @@ namespace ProyectoT4.Controllers.Propuesta
             //buscar la operación
             sistemaContext sc = new sistemaContext();
             Operacion op = sc.Operaciones.Find(idOperacion);
-            //cambiarle el estado
-            op.Estado = "contraOfertaEnvia";
+			//cambiarle el estado según quien sea el que hace la contraoferta
+			if (idUsuarioActual == op.UsuarioRecibe)
+			{
+				op.Estado = "contraOfertaRecibe";
+			}
+			else
+			{
+				op.Estado = "contraOfertaEnvia";
+			}
 
-            /*
-			 * agregarle el texto
-			 */
+			//agregarle el texto incrementado
+			op.Mensajes = op.Mensajes + "<>" + textoOpcional;
+
+			//Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
+			Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
+			mailer.EnviarMail("vicentini.nicolas@gmail.com", "TEST", textoOpcional);
+			sc.SaveChanges();
+
+
+			//resultado de la operación
+			resultado = "Contra-Oferta enviada";
+			
             //guardar los cambios
             sc.SaveChanges();
 

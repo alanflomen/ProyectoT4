@@ -190,7 +190,13 @@
 
 if (Model.BtnContraOferta)
 {
-    <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("RealizarContraOferta", "Propuesta")'">Realizar Contra-Oferta</button>
+    <button type="submit" class="btn btn-primary" onclick="RealizarContraOferta()">Realizar Contra-Oferta</button>
+    <script>
+                function RealizarContraOferta() {
+                    var urlStr = "@Url.Action("RealizarContraOferta", "Propuesta")?idOperacion=@Model.oper.IdOperacion&idUsuarioActual=@User.Identity.GetUserId()&textoOpcional=";
+                    window.location = urlStr + $("#textoOpcional").val();
+                }
+    </script>
 
 }
 
