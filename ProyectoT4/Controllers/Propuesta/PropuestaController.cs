@@ -22,7 +22,7 @@ namespace ProyectoT4.Controllers.Propuesta
 			
 			//Contruir la Operacion
 			sistemaContext db = new sistemaContext();
-			var operacion = new Operacion(UsuarioEnvia, UsuarioRecibe, IdJuegoBuscado, IdjuegoOfrecido1, IdjuegoOfrecido2, IdjuegoOfrecido3, "enviada", textoOpcional);
+			var operacion = new Operacion(UsuarioEnvia, UsuarioRecibe, IdJuegoBuscado, IdjuegoOfrecido1, IdjuegoOfrecido2, IdjuegoOfrecido3, "enviada", null);
             String texto = "UsuarioEnvia: " + UsuarioEnvia + "\n" +  "UsuarioRecibe: " + UsuarioRecibe + "\n" + "JuegoBuscado: " + db.Juegos.Find(IdJuegoBuscado).Titulo + "\n" + "JuegoOfrecido: " + db.Juegos.Find(IdjuegoOfrecido1).Titulo + "\n" + UsuarioEnvia +" dice: " + textoOpcional ;
 
 
@@ -32,13 +32,13 @@ namespace ProyectoT4.Controllers.Propuesta
 
 				//Llamar a la regla de Negocio que envía mail saliente con el aviso de la propuesta
 				Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-				mailer.EnviarMail("vicentini.nicolas@gmail.com", "TEST", texto);
+				mailer.EnviarMail("alanflomen@gmail.com", "TEST", texto);
 
 				//Guardar en la DB
 				db.Operaciones.Add(operacion);
 				db.SaveChanges();
 
-				resPropuesta = "Propuesta Realizada y enviada OK";
+				resPropuesta = "Propuesta realizada y enviada!";
 			}
 			else
 			{
@@ -76,6 +76,7 @@ namespace ProyectoT4.Controllers.Propuesta
                 mp.BtnContraOferta = false;
 
             }
+
             return View("AnalizarPropuesta", mp);
         }
 
@@ -127,6 +128,11 @@ namespace ProyectoT4.Controllers.Propuesta
             }
 
             db.SaveChanges();
+            //mando el mail     
+            String texto = "Propuesta aceptada!" + "\n" + "UsuarioEnvia: " + ope.UsuarioEnvia + "\n" + "UsuarioRecibe: " + ope.UsuarioRecibe + "\n" + "JuegoBuscado: " + db.Juegos.Find(ope.JuegoBuscado).Titulo + "\n" + "JuegoOfrecido: " + db.Juegos.Find(ope.JuegoOfrecido1).Titulo;
+
+            Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
+            mailer.EnviarMail("alanflomen@gmail.com", "TEST", texto);
             return RedirectToAction("VerPropuestas","VerPropuestas", new { idUsuario = idUsuarioActual, msj = "Propuesta aceptada!" });
         }
 
@@ -148,12 +154,19 @@ namespace ProyectoT4.Controllers.Propuesta
 				op.Estado = "contraOfertaEnvia";
 			}
 
-			//agregarle el texto incrementado
-			op.Mensajes = op.Mensajes + "<>" + textoOpcional;
+            //agregarle el texto incrementado
+            if (op.Mensajes!=null)
+            {
+                op.Mensajes = op.Mensajes + ">" + textoOpcional;
+            }
+            else
+            {
+                op.Mensajes = textoOpcional;
+            }
 
-			//Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
-			Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-			mailer.EnviarMail("vicentini.nicolas@gmail.com", "TEST", textoOpcional);
+            //Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
+            Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
+			mailer.EnviarMail("alanflomen@gmail.com", "TEST", textoOpcional);
 			sc.SaveChanges();
 
 
@@ -181,12 +194,12 @@ namespace ProyectoT4.Controllers.Propuesta
             {
                 //cambiarle el estado a cancelada
                 op.Estado = "cancelada";
-				string mensajeIncrementado = op.Mensajes + "<>" + textoOpcional;
+				string mensajeIncrementado = op.Mensajes + ">" + textoOpcional;
 				op.Mensajes = mensajeIncrementado;
 
 				//Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
 				Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-				mailer.EnviarMail("vicentini.nicolas@gmail.com", "TEST", textoOpcional);
+				mailer.EnviarMail("alanflomen@gmail.com", "TEST", textoOpcional);
 				sc.SaveChanges();
 
                 resultado = "Operacion #: " + idOperacion + " Rechazada";
@@ -196,7 +209,9 @@ namespace ProyectoT4.Controllers.Propuesta
                 //avisar que la operacion ya fue anulada
                 resultado = "La operacion #" + idOperacion + " ya fue previamente cancelada.";
             }
-            
+            //creo vector con mensajes
+
+
             //volver a la vista
             return RedirectToAction("VerPropuestas", "VerPropuestas", new { idUsuario = usuarioActual, msj = resultado });
 

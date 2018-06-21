@@ -20,6 +20,7 @@ namespace ProyectoT4.Models
         public Boolean BtnContraOferta { get; set; }
 
         public string  textoOpcional { get; set; }
+        public string[] mensajes { get; set; }
 
         public ModeloPropuesta(int idoperacion)
 		{
@@ -33,7 +34,13 @@ namespace ProyectoT4.Models
             this.BtnAceptar = true;
             this.BtnRechazar = true;
             this.BtnContraOferta = true;
-			if (oper.JuegoOfrecido2 != -1)
+            if (oper.Mensajes!=null)
+            {
+                this.mensajes = oper.Mensajes.Split('>');
+            }
+            
+
+            if (oper.JuegoOfrecido2 != -1)
 			{
 				this.Juegos[2] = db.Juegos.Find(oper.JuegoOfrecido2);
 
@@ -57,6 +64,7 @@ namespace ProyectoT4.Models
 			this.Juegos[0] = db.Juegos.Find(juegoBuscado);
 			this.Juegos[1] = db.Juegos.Find(juegoOfrecido1);
             this.BtnRealizarPropuesta = true;
+            this.mensajes = null;
 		}
 	}
 }

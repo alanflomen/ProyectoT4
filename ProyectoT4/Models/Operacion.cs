@@ -32,9 +32,7 @@ namespace ProyectoT4.Models
             this.JuegoOfrecido1 = juegoOfrecido1;
             this.JuegoOfrecido2 = juegoOfrecido2;
             this.JuegoOfrecido3 = juegoOfrecido3;       
-            this.Estado = estado;
-			//para mi esto no va, lo autogenera la bd
-			//this.IdOperacion = AsignarId();
+            this.Estado = estado;			
 			this.Mensajes = textoOpcional;
         }
         public Operacion()
