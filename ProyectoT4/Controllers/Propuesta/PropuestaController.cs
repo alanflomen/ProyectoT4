@@ -23,16 +23,19 @@ namespace ProyectoT4.Controllers.Propuesta
 			//Contruir la Operacion
 			sistemaContext db = new sistemaContext();
 			var operacion = new Operacion(UsuarioEnvia, UsuarioRecibe, IdJuegoBuscado, IdjuegoOfrecido1, IdjuegoOfrecido2, IdjuegoOfrecido3, "enviada", null);
-            String texto = "UsuarioEnvia: " + UsuarioEnvia + "\n" +  "UsuarioRecibe: " + UsuarioRecibe + "\n" + "JuegoBuscado: " + db.Juegos.Find(IdJuegoBuscado).Titulo + "\n" + "JuegoOfrecido: " + db.Juegos.Find(IdjuegoOfrecido1).Titulo + "\n" + UsuarioEnvia +" dice: " + textoOpcional ;
+            String texto = "El usuario xxxx te envía la siguiente propuesta:" + "\n" + "Quiero cambiar tu: " + db.Juegos.Find(IdJuegoBuscado).Titulo + "\n" + "Por mi: " + db.Juegos.Find(IdjuegoOfrecido1).Titulo + "\n";
+            if (textoOpcional != null)
+            {
+                texto = texto + "Y dice: " + textoOpcional;
+            }
+            string mail = db.Usuarios.Find(UsuarioRecibe).mail;
+            mail = "alanflomen@gmail.com";
 
-
-
-			if (operacionValida)
+            if (operacionValida)
 			{
-
 				//Llamar a la regla de Negocio que envía mail saliente con el aviso de la propuesta
 				Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-				mailer.EnviarMail("alanflomen@gmail.com", "TEST", texto);
+				mailer.EnviarMail(mail, "Tenés una nueva propuesta!", texto);
 
 				//Guardar en la DB
 				db.Operaciones.Add(operacion);
@@ -129,10 +132,19 @@ namespace ProyectoT4.Controllers.Propuesta
 
             db.SaveChanges();
             //mando el mail     
-            String texto = "Propuesta aceptada!" + "\n" + "UsuarioEnvia: " + ope.UsuarioEnvia + "\n" + "UsuarioRecibe: " + ope.UsuarioRecibe + "\n" + "JuegoBuscado: " + db.Juegos.Find(ope.JuegoBuscado).Titulo + "\n" + "JuegoOfrecido: " + db.Juegos.Find(ope.JuegoOfrecido1).Titulo;
-
+            String texto = "Propuesta aceptada!" + "\n" + " Detalles:" + "\n" + "Juego a cambiar: " + db.Juegos.Find(ope.JuegoBuscado).Titulo + "\n" + "Por: " + db.Juegos.Find(ope.JuegoOfrecido1).Titulo;
+            string mail;
+            if (idUsuarioActual.Equals(ope.UsuarioEnvia))
+            {
+                mail = db.Usuarios.Find(idUsuarioRecibe).mail;
+            }
+            else
+            {
+                mail = db.Usuarios.Find(idUsuarioBusca).mail;
+            }
+            mail = "alanflomen@gmail.com";
             Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-            mailer.EnviarMail("alanflomen@gmail.com", "TEST", texto);
+            mailer.EnviarMail(mail, "Propuesta Aceptada!", texto);
             return RedirectToAction("VerPropuestas","VerPropuestas", new { idUsuario = idUsuarioActual, msj = "Propuesta aceptada!" });
         }
 
@@ -164,9 +176,25 @@ namespace ProyectoT4.Controllers.Propuesta
                 op.Mensajes = textoOpcional;
             }
 
+            //mando el mail     
+            String texto = "Contra-Oferta!" + "\n" + " Detalles:" + "\n" + "Juego a cambiar: " + sc.Juegos.Find(op.JuegoBuscado).Titulo + "\n" + "Por: " + sc.Juegos.Find(op.JuegoOfrecido1).Titulo;
+            if (textoOpcional != null)
+            {
+                texto = texto + "Y dice: " + textoOpcional;
+            }
+            string mail;
+            if (idUsuarioActual.Equals(op.UsuarioEnvia))
+            {
+                mail = sc.Usuarios.Find(op.UsuarioRecibe).mail;
+            }
+            else
+            {
+                mail = sc.Usuarios.Find(op.UsuarioEnvia).mail;
+            }
+            mail = "alanflomen@gmail.com";
             //Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
             Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-			mailer.EnviarMail("alanflomen@gmail.com", "TEST", textoOpcional);
+			mailer.EnviarMail(mail, "Contra-Oferta!", textoOpcional);
 			sc.SaveChanges();
 
 
@@ -193,13 +221,35 @@ namespace ProyectoT4.Controllers.Propuesta
             if (op != null && !op.Estado.Equals("cancelada") && !op.Estado.Equals("aceptada"))
             {
                 //cambiarle el estado a cancelada
-                op.Estado = "cancelada";
-				string mensajeIncrementado = op.Mensajes + ">" + textoOpcional;
-				op.Mensajes = mensajeIncrementado;
+                op.Estado = "rechazada";				
+                if (op.Mensajes != null)
+                {
+                    op.Mensajes = op.Mensajes + ">" + textoOpcional;
+                }
+                else
+                {
+                    op.Mensajes = textoOpcional;
+                }
 
-				//Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
-				Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
-				mailer.EnviarMail("alanflomen@gmail.com", "TEST", textoOpcional);
+                //mando el mail     
+                String texto = "Propuesta Rechazada!" + "\n" + " Detalles:" + "\n" + "Juego a cambiar: " + sc.Juegos.Find(op.JuegoBuscado).Titulo + "\n" + "Por: " + sc.Juegos.Find(op.JuegoOfrecido1).Titulo;
+                if (textoOpcional != null)
+                {
+                    texto = texto + "Y dice: " + textoOpcional;
+                }
+                string mail;
+                if (usuarioActual.Equals(op.UsuarioEnvia))
+                {
+                    mail = sc.Usuarios.Find(op.UsuarioRecibe).mail;
+                }
+                else
+                {
+                    mail = sc.Usuarios.Find(op.UsuarioEnvia).mail;
+                }
+                mail = "alanflomen@gmail.com";
+                //Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
+                Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
+				mailer.EnviarMail(mail, "Propuesta Rechazada!", textoOpcional);
 				sc.SaveChanges();
 
                 resultado = "Operacion #: " + idOperacion + " Rechazada";

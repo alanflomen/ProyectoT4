@@ -13,7 +13,7 @@ namespace ProyectoT4.AccesoDatos
             List<ModeloPropuesta> lista = new List<ModeloPropuesta>();
             var db = new sistemaContext();
             ModeloPropuesta modelo;
-            var propuestas = db.Operaciones.Where(o => o.UsuarioEnvia.Equals(idUsuario) && !o.Estado.Equals("Cancelada") && !o.Estado.Equals("aceptada")).Select(i => i.IdOperacion).ToList();
+            var propuestas = db.Operaciones.Where(o => o.UsuarioEnvia.Equals(idUsuario) && !o.Estado.Equals("Cancelada") && !o.Estado.Equals("rechazada") && !o.Estado.Equals("aceptada")).Select(i => i.IdOperacion).ToList();
             foreach (var oper in propuestas)
             {
                 modelo = new ModeloPropuesta(oper);
@@ -27,7 +27,7 @@ namespace ProyectoT4.AccesoDatos
             List<ModeloPropuesta> lista = new List<ModeloPropuesta>();
             var db = new sistemaContext();
             ModeloPropuesta modelo;
-            var propuestas = db.Operaciones.Where(o => o.UsuarioRecibe.Equals(idUsuario) && !o.Estado.Equals("aceptada") && !o.Estado.Equals("Cancelada")).Select(i => i.IdOperacion).ToList();
+            var propuestas = db.Operaciones.Where(o => o.UsuarioRecibe.Equals(idUsuario) && !o.Estado.Equals("aceptada") && !o.Estado.Equals("rechazada") && !o.Estado.Equals("Cancelada")).Select(i => i.IdOperacion).ToList();
             foreach (var oper in propuestas)
             {
                 modelo = new ModeloPropuesta(oper);
