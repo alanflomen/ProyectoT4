@@ -29,7 +29,7 @@ namespace ProyectoT4.Controllers.Propuesta
                 texto = texto + "Y dice: " + textoOpcional;
             }
             string mail = db.Usuarios.Find(UsuarioRecibe).mail;
-            mail = "alanflomen@gmail.com";
+            //mail = "alanflomen@gmail.com";
 
             if (operacionValida)
 			{
@@ -142,7 +142,7 @@ namespace ProyectoT4.Controllers.Propuesta
             {
                 mail = db.Usuarios.Find(idUsuarioBusca).mail;
             }
-            mail = "alanflomen@gmail.com";
+           // mail = "alanflomen@gmail.com";
             Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
             mailer.EnviarMail(mail, "Propuesta Aceptada!", texto);
             return RedirectToAction("VerPropuestas","VerPropuestas", new { idUsuario = idUsuarioActual, msj = "Propuesta aceptada!" });
@@ -191,7 +191,7 @@ namespace ProyectoT4.Controllers.Propuesta
             {
                 mail = sc.Usuarios.Find(op.UsuarioEnvia).mail;
             }
-            mail = "alanflomen@gmail.com";
+           // mail = "alanflomen@gmail.com";
             //Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
             Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
 			mailer.EnviarMail(mail, "Contra-Oferta!", texto);
@@ -246,7 +246,7 @@ namespace ProyectoT4.Controllers.Propuesta
                 {
                     mail = sc.Usuarios.Find(op.UsuarioEnvia).mail;
                 }
-                mail = "alanflomen@gmail.com";
+                //mail = "alanflomen@gmail.com";
                 //Llamar a la regla de Negocio que envía mail saliente con el aviso del rechazo de la propuesta
                 Mailer mailer = new Mailer("insert-coin@outlook.es", "proyectot4");
 				mailer.EnviarMail(mail, "Propuesta Rechazada!", texto);
