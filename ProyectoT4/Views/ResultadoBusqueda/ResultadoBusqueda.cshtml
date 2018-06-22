@@ -35,6 +35,7 @@
             -moz-transition: opacity 400ms ease-in;
             transition: opacity 400ms ease-in;
             pointer-events: none;
+            Overflow: scroll;
         }
 
             .modalDialog:target {
@@ -99,7 +100,7 @@
         if (ViewBag.Mensaje != null && !@ViewBag.Mensaje.Equals("vacio"))
         {
             <script>
-                    alert('@ViewBag.Mensaje');
+        alert('@ViewBag.Mensaje');
             </script>
         }
     }
@@ -155,39 +156,34 @@
                             <br>
                             <div class="action">
                                 @{//si esta en la lista de jugados, muestra otro boton
-                                    if (wishList == false)
-                                    {
-                                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Lo quiero!</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-danger" onclick=EliminarDeWishList() type="button">Remover de Lo quiero!</button>
-                                    }
+        if (wishList == false)
+        {
+                            <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Lo quiero!</button> }
+else
+{
+                            <button class="btn btn-danger" onclick=EliminarDeWishList() type="button">Remover de Lo quiero!</button>}
                                 }
 
                                 <br>
 
                                 @{
-                                    if (loTengo == false)
-                                    {
-                                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Lo tengo para cambiar</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-danger" onclick=EliminarDeLibreria() type="button">Remover de Lo tengo para cambiar</button>
-                                    }
+        if (loTengo == false)
+        {
+                            <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Lo tengo para cambiar</button>}
+else
+{
+                            <button class="btn btn-danger" onclick=EliminarDeLibreria() type="button">Remover de Lo tengo para cambiar</button>
+}
                                 }
                                 <br>
 
                                 @{ //si esta en la lista de jugados, muestra otro boton
-                                    if (yaLoJugue == false)
-                                    {
-                                        <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Ya lo jugué</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Remover de Ya lo jugué</button>
-                                    }
+        if (yaLoJugue == false)
+        {
+                            <button class="add-to-cart btn btn-default" onclick="location.href='@Url.Action("AgregaLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Ya lo jugué</button>}
+else
+{
+                            <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarLista", "ResultadoBusqueda")?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()&tipo=j';" type="button">Remover de Ya lo jugué</button>}
                                 }
                             </div>
                         </div>
@@ -221,20 +217,17 @@
                                 <a href="#close" title="Cerrar" class="close">X</a>
                                 <h2>@juego.Titulo</h2>
                                 @{
-                                    foreach (var user in juego.UsuariosMatch)
-                                    {
-                                        @Html.Label("Usuario: "); @user.mail
-                                        <br>
-                                        @Html.Label("Ubicacion: " + user.Ubicacion);
-                                        <br>
+        foreach (var user in juego.UsuariosMatch)
+        {
+                            @Html.Label("Usuario: "); @user.mail
+                            <br>
+                            @Html.Label("Ubicacion: " + user.Ubicacion);
+                            <br>
 
 
-                                        <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario'"; class="btn btn-primary">Analizar Propuesta</button> <br>
-
-
-
-                                        <br>
-                                    }
+                            <button type="button" onclick="location.href='@Url.Action("AnalizarPropuesta", "Propuesta")?idJuegoBuscado=@Model.JuegoBuscado.Id&IdjuegoOfrecido1=@juego.IdJuego&UsuarioEnvia=@User.Identity.GetUserId()&UsuarioRecibe=@user.IdUsuario'"; class="btn btn-primary">Analizar Propuesta</button> <br>
+                            <br>
+}
                                 }
                             </div>
                             <br>
@@ -261,7 +254,7 @@
         }
 
     }
-     function EliminarDeWishList() {
+    function EliminarDeWishList() {
 
         var r = confirm("Si elimina de la WishList, se borraran las propuestas en las que este involucrado el @Model.JuegoBuscado.Titulo");
         if (r == true) {

@@ -22,6 +22,7 @@ namespace ProyectoT4.RelgasNegocio
 
         private static List<JuegosMatch> hacerLista(List<Libreria> librerias)
         {
+            //creo una lista de juegoMatch y lo lleno con los usuarios
             var db = new sistemaContext();
             JuegosMatch jm;
             List<JuegosMatch> lista = new List<JuegosMatch>();
@@ -50,7 +51,7 @@ namespace ProyectoT4.RelgasNegocio
         {
             var db = new sistemaContext();
             List<JuegosMatch> atlj = null;
-            List<Libreria> librerias = db.Libreria.ToList();
+            List<Libreria> librerias = db.Libreria.OrderBy(i=> i.IdJuego).ToList();
             if (librerias.Count() != 0)
             {
                 atlj = hacerLista(librerias);
