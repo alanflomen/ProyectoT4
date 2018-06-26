@@ -94,47 +94,58 @@
 </head>
 <body >
     <h2>Resultado de la busqueda:</h2>
-    <font color="white">        
-
-        @Html.Label("Todos los juegos: " + @Model.lista.Count())
-        <br>
-        <div class="row">
-            @{
-            foreach (var juego in Model.lista)
+    <font color="white">  
+        @{ if (Model.lista != null)
             {
-                <div class="column" align="center">
-                    @Html.Label("Titulo: " + juego.Titulo)
-                    <br>
-                    @Html.Label("Usuarios que lo tienen: " + juego.UsuariosMatch.Count())
-                    <br>
-                    <a href="?idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
-                        <img src="@juego.PathFoto" style="width:50%">
-                    </a>
-                    <br>
-                    <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
-                    <div id=@juego.IdJuego class="modalDialog" align="left">
-                        <div>
-                            <a href="#close" title="Cerrar" class="close">X</a>
-                            <h2>@juego.Titulo</h2>
-                            @{
-                            foreach (var user in juego.UsuariosMatch)
-                            {
-                                @Html.Label("Usuario: "); @user.mail
+                @Html.Label("Todos los juegos: " + @Model.lista.Count())
+                <br>
+                <div class="row">
+                    @{
+                        foreach (var juego in Model.lista)
+                        {
+                            <div class="column" align="center">
+                                @Html.Label("Titulo: " + juego.Titulo)
                                 <br>
-                                @Html.Label("Ubicacion: "); @user.Ubicacion
+                                @Html.Label("Usuarios que lo tienen: " + juego.UsuariosMatch.Count())
                                 <br>
-                                <button type="button" onclick=alert("Proximamente...") class="btn btn-primary">Ver que juegos quiere</button>
+                                <a href="?idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
+                                    <img src="@juego.PathFoto" style="width:50%">
+                                </a>
                                 <br>
-                                <br>
-                        }
-                            }
-                        </div>
-                        <br>
-                    </div>
+                                <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
+                                <div id=@juego.IdJuego class="modalDialog" align="left">
+                                    <div>
+                                        <a href="#close" title="Cerrar" class="close">X</a>
+                                        <h2>@juego.Titulo</h2>
+                                        @{
+                                            foreach (var user in juego.UsuariosMatch)
+                                            {
+                                                @Html.Label("Usuario: "); @user.mail
+                                                <br>
+                                                @Html.Label("Ubicacion: "); @user.Ubicacion
+                                                <br>
+                                                <button type="button" onclick=alert("Proximamente...") class="btn btn-primary">Ver que juegos quiere</button>
+                                                <br>
+                                                <br>
+                                            }
+                                        }
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                                            }
+                    }
                 </div>
-        }
+            } else
+            {
+             @Html.Label("No hay juegos disponibles para cambiar :(")
+
             }
-        </div>
+
+
+        }      
+
+ 
     </font>
 </body>
 </html>
