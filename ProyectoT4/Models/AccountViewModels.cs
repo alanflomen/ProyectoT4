@@ -33,7 +33,7 @@ namespace ProyectoT4.Models
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Recordarme en este navegador?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -84,7 +84,7 @@ namespace ProyectoT4.Models
         [Display(Name = "Ubicacion")]
         public string Ubicacion { get; set; }
 
-        [Display(Name = "URL Foto")]
+        [Display(Name = "Foto de perfil")]
         public string UrlFoto { get; set; }
 
 

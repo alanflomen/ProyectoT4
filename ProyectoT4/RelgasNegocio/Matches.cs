@@ -22,7 +22,7 @@ namespace ProyectoT4.RelgasNegocio
             //todos los juegos del usuario
             var miBiblioteca = db.Libreria.Where(o => o.IdUsuario.Equals(idUsuario)).Select(i => i.IdJuego).ToList();
             //quienes lo tengan sin contar al usuario que lo busca
-            var usuariosQueLoTienen = db.Libreria.Where(o => o.IdJuego == idJuego && o.IdUsuario != idUsuario).Select(i => i.IdUsuario).ToList();
+            var usuariosQueLoTienen = db.Libreria.Where(o => o.IdJuego == idJuego && !o.IdUsuario.Equals(idUsuario)).Select(i => i.IdUsuario).ToList();
             //usuariosMatchConLosJuegosQueLesInteresan
             var uMclJqlI = db.Wishlist.Where(o => miBiblioteca.Contains(o.IdJuego) && usuariosQueLoTienen.Contains(o.IdUsuario)).OrderBy(o => o.IdJuego).ToList();
 
