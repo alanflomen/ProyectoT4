@@ -193,10 +193,10 @@
                 <div class="col-md-3 jueguito">
 
                     <p><b>@juego.Titulo</b></p>
-                    <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
+                    <a href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=l'>
                         <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
                     </a>
-                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo =w';"type="button">Remover de WishList</button>
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';"type="button">Remover de Libreria</button>
 
 
 
@@ -227,7 +227,7 @@
                     <div class="col-md-3 jueguito">
 
                         <p><b>@juego.Titulo</b></p>
-                        <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
+                        <a href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=w'>
                             <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
                         </a>
                         <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';"type="button">Remover de WishList</button>
