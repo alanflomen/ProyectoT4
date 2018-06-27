@@ -12,7 +12,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <style>
-
         .modalDialog {
             position: fixed;
             font-family: Arial, Helvetica, sans-serif;
@@ -119,6 +118,12 @@
             padding: 5px 10px 5px 10px;
             border-radius: 27px;
         }
+
+        .jueguito {
+            text-align: center;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
     </style>
 </head>
 <body>
@@ -174,35 +179,72 @@
     <hr />
     <h2>Mis Juegos:</h2>
     <div class="row">
-        @{
+
+        @{ int cont = 0;
             foreach (var juego in Model.Libreria)
             {
-                <div class="column" align="center">
+
+                if (cont != 0 && cont % 4 == 0)
+                {
+                    @:</div>
+                    @:<div class="row">
+                    }
+
+                <div class="col-md-3 jueguito">
+
                     <p><b>@juego.Titulo</b></p>
                     <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
                         <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
                     </a>
-                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil", "Manage" )?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=l';" type="button">Remover de Libreria</button>
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo =w';"type="button">Remover de WishList</button>
+
+
+
 
                 </div>
+                cont++;
             }
         }
+
     </div>
+
     <h2>Mi WishList:</h2>
     <div class="row">
-        @{
-            foreach (var juego in Model.WishList)
-            {
-                <div class="column" align="center">
-                    <p><b>@juego.Titulo</b></p>
-                    <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
-                        <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
-                    </a>
-                    <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil", "Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';" type="button">Remover de WishList</button>
 
-                </div>
+
+        <div class="row">
+
+            @{ int cont2 = 0;
+                foreach (var juego in Model.WishList)
+                {
+
+                    if (cont2 != 0 && cont2 % 4 == 0)
+                    {
+                        @:</div>
+                        @:<div class="row">
+                    }
+
+                    <div class="col-md-3 jueguito">
+
+                        <p><b>@juego.Titulo</b></p>
+                        <a href=EliminarDeLibreria(@juego, @User.Identity.GetUserId(), @juego.Titulo)>
+                            <img src="@juego.PathFoto" alt="@juego.Titulo" style="width:50%">
+                        </a>
+                        <button class="btn btn-danger" onclick="location.href='@Url.Action("EliminarListaDesdePerfil","Manage")?idJuego=@juego.Id&idUsuario=@User.Identity.GetUserId()&tipo=w';"type="button">Remover de WishList</button>
+
+
+
+
+                    </div>
+                    cont2++;
+                }
             }
-        }
+
+        </div>
+
+
+
+
     </div>
 </body>
 </html>

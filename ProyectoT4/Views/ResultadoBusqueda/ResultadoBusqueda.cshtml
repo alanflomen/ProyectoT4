@@ -92,6 +92,11 @@
             clear: both;
             display: table;
         }
+         .jueguito {
+        text-align: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
     </style>
 </head>
 
@@ -194,23 +199,31 @@
 
         @Html.Label("Juegos con match: " + @Model.JuegosMatch.Count)
         <br>
-        <div class="row">
+        <div class="row" >
 
-            @{
+            @{ int cont = 0;
                 foreach (var juego in Model.JuegosMatch)
                 {
-                    <div class="column" align="center">
+                  
+                    if (cont != 0 && cont % 4 == 0)
+                    {
+                        @:</div>
+                        @:<div class="row">
+                    }
 
-                        @Html.Label("Titulo: " + juego.Titulo)
-                        <br>
-                        @Html.Label("Usuarios que lo quieren: " + juego.UsuariosMatch.Count())
-                        <br>
+                    <div class="col-md-3 jueguito">
+
+                          @Html.Label("Titulo: " + juego.Titulo)
+                    <br>
+                    @Html.Label("Usuarios que lo quieren: " + juego.UsuariosMatch.Count())
+                    <br>
+                            
                         <a href="?idJuego=@Model.JuegoBuscado.Id&idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
                             <img src="@juego.PathFoto" style="width:50%">
                         </a>
                         <br>
                         <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
-                        <div id=@juego.IdJuego class="modalDialog" align="left">
+                        <div id=@juego.IdJuego class="modalDialog">
 
                             <div>
                                 <a href="#close" title="Cerrar" class="close">X</a>
@@ -231,13 +244,14 @@
                             </div>
                             <br>
                         </div>
+
+
                     </div>
+                    cont++;
                 }
             }
 
         </div>
-
-
 
 
 

@@ -86,6 +86,11 @@
             clear: both;
             display: table;
         }
+         .jueguito {
+        text-align: center;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
     </style>
 
 
@@ -100,44 +105,61 @@
                 @Html.Label("Todos los juegos: " + @Model.lista.Count())
                 <br>
                 <div class="row">
-                    @{
+
+                    @{ int cont = 0;
                         foreach (var juego in Model.lista)
                         {
-                            <div class="column" align="center">
+
+                            if (cont != 0 && cont % 4 == 0)
+                            {
+                             @:</div>
+                             @:<div class="row">
+                             }
+
+                            <div class="col-md-3 jueguito">
+
                                 @Html.Label("Titulo: " + juego.Titulo)
                                 <br>
-                                @Html.Label("Usuarios que lo tienen: " + juego.UsuariosMatch.Count())
+                                @Html.Label("Usuarios que lo quieren: " + juego.UsuariosMatch.Count())
                                 <br>
-                                <a href="?idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
+
+                                <a href="?idJuego=@juego.IdJuego&idUsuario=@User.Identity.GetUserId()#@juego.IdJuego">
                                     <img src="@juego.PathFoto" style="width:50%">
                                 </a>
                                 <br>
                                 <a href=#@juego.IdJuego>Ver Opciones → @juego.Titulo</a>
-                                <div id=@juego.IdJuego class="modalDialog" align="left">
+                                <div id=@juego.IdJuego class="modalDialog">
+
                                     <div>
                                         <a href="#close" title="Cerrar" class="close">X</a>
                                         <h2>@juego.Titulo</h2>
                                         @{
                                             foreach (var user in juego.UsuariosMatch)
                                             {
-                                                @Html.Label("Usuario: "); @user.mail
+                                                @Html.Label("Usuario: xxxx");
                                                 <br>
-                                                @Html.Label("Ubicacion: "); @user.Ubicacion
+                                                @Html.Label("Ubicacion: " + user.Ubicacion);
                                                 <br>
+
+
                                                 <button type="button" onclick=alert("Proximamente...") class="btn btn-primary">Ver que juegos quiere</button>
-                                                <br>
                                                 <br>
                                             }
                                         }
                                     </div>
                                     <br>
                                 </div>
+
+
                             </div>
+                                                cont++;
                                             }
                     }
+
                 </div>
-            } else
-            {
+                                            }
+                                            else
+                                            {
              @Html.Label("No hay juegos disponibles para cambiar :(")
 
             }
