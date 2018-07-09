@@ -19,8 +19,18 @@ namespace ProyectoT4.Controllers.Buscador
             @ViewBag.Title = "Buscador";
             return View();
         }
+        public ActionResult Buscador2()
+        {
 
-       
+            // instancio la BD
+            AccesoDatos.Instanciador.instanciarBD();
+            ViewBag.error = "ERROR DE REGISTRO";
+            ViewBag.Lista = CrearList();
+            @ViewBag.Title = "Buscador";
+            return View("Buscador");
+        }
+
+
 
         public List<Tuple<int, string>> CrearList() {
             Tuple<int, string> tupla;

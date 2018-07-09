@@ -91,6 +91,34 @@ namespace ProyectoT4.Controllers
                     return View(model);
             }
         }
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login2(modeloSinLogin model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.lvm.Email, model.lvm.Password, model.lvm.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.lvm.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Intento de login invalido.");
+                    return RedirectToAction("Buscador", "Buscador");
+            }
+        }
 
         //
         // GET: /Account/VerifyCode
@@ -170,6 +198,24 @@ namespace ProyectoT4.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegistrarseAsync(modeloSinLogin msl)
+        {
+
+            if (ModelState.IsValid)
+            {
+                return await Register(msl.rg);
+            }
+            else
+            {
+                return RedirectToAction("Buscador2", "Buscador");
+            }
+                
+
+            
         }
 
         //

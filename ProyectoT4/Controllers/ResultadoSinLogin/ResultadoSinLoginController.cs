@@ -13,8 +13,13 @@ namespace ProyectoT4.Controllers
         public ActionResult ResultadoSinLogin(int idJuego)
         {
             ViewBag.Title = "Resultado Sin Login";
+
             JuegosMatch jm = AccesoDatos.ArmadorSinLogin.SinLogin(idJuego);
-            return View(jm);
+            modeloSinLogin msl = new modeloSinLogin();
+            msl.jm = jm;
+            return View(msl);
         }
+        
+
     }
 }

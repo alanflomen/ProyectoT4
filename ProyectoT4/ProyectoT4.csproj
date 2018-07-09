@@ -218,6 +218,7 @@
     <Compile Include="Models\Libreria.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Jugados.cs" />
+    <Compile Include="Models\modeloSinLogin.cs" />
     <Compile Include="Models\modeloTodosLosJuegos.cs" />
     <Compile Include="Models\Operacion.cs" />
     <Compile Include="Models\ModeloPropuesta.cs" />

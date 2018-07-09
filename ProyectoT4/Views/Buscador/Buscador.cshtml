@@ -65,6 +65,14 @@ En el tag del formulario "form" incluyo un metodo (method="get") que es el que v
     el value del input que identifica a partir del "name"
 -->
 @using Microsoft.AspNet.Identity
+@{ 
+    if (ViewBag.error != null)
+    {
+        <script>
+            alert('@ViewBag.error');
+        </script>
+    }
+}
 
 @{
     if (@User.Identity.GetUserId() == null)
